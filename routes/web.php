@@ -1,7 +1,19 @@
 <?php
 
+use App\Http\Controllers\API\ApiCalonPejabatController;
+use App\Http\Controllers\API\ApiDistrictController;
+use App\Http\Controllers\API\ApiJabatanController;
+use App\Http\Controllers\API\ApiProvinceController;
+use App\Http\Controllers\API\ApiRegencyController;
+use App\Http\Controllers\API\ApiUserController;
+use App\Http\Controllers\API\ApiVillageController;
+use App\Http\Controllers\API\UserDatatableController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CalonPejabatController;
+use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\RekapitulasiController;
+use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
 /*
@@ -16,7 +28,7 @@ use Illuminate\Support\Facades\Route;
 */
 
 Route::get('/', function () {
-    return view('welcome');
+    return redirect('login');
 });
 
 Route::middleware('guest')->group(function() {
@@ -25,8 +37,36 @@ Route::middleware('guest')->group(function() {
 });
 
 Route::middleware('auth')->group(function(){
-    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
     Route::get('/home', function() {
         return view('home');
     });
+
+    Route::post('logout', [AuthController::class, 'logout'])->name('logout');
+
+    Route::resource('/user', UserController::class);
+
+    Route::get('/datatable/user', [UserController::class, 'userDatatables']);
+
+    Route::get('resetpassword', [UserController::class, 'formUpdatePassword'])->name('user.resetpassword');
+
+    Route::post('resetpassword', [UserController::class, 'updatePassword'])->name('user.updatepassword');
+
+    Route::resource('calon', CalonPejabatController::class);
+
+    Route::get('/datatable/calon', [CalonPejabatController::class, 'calonDatatables']);
+
+    Route::resource('jabatan', JabatanController::class);
+
+    Route::resource('rekapitulasi', RekapitulasiController::class);
+
+    // select option ajax resource
+    Route::get('/select2/getjabatan', [ApiJabatanController::class, 'selectJabatan'] );
+    Route::get('/select2/getprovinsi', [ApiProvinceController::class, 'selectProvinsi'] );
+    Route::get('/select2/getkota', [ApiRegencyController::class, 'selectKota'] );
+    Route::get('/select2/getkecamatan', [ApiDistrictController::class, 'selectKecamatan'] );
+    Route::get('/select2/getdesa', [ApiVillageController::class, 'selectDesa'] );
+    Route::get('/select2/getcalon', [ApiCalonPejabatController::class, 'selectCalon'] );
+    Route::get('/select2/getuser', [ApiUserController::class, 'selectUser'] );
+
 });
+

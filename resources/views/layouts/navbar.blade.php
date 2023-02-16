@@ -6,7 +6,7 @@
     </button>
 
     <!-- Topbar Search -->
-    <h6 class="d-none d-sm-inline-block">Welcome {{ ucwords(auth()->user()->name) }}</h6>
+    <h6 class="">Sistem Pemilu 2024</h6>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
@@ -47,14 +47,19 @@
             </a>
             <!-- Dropdown - User Information -->
             <div class="dropdown-menu dropdown-menu-right shadow animated--grow-in" aria-labelledby="userDropdown">
-                <a class="dropdown-item" href="#">
+                <a class="dropdown-item" href="{{ url('user/' . auth()->id()) }}">
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profil Saya
                 </a>
+                <a class="dropdown-item" href="{{ route('user.resetpassword') }}">
+                    <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Ubah Password
+                </a>
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}" class="dropdown-item"
-                    onclick="event.preventDefault();
+                onclick="event.preventDefault();
                 document.getElementById('logout-form').submit();">
+                    <i class="fas fa-power-off fa-sm fa-fw mr-2 text-gray-400"></i>
                     Logout
                 </a>
                 <form id="logout-form" action="{{ route('logout') }}" method="POST" class="d-none">

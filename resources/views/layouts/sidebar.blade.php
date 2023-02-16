@@ -13,95 +13,58 @@
     <hr class="sidebar-divider my-0">
 
     <!-- Nav Item - Dashboard -->
-    <li class="nav-item">
+    <li class="nav-item @if(request()->is('home*')) active @endif">
         <a class="nav-link" href="{{url('home')}}">
-            <i class="fas fa-fw fa-tachometer-alt"></i>
+            <i class="fas fa-fw fa-home"></i>
             <span>Home</span></a>
     </li>
-
     <!-- Divider -->
     <hr class="sidebar-divider">
-
     <!-- Heading -->
     <div class="sidebar-heading">
-        Interface
+        Utama
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
-            aria-expanded="true" aria-controls="collapseTwo">
-            <i class="fas fa-fw fa-cog"></i>
-            <span>Components</span>
+    <li class="nav-item @if(request()->is('rekapitulasi*') ) active @endif">
+        <a class="nav-link @if(request()->is('rekapitulasi*') ) '' @else collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseRekap"
+            aria-expanded="true" aria-controls="collapseRekap">
+            <i class="fas fa-fw fa-archive"></i>
+            <span>Rekapitulasi</span>
         </a>
-        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+        <div id="collapseRekap" class="collapse @if(request()->is('rekapitulasi*') ) show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Components:</h6>
-                <a class="collapse-item" href="buttons.html">Buttons</a>
-                <a class="collapse-item" href="cards.html">Cards</a>
-            </div>
-        </div>
-    </li>
-
-    <!-- Nav Item - Utilities Collapse Menu -->
-    <li class="nav-item">
-        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseUtilities"
-            aria-expanded="true" aria-controls="collapseUtilities">
-            <i class="fas fa-fw fa-wrench"></i>
-            <span>Utilities</span>
-        </a>
-        <div id="collapseUtilities" class="collapse" aria-labelledby="headingUtilities" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Custom Utilities:</h6>
-                <a class="collapse-item" href="utilities-color.html">Colors</a>
-                <a class="collapse-item" href="utilities-border.html">Borders</a>
-                <a class="collapse-item" href="utilities-animation.html">Animations</a>
-                <a class="collapse-item" href="utilities-other.html">Other</a>
+                <a class="collapse-item @if(request()->is('rekapitulasi') ) active @endif" href="{{url('rekapitulasi')}}">Hasil Perhitungan</a>
+                <a class="collapse-item @if(request()->is('rekapitulasi/create') ) active @endif" href="{{url('rekapitulasi/create')}}">Input Hasil</a>
             </div>
         </div>
     </li>
 
     <!-- Divider -->
     <hr class="sidebar-divider">
-
     <!-- Heading -->
     <div class="sidebar-heading">
-        Addons
+        Pengaturan
     </div>
 
-    <!-- Nav Item - Pages Collapse Menu -->
-    <li class="nav-item active">
-        <a class="nav-link" href="#" data-toggle="collapse" data-target="#collapsePages" aria-expanded="true"
-            aria-controls="collapsePages">
+    <li class="nav-item @if(request()->is('calon*') || request()->is('jabatan*') ) active @endif">
+        <a class="nav-link @if(request()->is('calon*') || request()->is('jabatan*') ) '' @else collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseDataCalon"
+            aria-expanded="true" aria-controls="collapseDataCalon">
             <i class="fas fa-fw fa-folder"></i>
-            <span>Pages</span>
+            <span>Data Calon</span>
         </a>
-        <div id="collapsePages" class="collapse show" aria-labelledby="headingPages" data-parent="#accordionSidebar">
+        <div id="collapseDataCalon" class="collapse @if(request()->is('calon*') || request()->is('jabatan*') ) show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">Login Screens:</h6>
-                <a class="collapse-item" href="login.html">Login</a>
-                <a class="collapse-item" href="register.html">Register</a>
-                <a class="collapse-item" href="forgot-password.html">Forgot Password</a>
-                <div class="collapse-divider"></div>
-                <h6 class="collapse-header">Other Pages:</h6>
-                <a class="collapse-item" href="404.html">404 Page</a>
-                <a class="collapse-item active" href="blank.html">Blank Page</a>
+                <h6 class="collapse-header">sub menu:</h6>
+                <a class="collapse-item @if(request()->is('calon*') ) active @endif" href="{{url('calon')}}">Daftar Calon</a>
+                <a class="collapse-item @if(request()->is('jabatan*') ) active @endif" href="{{url('jabatan')}}">Daftar Jabatan</a>
             </div>
         </div>
     </li>
 
-    <!-- Nav Item - Charts -->
-    <li class="nav-item">
-        <a class="nav-link" href="charts.html">
-            <i class="fas fa-fw fa-chart-area"></i>
-            <span>Charts</span></a>
-    </li>
-
-    <!-- Nav Item - Tables -->
-    <li class="nav-item">
-        <a class="nav-link" href="tables.html">
-            <i class="fas fa-fw fa-table"></i>
-            <span>Tables</span></a>
+    <li class="nav-item @if(request()->is('user*')) active @endif">
+        <a class="nav-link" href="{{url('user')}}">
+            <i class="fas fa-user fa-fw"></i>
+            <span>Data Pengguna</span></a>
     </li>
 
     <!-- Divider -->
