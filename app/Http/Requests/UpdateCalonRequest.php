@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreJabatanRequest extends FormRequest
+class UpdateCalonRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,17 +25,18 @@ class StoreJabatanRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' =>['required', 'unique:jabatans']
+            'no_urut' =>['required', Rule::unique('calons')->ignore($this->calon)],
+            'keterangan' => ['required']
         ];
     }
 
     public function messages()
     {
         return [
-            'nama.required' => 'nama wajib diisi',
-            'nama.unique' => 'nama ini sudah terdaftar',
+            'no_urut.required' => 'nomor urut wajib diisi!',
+            'keterangan.required' => 'keterangan wajib diisi!',
+            'no_urut.unique' => 'nomor urut sudah terdaftar'
         ];
     }
 
-    
 }

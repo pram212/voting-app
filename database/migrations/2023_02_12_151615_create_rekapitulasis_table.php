@@ -15,15 +15,11 @@ class CreateRekapitulasisTable extends Migration
     {
         Schema::create('rekapitulasis', function (Blueprint $table) {
             $table->id();
-            $table->unsignedBigInteger('calon_pejabat_id');
-            $table->unsignedBigInteger('province_id');
-            $table->unsignedBigInteger('regency_id');
-            $table->unsignedBigInteger('district_id');
-            $table->unsignedBigInteger('village_id');
-            $table->unsignedBigInteger('rt');
-            $table->unsignedBigInteger('rw');
+            $table->unsignedBigInteger('calon_id');
+            $table->unsignedBigInteger('tps_id');
             $table->double('jumlah_suara')->default(0);
             $table->unsignedBigInteger('user_id');
+            $table->text('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

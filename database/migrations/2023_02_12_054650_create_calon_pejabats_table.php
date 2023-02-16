@@ -15,9 +15,8 @@ class CreateCalonPejabatsTable extends Migration
     {
         Schema::create('calon_pejabats', function (Blueprint $table) {
             $table->id();
-            $table->string('nama', 45);
+            $table->string('keterangan', 45);
             $table->string('no_urut', 45)->nullable();
-            $table->unsignedBigInteger('jabatan_id')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

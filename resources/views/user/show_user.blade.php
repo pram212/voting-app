@@ -61,7 +61,7 @@ Hai, Kami dari Web TPS.
 Anda Sudah terdaftar dalam sistem kami. 
 Silahkan Login dengan
 No. Telepon: {{$user->phone}}
-Password :</textarea>
+Password : password</textarea>
     </form>
 @endsection
 

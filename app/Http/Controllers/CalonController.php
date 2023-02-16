@@ -2,14 +2,14 @@
 
 namespace App\Http\Controllers;
 
-use App\Models\Jabatan;
-use App\Http\Requests\StoreJabatanRequest;
-use App\Http\Requests\UpdateJabatanRequest;
+use App\Models\Calon;
+use App\Http\Requests\StoreCalonRequest;
+use App\Http\Requests\UpdateCalonRequest;
+use Illuminate\Support\Facades\DB;
 use DataTables;
 use Exception;
-use Illuminate\Support\Facades\DB;
 
-class JabatanController extends Controller
+class CalonController extends Controller
 {
     /**
      * Display a listing of the resource.
@@ -19,24 +19,20 @@ class JabatanController extends Controller
     public function index()
     {
         if (request()->ajax()) {
-
-            $model = Jabatan::query();
+            
+            $model = Calon::query();
 
             return DataTables::of($model)
-                ->addIndexColumn()
                 ->addColumn('action', function ($model) {
-                    $detil = '<a href="' . url('jabatan/' . $model->id) . '/edit" class="btn btn-warning btn-sm" >Edit</a>';
+                    $detil = '<a href="' . url('calon/' . $model->id) . '/edit" class="btn btn-warning btn-sm" >Edit</a>';
                     $buttonDelete = '<button type="button" class="btn btn-danger btn-delete btn-sm">Hapus</button>';
                     return '<div class="btn-group">' . $detil . $buttonDelete . '</div>';
                 })
-                ->editColumn('created_at', function($model) {
-                    return date('d/m/Y', strtotime($model->created_at));
-                })
                 ->rawColumns(['action'])
-                ->make(true);
+                ->toJson();
         }
 
-        return view('jabatan.index_jabatan');
+        return view('calon.index_calon');
     }
 
     /**
@@ -46,31 +42,30 @@ class JabatanController extends Controller
      */
     public function create()
     {
-        return view('jabatan.create_jabatan');
+        return view('calon.create_calon');
     }
 
     /**
      * Store a newly created resource in storage.
      *
-     * @param  \App\Http\Requests\StoreJabatanRequest  $request
+     * @param  \App\Http\Requests\StoreCalonRequest  $request
      * @return \Illuminate\Http\Response
      */
-    public function store(StoreJabatanRequest $request)
+    public function store(StoreCalonRequest $request)
     {
         try {
             DB::beginTransaction();
 
-            $jabatan = Jabatan::create($request->all());
+            $calon = Calon::create($request->all());
 
             DB::commit();
 
             $message = [
-                'success' => $jabatan->nama .= 'berhasil didaftarkan'
+                'success' => $calon->nama .= 'berhasil didaftarkan'
             ];
 
             return back()->with($message);
-
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
 
             DB::rollBack();
 
@@ -81,52 +76,52 @@ class JabatanController extends Controller
     /**
      * Display the specified resource.
      *
-     * @param  \App\Models\Jabatan  $jabatan
+     * @param  \App\Models\Calon  $calon
      * @return \Illuminate\Http\Response
      */
-    public function show(Jabatan $jabatan)
+    public function show(Calon $calon)
     {
-        return view('jabatan.show_jabatan', compact('jabatan'));
+        return view('calon.show_calon', compact('calon'));
     }
 
     /**
      * Show the form for editing the specified resource.
      *
-     * @param  \App\Models\Jabatan  $jabatan
+     * @param  \App\Models\Calon  $calon
      * @return \Illuminate\Http\Response
      */
     public function edit($id)
     {
-        $jabatan = Jabatan::findOrFail($id);
-        
-        return view('jabatan.edit_jabatan', compact('jabatan'));
+        $calon = Calon::findOrFail($id);
+
+        return view('calon.form_calon', compact('calon'));
     }
 
     /**
      * Update the specified resource in storage.
      *
-     * @param  \App\Http\Requests\UpdateJabatanRequest  $request
-     * @param  \App\Models\Jabatan  $jabatan
+     * @param  \App\Http\Requests\UpdateCalonRequest  $request
+     * @param  \App\Models\Calon  $calon
      * @return \Illuminate\Http\Response
      */
-    public function update(UpdateJabatanRequest $request, $id)
+    public function update(UpdateCalonRequest $request, $id)
     {
-        $jabatan = Jabatan::findOrFail($id);
-        
+        $calon = Calon::findOrFail($id);
+
         try {
             DB::beginTransaction();
 
-            $jabatan->update($request->all());
+            $calon->update($request->all());
 
             DB::commit();
 
             $message = [
-                'success' => $jabatan->nama .= 'berhasil diupdate'
+                'success' => $calon->nama .= 'berhasil diupdate'
             ];
 
             return back()->with($message);
 
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
 
             DB::rollBack();
 
@@ -137,7 +132,7 @@ class JabatanController extends Controller
     /**
      * Remove the specified resource from storage.
      *
-     * @param  \App\Models\Jabatan  $jabatan
+     * @param  \App\Models\Calon  $calon
      * @return \Illuminate\Http\Response
      */
     public function destroy($id)
@@ -145,20 +140,18 @@ class JabatanController extends Controller
         try {
             DB::beginTransaction();
 
-            $jabatan = Jabatan::findOrFail($id);
+            $calon = Calon::findOrFail($id);
 
-            $jabatan->delete();
+            $calon->delete();
 
             DB::commit();
 
             return response()->json('data berhasil dihapus', 200);
-
-        } catch(Exception $ex) {
+        } catch (Exception $ex) {
 
             DB::rollBack();
 
             return response()->json($ex->getMessage(), 422);
-            
         }
     }
 }

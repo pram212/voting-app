@@ -1,77 +1,29 @@
 @extends('layouts.main')
 
-@section('header-content', 'Register Pengguna')
-@section('title', 'Pengguna')
+@section('header-content', 'Register TPS')
+@section('title', 'TPS')
 
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ url('/user') }}" method="POST">
+            @php
+                $url = @$tps ? 'tps/' . $tps->id : 'tps'; 
+            @endphp
+            <form action="{{ url($url) }}" method="POST">
                 @csrf
+                @if (@$tps)
+                    @method('PUT')
+                @endif
                 <div class="row">
-                    <p class="col-md-12 text-center">
-                        BIODATA
-                    </p>
-                    <div class="form-group col-md-6">
-                        <label for="name">Nama Lengkap :</label>
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror" id="name" aria-describedby="validateName"
-                            placeholder="" value="{{old('name')}}">
-                        @error('name')
-                        <small id="validateName" class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="phone">No. Whatsapp :</label>
-                        <input type="number" name="phone" min="10" class="form-control @error('phone') is-invalid @enderror" id="phone" aria-describedby="validateName"
-                            placeholder="" value="{{old('phone')}}">
-                        @error('phone')
-                        <small id="validateName" class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
 
-                    <div class="form-group col-md-6">
-                        <label for="exampleInputEmail1">Email :</label>
-                        <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail1" aria-describedby="emailHelp"
-                            placeholder="Enter email" value="{{old('email')}}">
-                        @error('email')
-                        <small id="validateName" class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="exampleInputEmail1">Password :</label>
-                        <input type="password" name="password" readonly placeholder="default : password" class="form-control @error('password') is-invalid @enderror">
-                        @error('password')
-                        <small  class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                    <div class="form-group col-md-6">
-                        <label for="exampleInputEmail1">Role :</label>
-                        <select class="custom-select @error('role') is-invalid @enderror" name="role">
-                            <option value="2" @if (old('role') == 2)
-                                selected
-                            @endif>Saksi</option>
-                            <option value="1" @if (old('role') == 1)
-                            selected
-                        @endif>Admin</option>
-                        </select>
-                        @error('role')
-                        <small id="validateName" class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
-                </div>
-                <hr class="divider">
-                <div class="row">
-                    <p class="col-md-12 text-center">
-                        LOKASI
-                    </p>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="province_id">Provinsi</label>
-                            <select class="form-control " name="province_id" id="select-provinsi">
+                            <select class="form-control " required name="province_id" id="select-provinsi">
+                                @if (@$tps)
+                                <option value="{{@$tps->provinsi->id}}" selected>{{@$tps->provinsi->name}}</option>
+                                @endif
                             </select>
                             @error('province_id')
                                 <small class="text-danger">{{ $message }}</small>
@@ -82,7 +34,10 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="regency_id">Kota</label>
-                            <select class="form-control " name="regency_id" id="select-kota">
+                            <select class="form-control " required name="regency_id" id="select-kota">
+                                @if (@$tps)
+                                <option value="{{@$tps->kota->id}}" selected>{{@$tps->kota->name}}</option>
+                                @endif
                             </select>
                             @error('regency_id')
                                 <small class="text-danger">{{ $message }}</small>
@@ -93,7 +48,10 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="district_id">Kecamatan</label>
-                            <select class="form-control " name="district_id" id="select-kecamatan">
+                            <select class="form-control " required name="district_id" id="select-kecamatan">
+                                @if (@$tps)
+                                <option value="{{@$tps->kecamatan->id}}" selected>{{@$tps->kecamatan->name}}</option>
+                                @endif
                             </select>
                             @error('district_id')
                                 <small class="text-danger">{{ $message }}</small>
@@ -104,25 +62,61 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="village_id">Desa</label>
-                            <select class="form-control " name="village_id" id="select-desa">
+                            <select class="form-control " required name="village_id" id="select-desa">
+                                @if (@$tps)
+                                <option value="{{@$tps->desa->id}}" selected>{{@$tps->desa->name}}</option>
+                                @endif
                             </select>
                             @error('village_id')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="rt">RT</label>
+                            <input type="text" class="form-control" required name="rt" value="{{old('keterangan', @$tps->rt)}}"/>
+                            @error('rt')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="rw">RW</label>
+                            <input type="text" class="form-control" required name="rw" value="{{old('keterangan', @$tps->rw)}}"/>
+                            @error('rw')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="keterangan">Keterangan</label>
+                            <input type="text" class="form-control" name="keterangan" value="{{old('keterangan', @$tps->keterangan)}}"/>
+                            @error('keterangan')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
 
                 <hr class="divider">
-                
+
                 <div class="text-center">
-                    <button type="submit" class="btn btn-primary">Daftar</button>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="{{ url('tps') }}" class="btn btn-secondary">Kembali</a>
                 </div>
 
             </form>
         </div>
     </div>
 @endsection
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
 @endsection

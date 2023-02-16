@@ -4,7 +4,7 @@ namespace Database\Factories;
 
 use Illuminate\Database\Eloquent\Factories\Factory;
 
-class JabatanFactory extends Factory
+class TPSFactory extends Factory
 {
     /**
      * Define the model's default state.
@@ -14,7 +14,7 @@ class JabatanFactory extends Factory
     public function definition()
     {
         return [
-            
+            //
         ];
     }
 }

@@ -13,6 +13,7 @@ use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Session;
 use Illuminate\Support\Facades\Validator;
+use Illuminate\Validation\Rule;
 
 class UserController extends Controller
 {
@@ -50,6 +51,10 @@ class UserController extends Controller
             'email' => ['required', 'email', 'unique:users'],
             'phone' => ['required', 'numeric', 'unique:users'],
             'password' => ['required'],
+            'province_id' => [Rule::requiredIf($request->role == 2)],
+            'regency_id' => [Rule::requiredIf($request->role == 2)],
+            'district_id' => [Rule::requiredIf($request->role == 2)],
+            'village_id' => [Rule::requiredIf($request->role == 2)],
         ], [
             'name.required' => 'nama lengkap wajib diisi!',
             'email.required' => 'email wajib diisi!',
@@ -59,12 +64,15 @@ class UserController extends Controller
             'email.unique' => 'email sudah terdaftar!',
             'phone.numeric' => 'no. whatsap harus berupa angka!',
             'password.required' => 'password wajib diisi!',
+            'province_id.required' => 'provinsi wajib diisi!',
+            'regency_id.required' => 'kota wajib diisi!',
+            'district_id.required' => 'kecamatan wajib diisi!',
+            'village_id.required' => 'desa wajib diisi!',
         ])->validated();
 
         $request->merge([
-            'password' => Hash::make($request->password)
+            'password' => Hash::make('password')
         ]);
-
 
         try {
             DB::beginTransaction();
@@ -209,6 +217,8 @@ class UserController extends Controller
             DB::beginTransaction();
 
             $user->password = Hash::make($request->password);
+            
+            $user->update_password = 1;
 
             $user->save();
 

@@ -24,19 +24,16 @@
     <div class="sidebar-heading">
         Utama
     </div>
+    <li class="nav-item @if(request()->is('rekapitulasi')) active @endif">
+        <a class="nav-link" href="{{url('rekapitulasi')}}">
+            <i class="fas fa-check fa-fw"></i>
+            <span>Hasil Rekapan</span></a>
+    </li>
 
-    <li class="nav-item @if(request()->is('rekapitulasi*') ) active @endif">
-        <a class="nav-link @if(request()->is('rekapitulasi*') ) '' @else collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseRekap"
-            aria-expanded="true" aria-controls="collapseRekap">
-            <i class="fas fa-fw fa-archive"></i>
-            <span>Rekapitulasi</span>
-        </a>
-        <div id="collapseRekap" class="collapse @if(request()->is('rekapitulasi*') ) show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item @if(request()->is('rekapitulasi') ) active @endif" href="{{url('rekapitulasi')}}">Hasil Perhitungan</a>
-                <a class="collapse-item @if(request()->is('rekapitulasi/create') ) active @endif" href="{{url('rekapitulasi/create')}}">Input Hasil</a>
-            </div>
-        </div>
+    <li class="nav-item @if(request()->is('rekapitulasi/create')) active @endif">
+        <a class="nav-link" href="{{url('rekapitulasi/create')}}">
+            <i class="fas fa-plus fa-fw"></i>
+            <span>Entry Rekapan</span></a>
     </li>
 
     <!-- Divider -->
@@ -46,25 +43,22 @@
         Pengaturan
     </div>
 
-    <li class="nav-item @if(request()->is('calon*') || request()->is('jabatan*') ) active @endif">
-        <a class="nav-link @if(request()->is('calon*') || request()->is('jabatan*') ) '' @else collapsed @endif" href="#" data-toggle="collapse" data-target="#collapseDataCalon"
-            aria-expanded="true" aria-controls="collapseDataCalon">
-            <i class="fas fa-fw fa-folder"></i>
-            <span>Data Calon</span>
-        </a>
-        <div id="collapseDataCalon" class="collapse @if(request()->is('calon*') || request()->is('jabatan*') ) show @endif" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
-            <div class="bg-white py-2 collapse-inner rounded">
-                <h6 class="collapse-header">sub menu:</h6>
-                <a class="collapse-item @if(request()->is('calon*') ) active @endif" href="{{url('calon')}}">Daftar Calon</a>
-                <a class="collapse-item @if(request()->is('jabatan*') ) active @endif" href="{{url('jabatan')}}">Daftar Jabatan</a>
-            </div>
-        </div>
-    </li>
-
     <li class="nav-item @if(request()->is('user*')) active @endif">
         <a class="nav-link" href="{{url('user')}}">
             <i class="fas fa-user fa-fw"></i>
             <span>Data Pengguna</span></a>
+    </li>
+
+    <li class="nav-item @if(request()->is('calon*')) active @endif">
+        <a class="nav-link" href="{{url('calon')}}">
+            <i class="fas fa-id-card fa-fw"></i>
+            <span>Data Calon</span></a>
+    </li>
+
+    <li class="nav-item @if(request()->is('tps*')) active @endif">
+        <a class="nav-link" href="{{url('tps')}}">
+            <i class="fas fa-university fa-fw"></i>
+            <span>Data TPS</span></a>
     </li>
 
     <!-- Divider -->

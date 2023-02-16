@@ -54,9 +54,8 @@
                 <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                     <thead>
                         <tr>
-                            <th>Nama Lengkap</th>
                             <th>Nomor Urut</th>
-                            <th>Jabatan yang Dicalonkan</th>
+                            <th>Keterangan</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>
@@ -120,13 +119,10 @@
                 serverSide: true,
                 ajax: '/calon',
                 columns: [{
-                        data: 'nama'
-                    },
-                    {
                         data: 'no_urut'
                     },
                     {
-                        data: 'jabatan'
+                        data: 'keterangan'
                     },
                     {
                         data: 'action'

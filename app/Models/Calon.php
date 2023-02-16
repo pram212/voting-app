@@ -6,15 +6,11 @@ use Illuminate\Database\Eloquent\Factories\HasFactory;
 use Illuminate\Database\Eloquent\Model;
 use Illuminate\Database\Eloquent\SoftDeletes;
 
-class Jabatan extends Model
+class Calon extends Model
 {
     use HasFactory, SoftDeletes;
 
-    protected $fillable = ['nama'];
+    protected $fillable = ['no_urut', 'keterangan'];
 
-    public function calon()
-    {
-        return $this->hasMany(CalonPejabat::class);
-    }
     
 }

@@ -10,9 +10,11 @@ use App\Http\Controllers\API\ApiVillageController;
 use App\Http\Controllers\API\UserDatatableController;
 use App\Http\Controllers\Auth\AuthController;
 use App\Http\Controllers\Auth\LoginController;
+use App\Http\Controllers\CalonController;
 use App\Http\Controllers\CalonPejabatController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\RekapitulasiController;
+use App\Http\Controllers\TPSController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
 
@@ -51,9 +53,11 @@ Route::middleware('auth')->group(function(){
 
     Route::post('resetpassword', [UserController::class, 'updatePassword'])->name('user.updatepassword');
 
-    Route::resource('calon', CalonPejabatController::class);
+    Route::resource('calon', CalonController::class);
 
-    Route::get('/datatable/calon', [CalonPejabatController::class, 'calonDatatables']);
+    Route::resource('tps', TPSController::class);
+
+    Route::get('/datatable/calon', [CalonController::class, 'calonDatatables']);
 
     Route::resource('jabatan', JabatanController::class);
 

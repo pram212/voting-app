@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Jabatan;
+use App\Models\TPS;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class JabatanPolicy
+class TPSPolicy
 {
     use HandlesAuthorization;
 
@@ -25,10 +25,10 @@ class JabatanPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Jabatan  $jabatan
+     * @param  \App\Models\TPS  $tPS
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Jabatan $jabatan)
+    public function view(User $user, TPS $tPS)
     {
         //
     }
@@ -48,10 +48,10 @@ class JabatanPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Jabatan  $jabatan
+     * @param  \App\Models\TPS  $tPS
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Jabatan $jabatan)
+    public function update(User $user, TPS $tPS)
     {
         //
     }
@@ -60,10 +60,10 @@ class JabatanPolicy
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Jabatan  $jabatan
+     * @param  \App\Models\TPS  $tPS
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Jabatan $jabatan)
+    public function delete(User $user, TPS $tPS)
     {
         //
     }
@@ -72,10 +72,10 @@ class JabatanPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Jabatan  $jabatan
+     * @param  \App\Models\TPS  $tPS
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Jabatan $jabatan)
+    public function restore(User $user, TPS $tPS)
     {
         //
     }
@@ -84,10 +84,10 @@ class JabatanPolicy
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Jabatan  $jabatan
+     * @param  \App\Models\TPS  $tPS
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Jabatan $jabatan)
+    public function forceDelete(User $user, TPS $tPS)
     {
         //
     }
