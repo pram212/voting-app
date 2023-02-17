@@ -19,6 +19,8 @@ class TPSController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', TPS::class);
+
         if (request()->ajax()) {
             
             $model = TPS::query()
@@ -61,6 +63,8 @@ class TPSController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', TPS::class);
+
         return view('tps.form_tps');
     }
 
@@ -72,6 +76,8 @@ class TPSController extends Controller
      */
     public function store(StoreTPSRequest $request)
     {
+        $this->authorize('create', TPS::class);
+
         try {
             DB::beginTransaction();
 
@@ -119,6 +125,8 @@ class TPSController extends Controller
     {
         $tps = TPS::findOrFail($id);
 
+        $this->authorize('update', $tps);
+
         return view('tps.form_tps', compact('tps'));
     }
 
@@ -131,8 +139,9 @@ class TPSController extends Controller
      */
     public function update(UpdateTPSRequest $request, $id)
     {
-
         $tps = TPS::findOrFail($id);
+
+        $this->authorize('update', $tps);
 
         try {
             DB::beginTransaction();
@@ -164,6 +173,8 @@ class TPSController extends Controller
     public function destroy($id)
     {
         $tps = TPS::find($id);
+
+        $this->authorize('delete', $tps);
 
         try {
             DB::beginTransaction();

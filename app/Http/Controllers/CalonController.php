@@ -18,6 +18,8 @@ class CalonController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', Calon::class);
+
         if (request()->ajax()) {
             
             $model = Calon::query();
@@ -42,6 +44,8 @@ class CalonController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', Calon::class);
+
         return view('calon.form_calon');
     }
 
@@ -53,6 +57,8 @@ class CalonController extends Controller
      */
     public function store(StoreCalonRequest $request)
     {
+        $this->authorize('create', Calon::class);
+
         try {
             DB::beginTransaction();
 
@@ -81,6 +87,8 @@ class CalonController extends Controller
      */
     public function show(Calon $calon)
     {
+        $this->authorize('view', $calon);
+
         return view('calon.show_calon', compact('calon'));
     }
 
@@ -90,9 +98,9 @@ class CalonController extends Controller
      * @param  \App\Models\Calon  $calon
      * @return \Illuminate\Http\Response
      */
-    public function edit($id)
+    public function edit(Calon $calon)
     {
-        $calon = Calon::findOrFail($id);
+        $this->authorize('update', $calon);
 
         return view('calon.form_calon', compact('calon'));
     }
@@ -106,7 +114,10 @@ class CalonController extends Controller
      */
     public function update(UpdateCalonRequest $request, $id)
     {
+        
         $calon = Calon::findOrFail($id);
+
+        $this->authorize('update', $calon);
 
         try {
             DB::beginTransaction();
@@ -139,14 +150,17 @@ class CalonController extends Controller
     {
         try {
             DB::beginTransaction();
-
+            
             $calon = Calon::findOrFail($id);
+
+            $this->authorize('delete', $calon);
 
             $calon->delete();
 
             DB::commit();
 
             return response()->json('data berhasil dihapus', 200);
+
         } catch (Exception $ex) {
 
             DB::rollBack();

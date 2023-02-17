@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\Calon;
+use App\Models\Rekapitulasi;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CalonPolicy
+class RekapitulasiPolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class CalonPolicy
      */
     public function viewAny(User $user)
     {
-        return $user->role == 1;
+        return $user->role == 2;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Calon  $calon
+     * @param  \App\Models\Rekapitulasi  $rekapitulasi
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Calon $calon)
+    public function view(User $user, Rekapitulasi $rekapitulasi)
     {
-        return $user->role == 1;
+        return $user->role == 2;
     }
 
     /**
@@ -41,54 +41,54 @@ class CalonPolicy
      */
     public function create(User $user)
     {
-        return $user->role == 1;
+        return $user->role == 2;
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Calon  $calon
+     * @param  \App\Models\Rekapitulasi  $rekapitulasi
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Calon $calon)
+    public function update(User $user, Rekapitulasi $rekapitulasi)
     {
-        return $user->role == 1;
+        return $user->role == 2;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Calon  $calon
+     * @param  \App\Models\Rekapitulasi  $rekapitulasi
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Calon $calon)
+    public function delete(User $user, Rekapitulasi $rekapitulasi)
     {
-        return $user->role == 1;
+        //
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Calon  $calon
+     * @param  \App\Models\Rekapitulasi  $rekapitulasi
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Calon $calon)
+    public function restore(User $user, Rekapitulasi $rekapitulasi)
     {
-        return $user->role ==1;
+        //
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Calon  $calon
+     * @param  \App\Models\Rekapitulasi  $rekapitulasi
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Calon $calon)
+    public function forceDelete(User $user, Rekapitulasi $rekapitulasi)
     {
-        return $user->role == 1;
+        //
     }
 }

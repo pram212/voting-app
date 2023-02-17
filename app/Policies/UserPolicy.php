@@ -2,11 +2,10 @@
 
 namespace App\Policies;
 
-use App\Models\Calon;
 use App\Models\User;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CalonPolicy
+class UserPolicy
 {
     use HandlesAuthorization;
 
@@ -25,12 +24,12 @@ class CalonPolicy
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Calon  $calon
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, Calon $calon)
+    public function view(User $user, User $model)
     {
-        return $user->role == 1;
+        return $user->id == $model->id || $user->role == 1;
     }
 
     /**
@@ -48,22 +47,22 @@ class CalonPolicy
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Calon  $calon
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, Calon $calon)
+    public function update(User $user, User $model)
     {
-        return $user->role == 1;
+        return $user->id == $model->id;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Calon  $calon
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, Calon $calon)
+    public function delete(User $user, User $model)
     {
         return $user->role == 1;
     }
@@ -72,22 +71,22 @@ class CalonPolicy
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Calon  $calon
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, Calon $calon)
+    public function restore(User $user, User $model)
     {
-        return $user->role ==1;
+        return $user->role == 1;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\Calon  $calon
+     * @param  \App\Models\User  $model
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, Calon $calon)
+    public function forceDelete(User $user, User $model)
     {
         return $user->role == 1;
     }

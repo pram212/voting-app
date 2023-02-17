@@ -132,6 +132,9 @@
     <script>
         $(document).ready(function() {
 
+            $(document).on('select2:open', () => {
+                document.querySelector('.select2-search__field').focus();
+            });
             // setup select option ajax
             $('#select-calon').select2({
                 ajax: {

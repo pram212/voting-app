@@ -18,7 +18,7 @@ class TPSPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
@@ -30,7 +30,7 @@ class TPSPolicy
      */
     public function view(User $user, TPS $tPS)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
@@ -41,7 +41,7 @@ class TPSPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
@@ -53,7 +53,7 @@ class TPSPolicy
      */
     public function update(User $user, TPS $tPS)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
@@ -65,7 +65,7 @@ class TPSPolicy
      */
     public function delete(User $user, TPS $tPS)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
@@ -77,7 +77,7 @@ class TPSPolicy
      */
     public function restore(User $user, TPS $tPS)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
@@ -89,6 +89,6 @@ class TPSPolicy
      */
     public function forceDelete(User $user, TPS $tPS)
     {
-        //
+        return $user->role == 1;
     }
 }

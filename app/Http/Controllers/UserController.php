@@ -23,6 +23,7 @@ class UserController extends Controller
      */
     public function index()
     {
+        $this->authorize('viewAny', User::class);
 
         return view('user.index_user');
     }
@@ -34,6 +35,8 @@ class UserController extends Controller
      */
     public function create()
     {
+        $this->authorize('create', User::class);
+
         return view('user.create_user');
     }
 
@@ -45,6 +48,8 @@ class UserController extends Controller
      */
     public function store(Request $request)
     {
+        $this->authorize('create', User::class);
+
         Validator::make($request->all(), [
             'name' => ['required', 'string'],
             'email' => ['required', 'email', 'unique:users'],
@@ -99,6 +104,8 @@ class UserController extends Controller
      */
     public function show(User $user)
     {
+        $this->authorize('view', $user);
+
         return view('user.show_user', compact('user'));
     }
 
@@ -110,6 +117,8 @@ class UserController extends Controller
      */
     public function edit(User $user)
     {   
+        $this->authorize('view', $user);
+
         return view('user.edit_user', compact('user'));
     }
 
@@ -122,6 +131,8 @@ class UserController extends Controller
      */
     public function update(Request $request, User $user)
     {
+        $this->authorize('update', $user);
+
         Validator::make($request->all(), [
             'name' => ['required', 'string'],
             'email' => ['required', 'email', Rule::unique('users')->ignore($user->id)],
@@ -174,6 +185,7 @@ class UserController extends Controller
      */
     public function destroy(User $user)
     {
+        $this->authorize('delete', $user);
 
         try {
             DB::beginTransaction();
@@ -218,15 +230,18 @@ class UserController extends Controller
     {
         $user = auth()->user();
 
+        $this->authorize('update', $user);
+
         return view('user.reset_password', compact('user'));
     }
 
     public function updatePassword(Request $request)
     {
-        
         try {
 
             $user = auth()->user();
+
+            $this->authorize('update', $user);
     
             Validator::make($request->all(), [
                 'password' => ['required'],

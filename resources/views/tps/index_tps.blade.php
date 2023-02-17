@@ -45,7 +45,7 @@
                         </div>
                     </div>
                 </div>
-                
+
                 <hr class="sidebar-divider">
 
                 <button class="btn btn-primary" type="submit">Tampilkan</button>
@@ -57,7 +57,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="{{url('tps/create')}}" class="btn btn-success">Entry</a>
+            <a href="{{ url('tps/create') }}" class="btn btn-success">Entry</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -95,6 +95,11 @@
 
     <!-- Page level custom scripts -->
     <script>
+        
+        $(document).on('select2:open', () => {
+            document.querySelector('.select2-search__field').focus();
+        });
+
         const notifySuccess = (title = "") => {
             Swal.fire({
                 position: 'top-end',
@@ -173,16 +178,33 @@
             processing: true,
             serverSide: true,
             ajax: '/tps',
-            columns: [
-                { data: 'keterangan' },
-                { data: 'provinsi.name' },
-                { data: 'kota.name' },
-                { data: 'kecamatan.name' },
-                { data: 'desa.name' },
-                { data: 'rt' },
-                { data: 'rw' },
-                { data: 'created_at' },
-                { data: 'action' },
+            columns: [{
+                    data: 'keterangan'
+                },
+                {
+                    data: 'provinsi.name'
+                },
+                {
+                    data: 'kota.name'
+                },
+                {
+                    data: 'kecamatan.name'
+                },
+                {
+                    data: 'desa.name'
+                },
+                {
+                    data: 'rt'
+                },
+                {
+                    data: 'rw'
+                },
+                {
+                    data: 'created_at'
+                },
+                {
+                    data: 'action'
+                },
             ],
         });
 

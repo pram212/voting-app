@@ -84,13 +84,14 @@
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
                 <i class="fa fa-map-marker mr-3" aria-hidden="true"></i>
-                {{ auth()->user()->provinsi->name }} {{ auth()->user()->kota->name }} /
+                {{ auth()->user()->provinsi->name }} / {{ auth()->user()->kota->name }} /
                 {{ auth()->user()->kecamatan->name }} / {{ auth()->user()->desa->name }}
             </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-hover dt-responsive display nowrap" style="width: 100%" cellspacing="0" id="dataTable">
+                <table class="table table-hover dt-responsive display nowrap" style="width: 100%" cellspacing="0"
+                    id="dataTable">
                     <thead class="bg-dark text-white">
                         <tr>
                             <th></th>
@@ -105,6 +106,32 @@
             </div>
         </div>
     </div>
+
+    {{-- modal entry suara --}}
+    <!-- Button trigger modal -->
+
+    <!-- Modal -->
+    <div class="modal fade" id="exampleModal" tabindex="-1" role="dialog" aria-labelledby="exampleModalLabel"
+        aria-hidden="true">
+        <div class="modal-dialog" role="document">
+            <div class="modal-content">
+                <div class="modal-header">
+                    <h5 class="modal-title" id="exampleModalLabel">Modal title</h5>
+                    <button type="button" class="close" data-dismiss="modal" aria-label="Close">
+                        <span aria-hidden="true">&times;</span>
+                    </button>
+                </div>
+                <div class="modal-body">
+                    ...
+                </div>
+                <div class="modal-footer">
+                    <button type="button" class="btn btn-secondary" data-dismiss="modal">Close</button>
+                    <button type="button" class="btn btn-primary">Save changes</button>
+                </div>
+            </div>
+        </div>
+    </div>
+    {{-- modal entry suara --}}
 
 @endsection
 
@@ -180,7 +207,7 @@
             return (element);
         }
 
-        calonTable = $('#dataTable').DataTable({
+        rekapTable = $('#dataTable').DataTable({
             processing: true,
             serverSide: true,
             select: true,
@@ -214,7 +241,7 @@
         // Add event listener for opening and closing details
         $('#dataTable tbody').on('click', 'td.dt-control', function() {
             var tr = $(this).closest('tr');
-            var row = calonTable.row(tr);
+            var row = rekapTable.row(tr);
 
             if (row.child.isShown()) {
                 // This row is already open - close it
@@ -234,39 +261,41 @@
             console.log(formElemetns)
             const requestFom =
                 `?calon_pejabat_id=${formElemetns.calon_pejabat_id.value}&province_id=${formElemetns.province_id.value}&regency_id=${formElemetns.regency_id.value}&district_id=${formElemetns.district_id.value}&village_id=${formElemetns.village_id.value}&user_id=${formElemetns.user_id.value}`
-            calonTable.ajax.url('/rekapitulasi' + requestFom).load();
+            rekapTable.ajax.url('/rekapitulasi' + requestFom).load();
 
         });
 
         // function delete detail
-        $('#dataTable tbody').on('click', 'button.btn-delete', function() {
+        $('#dataTable tbody').on('click', 'button.btn-entry', function() {
             var tr = $(this).closest('tr');
-            var data = calonTable.row(tr).data();
-            Swal.fire({
-                title: 'Apakah anda yakin?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        url: "calon/" + data.id,
-                        type: 'delete',
-                        dataType: "json",
-                        success: function(response) {
-                            notifySuccess(response)
-                            calonTable.ajax.reload();
-                        }
-                    })
-                }
-            })
+            var data = rekapTable.row(tr).data();
+            console.log(data)
+            $('#exampleModal').modal('show')
+            // Swal.fire({
+            //     title: 'Apakah anda yakin?',
+            //     icon: 'warning',
+            //     showCancelButton: true,
+            //     confirmButtonColor: '#3085d6',
+            //     cancelButtonColor: '#d33',
+            //     confirmButtonText: 'Ya, hapus!'
+            // }).then((result) => {
+            //     if (result.isConfirmed) {
+            //         $.ajaxSetup({
+            //             headers: {
+            //                 'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+            //             }
+            //         });
+            //         $.ajax({
+            //             url: "calon/" + data.id,
+            //             type: 'delete',
+            //             dataType: "json",
+            //             success: function(response) {
+            //                 notifySuccess(response)
+            //                 rekapTable.ajax.reload();
+            //             }
+            //         })
+            //     }
+            // })
         });
     </script>
 
