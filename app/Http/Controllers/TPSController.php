@@ -5,7 +5,9 @@ namespace App\Http\Controllers;
 use App\Models\TPS;
 use App\Http\Requests\StoreTPSRequest;
 use App\Http\Requests\UpdateTPSRequest;
+use App\Models\Calon;
 use DataTables;
+use Exception;
 use Illuminate\Support\Facades\DB;
 
 class TPSController extends Controller
@@ -73,7 +75,11 @@ class TPSController extends Controller
         try {
             DB::beginTransaction();
 
-            TPS::create($request->all());
+            $tps = TPS::create($request->all());
+
+            $calon = Calon::pluck('id');
+
+            $tps->calon()->sync($calon);
 
             DB::commit();
 
@@ -155,8 +161,24 @@ class TPSController extends Controller
      * @param  \App\Models\TPS  $tPS
      * @return \Illuminate\Http\Response
      */
-    public function destroy(TPS $tPS)
+    public function destroy($id)
     {
-        //
+        $tps = TPS::find($id);
+
+        try {
+            DB::beginTransaction();
+
+            $tps->delete();
+
+            DB::commit();
+
+            return response()->json('data berhasil dihapus', 200);
+
+        } catch (Exception $ex) {
+
+            DB::rollBack();
+
+            return response()->json($ex->getMessage(), 422);
+        }
     }
 }

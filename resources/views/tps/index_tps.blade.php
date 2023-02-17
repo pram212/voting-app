@@ -49,6 +49,7 @@
                 <hr class="sidebar-divider">
 
                 <button class="btn btn-primary" type="submit">Tampilkan</button>
+                <a class="btn btn-danger" href="">Reset</a>
 
             </form>
         </div>
@@ -61,7 +62,7 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                    <thead class="bg-dark text-white">
                         <tr>
                             <th>Keterangan</th>
                             <th>Provinsi</th>
@@ -82,14 +83,13 @@
 @endsection
 
 @section('css')
-    <link href="{{ asset('template/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
 @endsection
 
 @section('script')
     <!-- Page level plugins -->
-    <script src="{{ asset('template/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('template/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.js') }}"></script>
 
@@ -169,7 +169,7 @@
             }
         });
 
-        calonTable = $('#dataTable').DataTable({
+        tpsTable = $('#dataTable').DataTable({
             processing: true,
             serverSide: true,
             ajax: '/tps',
@@ -192,15 +192,15 @@
             formElemetns = e.target.elements;
             console.log(formElemetns)
             const requestFom =
-                `?calon_pejabat_id=${formElemetns.calon_pejabat_id.value}&province_id=${formElemetns.province_id.value}&regency_id=${formElemetns.regency_id.value}&district_id=${formElemetns.district_id.value}&village_id=${formElemetns.village_id.value}&user_id=${formElemetns.user_id.value}`
-            calonTable.ajax.url('/rekapitulasi' + requestFom).load();
+                `?province_id=${formElemetns.province_id.value}&regency_id=${formElemetns.regency_id.value}&district_id=${formElemetns.district_id.value}&village_id=${formElemetns.village_id.value}`
+            tpsTable.ajax.url('/tps' + requestFom).load();
 
         });
 
         // function delete detail
         $('#dataTable tbody').on('click', 'button.btn-delete', function() {
             var tr = $(this).closest('tr');
-            var data = calonTable.row(tr).data();
+            var data = tpsTable.row(tr).data();
             Swal.fire({
                 title: 'Apakah anda yakin?',
                 icon: 'warning',
@@ -216,12 +216,12 @@
                         }
                     });
                     $.ajax({
-                        url: "calon/" + data.id,
+                        url: "tps/" + data.id,
                         type: 'delete',
                         dataType: "json",
                         success: function(response) {
                             notifySuccess(response)
-                            calonTable.ajax.reload();
+                            tpsTable.ajax.reload();
                         }
                     })
                 }

@@ -42,7 +42,7 @@ class CalonController extends Controller
      */
     public function create()
     {
-        return view('calon.create_calon');
+        return view('calon.form_calon');
     }
 
     /**

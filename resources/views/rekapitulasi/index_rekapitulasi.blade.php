@@ -1,105 +1,103 @@
 @extends('layouts.main')
 
-@section('header-content', 'Tabel Rekapitulasi')
+@section('header-content', 'Hasil Rekapitulasi TPS')
 @section('title', 'Rekapitulasi')
 
 @section('content')
     {{-- FILTER PANEL --}}
-    <div class="card shado mb-4">
-        <div class="card-header">
-            <h6 class="m-0 font-weight-bold text-primary">Filter
-            </h6>
+    @if (auth()->user()->role == 1)
+        <div class="card shadow mb-4">
+            <div class="card-header">
+                <h6 class="m-0 font-weight-bold text-primary">Filter
+                </h6>
+            </div>
+            <div class="card-body">
+                <form action="" id="form-filter">
+                    <div class="row">
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="calon_pejabat_id">Calon</label>
+                                <select class="form-control select2" name="calon_pejabat_id" id="select-calon">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="jabatan_id">Jabatan</label>
+                                <select class="form-control select2" name="jabatan_id" id="select-jabatan">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="province_id">Provinsi</label>
+                                <select class="form-control select2" name="province_id" id="select-provinsi">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="regency_id">Kota</label>
+                                <select class="form-control select2" name="regency_id" id="select-kota">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="district_id">Kecamatan</label>
+                                <select class="form-control select2" name="district_id" id="select-kecamatan">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="village_id">Desa</label>
+                                <select class="form-control select2" name="village_id" id="select-desa">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-4">
+                            <div class="form-group">
+                                <label for="user_id">Saksi</label>
+                                <select class="form-control select2" name="user_id" id="select-user">
+                                </select>
+                            </div>
+                        </div>
+
+                        <div class="col-md-12">
+                            <button class="btn btn-primary" type="submit">Tampilkan</button>
+                        </div>
+
+                    </div>
+                </form>
+            </div>
         </div>
-        <div class="card-body">
-            <form action="" id="form-filter">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="calon_pejabat_id">Calon</label>
-                            <select class="form-control select2" name="calon_pejabat_id" id="select-calon">
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="jabatan_id">Jabatan</label>
-                            <select class="form-control select2" name="jabatan_id" id="select-jabatan">
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="province_id">Provinsi</label>
-                            <select class="form-control select2" name="province_id" id="select-provinsi">
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="regency_id">Kota</label>
-                            <select class="form-control select2" name="regency_id" id="select-kota">
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="district_id">Kecamatan</label>
-                            <select class="form-control select2" name="district_id" id="select-kecamatan">
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="village_id">Desa</label>
-                            <select class="form-control select2" name="village_id" id="select-desa">
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="user_id">Saksi</label>
-                            <select class="form-control select2" name="user_id" id="select-user">
-                            </select>
-                        </div>
-                    </div>
-
-                    <div class="col-md-12">
-                        <button class="btn btn-primary" type="submit">Tampilkan</button>
-                    </div>
-
-                </div>
-            </form>
-        </div>
-    </div>
+    @endif
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                Hasil Perhitungan
+                <i class="fa fa-map-marker mr-3" aria-hidden="true"></i>
+                {{ auth()->user()->provinsi->name }} {{ auth()->user()->kota->name }} /
+                {{ auth()->user()->kecamatan->name }} / {{ auth()->user()->desa->name }}
             </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                <table class="table table-hover dt-responsive display nowrap" style="width: 100%" cellspacing="0" id="dataTable">
+                    <thead class="bg-dark text-white">
                         <tr>
-                            <th>Jabatan</th>
-                            <th>Nama</th>
-                            <th>Suara</th>
-                            <th>Provinsi</th>
-                            <th>Kota</th>
-                            <th>Kecamatan</th>
-                            <th>Desa</th>
+                            <th></th>
+                            <th>Keterangan</th>
                             <th>RT</th>
                             <th>RW</th>
-                            <th>Saksi</th>
-                            <th>Tanggal</th>
+                            <th>Total Suara</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>
@@ -111,14 +109,13 @@
 @endsection
 
 @section('css')
-    <link href="{{ asset('template/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
 @endsection
 
 @section('script')
     <!-- Page level plugins -->
-    <script src="{{ asset('template/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('template/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.js') }}"></script>
 
@@ -148,74 +145,86 @@
             })
         }
 
-        // setup select option ajax
-        $('#select-calon').select2({
-            ajax: {
-                url: '/select2/getcalon',
-                dataType: 'json'
-            }
-        });
+        function format(d) {
+            // `d` is the original data object for the row
+            let element = `<div class="row">`;
 
-        $('#select-jabatan').select2({
-            ajax: {
-                url: '/select2/getjabatan',
-                dataType: 'json'
-            }
-        });
+            $.each(d.calon, function(indexInArray, valueOfElement) {
+                element += `
+                <div class="col-md-6">
+                    <div class="card">
+                        <div class="card-header bg-success text-white">Nomor Urut ${valueOfElement.no_urut}</div>
+                        <div class="card-body">
+                            <table class="table table-sm table-bordered">
+                                <tr>
+                                    <th>Calon</th>
+                                    <td>${valueOfElement.keterangan}</td>
+                                </tr>
+                                <tr>
+                                    <th>Jumlah Suara</th>
+                                    <td>${valueOfElement.pivot.jumlah_suara} </td>
+                                </tr>
+                                <tr>
+                                    <th>Catatan</th>
+                                    <td>${valueOfElement.pivot.keterangan ?? '-'}</td>
+                                </tr>
+                            </table>
+                        </div>
+                    </div>
+                </div>
+                `
+            });
 
-        $('#select-provinsi').select2({
-            ajax: {
-                url: '/select2/getprovinsi',
-                dataType: 'json'
-            }
-        });
+            element += `</div>`
 
-        $('#select-kota').select2({
-            ajax: {
-                url: '/select2/getkota',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-kecamatan').select2({
-            ajax: {
-                url: '/select2/getkecamatan',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-desa').select2({
-            ajax: {
-                url: '/select2/getdesa',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-user').select2({
-            ajax: {
-                url: '/select2/getuser',
-                dataType: 'json'
-            }
-        });
+            return (element);
+        }
 
         calonTable = $('#dataTable').DataTable({
             processing: true,
             serverSide: true,
+            select: true,
+            searching: false,
+            responsive: false,
             ajax: '/rekapitulasi',
-            columns: [
-                { data: 'jabatan' },
-                { data: 'calon_pejabat.nama' },
-                { data: 'jumlah_suara' },
-                { data: 'provinsi.name' },
-                { data: 'kota.name' },
-                { data: 'kecamatan.name' },
-                { data: 'desa.name' },
-                { data: 'rt' },
-                { data: 'rw' },
-                { data: 'user.name' },
-                { data: 'created_at' },
-                { data: 'action' },
+            columns: [{
+                    className: 'dt-control',
+                    orderable: false,
+                    data: null,
+                    defaultContent: '',
+                },
+                {
+                    data: 'keterangan'
+                },
+                {
+                    data: 'rt'
+                },
+                {
+                    data: 'rw'
+                },
+                {
+                    data: 'total_suara'
+                },
+                {
+                    data: 'action'
+                },
             ],
+        });
+
+        // Add event listener for opening and closing details
+        $('#dataTable tbody').on('click', 'td.dt-control', function() {
+            var tr = $(this).closest('tr');
+            var row = calonTable.row(tr);
+
+            if (row.child.isShown()) {
+                // This row is already open - close it
+                row.child.hide();
+                tr.removeClass('shown');
+            } else {
+                // Open this row
+                row.child(format(row.data())).show();
+                tr.addClass('shown');
+            }
         });
 
         // filter event

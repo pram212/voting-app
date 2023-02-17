@@ -12,5 +12,9 @@ class Calon extends Model
 
     protected $fillable = ['no_urut', 'keterangan'];
 
+    public function tps()
+    {
+        return $this->belongsToMany(TPS::class, 'tps', 'calon_id', 'tps_id', 'id');
+    }
     
 }

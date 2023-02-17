@@ -36,6 +36,12 @@ class TPS extends Model
 
     public function user()
     {
-        return $this->belongsTo(User::class);
+        return $this->belongsTo(User::class, 'village_id', 'village_id');
+    }
+
+    public function calon()
+    {
+        return $this->belongsToMany(Calon::class, 'rekapitulasis', 'tps_id', 'calon_id')
+                        ->withPivot('jumlah_suara', 'created_at', 'user_id', 'keterangan');
     }
 }

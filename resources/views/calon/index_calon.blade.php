@@ -52,7 +52,7 @@
         <div class="card-body">
             <div class="table-responsive">
                 <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
-                    <thead>
+                    <thead class="bg-dark text-white">
                         <tr>
                             <th>Nomor Urut</th>
                             <th>Keterangan</th>
@@ -67,14 +67,13 @@
 @endsection
 
 @section('css')
-    <link href="{{ asset('template/vendor/datatables/dataTables.bootstrap4.min.css') }}" rel="stylesheet">
+    <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
 @endsection
 
 @section('script')
     <!-- Page level plugins -->
-    <script src="{{ asset('template/vendor/datatables/jquery.dataTables.min.js') }}"></script>
-    <script src="{{ asset('template/vendor/datatables/dataTables.bootstrap4.min.js') }}"></script>
+    <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.js') }}"></script>
 
