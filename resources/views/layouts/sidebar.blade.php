@@ -1,4 +1,4 @@
-<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion" id="accordionSidebar">
+<ul class="navbar-nav bg-gradient-primary sidebar sidebar-dark accordion toggled" id="accordionSidebar">
 
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
@@ -19,13 +19,13 @@
             <span>Home</span></a>
     </li>
    
-    @can('viewAny', App\Models\Rekapitulasi::class)
+    {{-- @can('viewAny', App\Models\Rekapitulasi::class) --}}
     <li class="nav-item @if(request()->is('rekapitulasi')) active @endif">
         <a class="nav-link" href="{{url('rekapitulasi')}}">
             <i class="fas fa-check fa-fw"></i>
             <span>Hasil Rekapan</span></a>
     </li>
-    @endcan
+    {{-- @endcan --}}
    
 
     <!-- Divider -->

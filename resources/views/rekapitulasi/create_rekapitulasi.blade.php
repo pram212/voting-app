@@ -1,83 +1,48 @@
 @extends('layouts.main')
 
-@section('header-content', 'Input Hasil')
+@section('header-content', 'Input Hasil ' . $tps->nomor)
 @section('title', 'Rekapitulasi')
 
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
+        <div class="card-header text-primary font-weight-bold">
+            <div class="text-xs">PROVINSI {{@$tps->provinsi->name}}</div>
+            <div class="text-xs">{{@$tps->kota->name}}</div>
+            <div class="text-xs">KECAMATAN {{@$tps->kecamatan->name}}</div>
+            <div class="text-xs">DESA {{@$tps->desa->name}}</div>
+        </div>
         <div class="card-body">
             <form action="{{ url('rekapitulasi/' . @$tps->id) }}" method="POST">
                 @csrf
                 @method('put')
 
                 <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="keterangan">Nama TPS</label>
-                            <input type="text" class="form-control form-control-sm" name="keterangan" disabled value="{{ @$tps->keterangan }}"/>
-                            @error('rt')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="rt">RT</label>
-                            <input type="text" class="form-control form-control-sm" name="rt" disabled  value="{{ @$tps->rt }}"/>
-                            @error('rt')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="rw">RW</label>
-                            <input type="text" class="form-control form-control-sm" name="rw" disabled value="{{ @$tps->rw }}"/>
-                            @error('rw')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-                </div>
-
-                <hr class="divider">
-
-                <div class="row">
                     @foreach (@$tps->calon as $item)
+                    <input type="hidden" name="calon_id[]" value="{{$item->id}}">
+                    <div class="col-md-12 text-success">
+                        No. {{$item->no_urut}} - {{$item->keterangan }}
+                    </div>
                     <div class="col-md-6">
-                        <div class="card">
-                            <div class="card-body">
-                                <div class="form-group">
-                                    <input type="hidden" name="calon_id[]" value="{{$item->id}}">
-                                    <label for="calon_id">No. Urut</label>
-                                    <input type="number" class="form-control form-control-sm" readonly value="{{ @$item->no_urut}}"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="calon_id">Calon</label>
-                                    <input type="text" class="form-control form-control-sm" readonly value="{{ @$item->keterangan}}"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="jumlah_suara">Jumlah Suara</label>
-                                    <input type="number" class="form-control form-control-sm" name="jumlah_suara[]" value="{{ @$item->pivot->jumlah_suara}}"/>
-                                </div>
-                                <div class="form-group">
-                                    <label for="keterangan">Catatan</label>
-                                    <textarea name="keterangan[]" id="keterangan" class="form-control form-control-sm" cols="30" rows="3">{{ @$item->pivot->keterangan}}</textarea>
-                                </div>
-                            </div>
+                        <div class="form-group">
+                            <label for="jumlah_suara">Jumlah Suara :</label>
+                            <input type="number" class="form-control form-control-sm" name="jumlah_suara[]" value="{{ @$item->pivot->jumlah_suara}}"/>
                         </div>
                     </div>
                     @endforeach
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="catatan">Catatan :</label>
+                            <textarea class="form-control" name="catatan" id="catatan" cols="30" rows="3">{{@$tps->catatan}}</textarea>
+                        </div>
+                    </div>
                 </div>
-
                 
                 <hr class="divider">
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="{{ url('rekapitulasi') }}" class="btn btn-secondary">Batal</a>
+                    <a href="{{ url('rekapitulasi') }}" class="btn btn-secondary">Kembali</a>
                 </div>
 
             </form>

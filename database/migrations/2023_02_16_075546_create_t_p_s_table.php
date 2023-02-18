@@ -19,9 +19,8 @@ class CreateTPSTable extends Migration
             $table->unsignedBigInteger('regency_id')->nullable();
             $table->unsignedBigInteger('district_id')->nullable();
             $table->unsignedBigInteger('village_id')->nullable();
-            $table->string('rt', 3)->nullable();
-            $table->string('rw', 3)->nullable();
-            $table->string('keterangan', 45)->nullable();
+            $table->string('nomor', 45)->nullable();
+            $table->text('catatan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

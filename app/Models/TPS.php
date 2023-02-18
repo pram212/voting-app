@@ -12,7 +12,7 @@ class TPS extends Model
 
     protected $table = 'tps';
 
-    protected $fillable = ['province_id', 'regency_id', 'district_id', 'village_id', 'keterangan', 'rt', 'rw'];
+    protected $fillable = ['province_id', 'regency_id', 'district_id', 'village_id', 'nomor', 'catatan', 'user_id'];
 
     public function provinsi()
     {
@@ -39,9 +39,14 @@ class TPS extends Model
         return $this->belongsTo(User::class, 'village_id', 'village_id');
     }
 
+    public function userEntry()
+    {
+        return $this->belongsTo(User::class, 'user_id');
+    }
+
     public function calon()
     {
         return $this->belongsToMany(Calon::class, 'rekapitulasis', 'tps_id', 'calon_id')
-                        ->withPivot('jumlah_suara', 'created_at', 'user_id', 'keterangan');
+                        ->withPivot('jumlah_suara', 'created_at', 'updated_at');
     }
 }

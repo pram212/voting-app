@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Calon;
 use App\Http\Requests\StoreCalonRequest;
 use App\Http\Requests\UpdateCalonRequest;
+use App\Models\TPS;
 use Illuminate\Support\Facades\DB;
 use DataTables;
 use Exception;
@@ -63,6 +64,10 @@ class CalonController extends Controller
             DB::beginTransaction();
 
             $calon = Calon::create($request->all());
+
+            $tps = TPS::pluck('id');
+
+            $calon->tps()->sync($tps);
 
             DB::commit();
 
@@ -154,6 +159,8 @@ class CalonController extends Controller
             $calon = Calon::findOrFail($id);
 
             $this->authorize('delete', $calon);
+
+            $calon->tps()->detach();
 
             $calon->delete();
 

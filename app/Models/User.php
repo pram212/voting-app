@@ -49,11 +49,6 @@ class User extends Authenticatable
         'email_verified_at' => 'datetime',
     ];
 
-    public function rekapitulasi()
-    {
-        $this->hasMany(Rekapitulasi::class);
-    }
-
     public function tps()
     {
         return $this->hasMany(TPS::class, 'village_id', 'village_id');

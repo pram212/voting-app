@@ -4,42 +4,6 @@
 @section('title', 'Calon')
 
 @section('content')
-    {{-- FILTER PANEL --}}
-    {{-- <div class="card shado mb-4">
-        <div class="card-header">
-            <h6 class="m-0 font-weight-bold text-primary">Filter
-            </h6>
-        </div>
-        <div class="card-body">
-            <form action="">
-                <div class="row">
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="jabatan_id">Jabatan</label>
-                            <select class="form-control select2" name="jabatan_id" value="{{ @request('jabatan_id') }}">
-                            </select>
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="nama">Nama</label>
-                            <input type="text" name="nama" id="nama" class="form-control form-control-sm" name="jabatan_id" value="{{ @request('nama') }}">
-                        </div>
-                    </div>
-                    <div class="col-md-4">
-                        <div class="form-group">
-                            <label for="no_urut">No. Urut</label>
-                            <input type="number" name="no_urut" id="no_urut" class="form-control form-control-sm" name="no_urut" value="{{ @request('no_urut') }}">
-                        </div>
-                    </div>
-                    <div class="col-12 d-flex justify-content-end">
-                        <button type="submit" class="btn btn-sm btn-primary mx-2">Tampilkan</button>
-                        <a href="{{url('calon')}}" class="btn btn-sm btn-danger">Clear</a>
-                    </div>
-                </div>
-            </form>
-        </div>
-    </div> --}}
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
@@ -55,7 +19,7 @@
                     <thead class="bg-dark text-white">
                         <tr>
                             <th>Nomor Urut</th>
-                            <th>Keterangan</th>
+                            <th>Nama Calon</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>

@@ -54,11 +54,11 @@
                         <h1 class="h3 mb-0 text-gray-800">@yield('header-content')</h1>
                         @yield('header-tool')
                     </div>
-                    @if (!auth()->user()->update_password)
+                    {{-- @if (!auth()->user()->update_password)
                     <div class="alert alert-danger" role="alert">
                         Silahkan segera update password Anda! <a href="{{ route('user.resetpassword') }}" class="alert-link">update sekarang</a>.
                     </div>
-                    @endif
+                    @endif --}}
 
                     @if (session()->get('success'))
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">

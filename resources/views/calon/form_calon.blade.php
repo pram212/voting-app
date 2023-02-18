@@ -7,10 +7,10 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ url('calon') }}" method="POST">
-                @php
-                    $url = @$calon ? 'calon/' . $calon->id : 'tps'; 
-                @endphp
+            @php
+                $url = @$calon ? 'calon/' . $calon->id : 'calon'; 
+            @endphp
+            <form action="{{ url($url) }}" method="POST">
                 @csrf
 
                 @if (@$calon)

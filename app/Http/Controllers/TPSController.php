@@ -179,6 +179,8 @@ class TPSController extends Controller
         try {
             DB::beginTransaction();
 
+            $tps->calon()->detach();
+
             $tps->delete();
 
             DB::commit();

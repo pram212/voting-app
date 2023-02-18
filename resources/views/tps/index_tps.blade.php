@@ -64,13 +64,11 @@
                 <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-dark text-white">
                         <tr>
-                            <th>Keterangan</th>
+                            <th>No. TPS</th>
                             <th>Provinsi</th>
                             <th>Kota</th>
                             <th>Kecamatan</th>
                             <th>Desa</th>
-                            <th>RT</th>
-                            <th>RW</th>
                             <th>Registrasi</th>
                             <th>Opsi</th>
                         </tr>
@@ -179,7 +177,7 @@
             serverSide: true,
             ajax: '/tps',
             columns: [{
-                    data: 'keterangan'
+                    data: 'nomor'
                 },
                 {
                     data: 'provinsi.name'
@@ -192,12 +190,6 @@
                 },
                 {
                     data: 'desa.name'
-                },
-                {
-                    data: 'rt'
-                },
-                {
-                    data: 'rw'
                 },
                 {
                     data: 'created_at'

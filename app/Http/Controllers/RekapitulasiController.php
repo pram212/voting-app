@@ -3,41 +3,30 @@
 namespace App\Http\Controllers;
 
 use App\Http\Requests\StoreRekapitulasiRequest;
+use App\Models\Calon;
 use App\Models\Rekapitulasi;
 use App\Models\TPS;
 use DataTables;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
-use tidy;
 
 class RekapitulasiController extends Controller
 {
     public function index()
     {
-        $this->authorize('viewAny', Rekapitulasi::class);
+        $rekapitulasi = TPS::with(['calon', 'provinsi', 'kota', 'kecamatan', 'desa'])
+                ->when(auth()->user()->role == 2, fn($query) => $query->where('village_id', auth()->user()->village_id))
+                ->when( request('province_id'), fn($query) => $query->where('province_id', request('province_id')))
+                ->when( request('regency_id'), fn($query) => $query->where('regency_id', request('regency_id')))
+                ->when( request('district_id'), fn($query) => $query->where('district_id', request('district_id')))
+                ->when( request('village_id'), fn($query) => $query->where('village_id', request('village_id')))
+                ->when( request('nomor'), fn($query) => $query->where('nomor', 'like', '%' . request('nomor') . '%'))
+                ->paginate(20);
 
-        if (request()->ajax()) {
-            
-            $model = TPS::query()
-                        ->with(['calon', 'provinsi', 'kota', 'kecamatan', 'desa'])
-                        ->where('village_id', auth()->user()->village_id);
-            
-            return DataTables::of($model)
-                ->addIndexColumn()
-                ->addColumn('action', function ($model) {
-                    $buttonEntry = '<a href='. url('rekapitulasi/' .$model->id .'/edit') .' type="button" class="btn btn-primary btn-entry btn-sm">Entry</a>';
-                    return '<div class="btn-group">' . $buttonEntry . '</div>';
-                })
-                ->addColumn('total_suara', function($model) {
-                    return number_format($model->calon->sum('pivot.jumlah_suara'));
-                })
-                ->rawColumns(['action'])
-                ->toJson();
+        $headerCalon = Calon::pluck('id');
 
-        }
-
-        return view('rekapitulasi.index_rekapitulasi');
+        return view('rekapitulasi.index_rekapitulasi', compact('rekapitulasi', 'headerCalon'));
     }
 
     public function create()
@@ -53,8 +42,6 @@ class RekapitulasiController extends Controller
     public function edit($id)
     {
 
-        DB::beginTransaction();
-        
         $tps = TPS::find($id);
 
         $this->authorize('viewAny', Rekapitulasi::class);
@@ -65,22 +52,26 @@ class RekapitulasiController extends Controller
 
     public function update(Request $request, $tpsId)
     {
-        
         try {
             DB::beginTransaction();
 
             $tps = TPS::find($tpsId);
+            $tps->catatan = $request->catatan;
+            $tps->user_id = auth()->user()->id;
+            $tps->save();
+
+            // dd($tps);
 
             $calons = [];
 
             foreach ($request->calon_id as $key => $value) {
                 $calons[$value] = [
                     "jumlah_suara" => $request->jumlah_suara[$key],
-                    "keterangan" => $request->keterangan[$key] 
                 ];
             }
 
             $tps->calon()->sync($calons);
+
 
             DB::commit();
 

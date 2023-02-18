@@ -74,6 +74,7 @@
                                         <button type="submit" class="btn btn-primary btn-user btn-block">
                                             Login
                                         </button>
+                                        <p class="py-2">Belum punya akun? <a href="{{url('register')}}">Daftar</a></p>
                                         
                                     </form>
 {{-- 

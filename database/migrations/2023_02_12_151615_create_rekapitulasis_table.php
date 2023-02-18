@@ -19,7 +19,6 @@ class CreateRekapitulasisTable extends Migration
             $table->unsignedBigInteger('tps_id');
             $table->double('jumlah_suara')->default(0);
             $table->unsignedBigInteger('user_id')->nullable();
-            $table->text('keterangan')->nullable();
             $table->timestamps();
             $table->softDeletes();
         });

@@ -11,10 +11,11 @@ class Calon extends Model
     use HasFactory, SoftDeletes;
 
     protected $fillable = ['no_urut', 'keterangan'];
-
+    
     public function tps()
     {
-        return $this->belongsToMany(TPS::class, 'tps', 'calon_id', 'tps_id', 'id');
+        return $this->belongsToMany(Calon::class, 'rekapitulasis', 'calon_id', 'tps_id')
+                        ->withPivot('jumlah_suara', 'created_at', 'updated_at');
     }
-    
+
 }

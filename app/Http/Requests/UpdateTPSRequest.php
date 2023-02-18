@@ -28,8 +28,7 @@ class UpdateTPSRequest extends FormRequest
             'regency_id' => ['required'],
             'district_id' => ['required'],
             'village_id' => ['required'],
-            'rt' => ['required'],
-            'rw' => ['required'],
+            'nomor' => ['required'],
         ];
     }
 
@@ -40,8 +39,7 @@ class UpdateTPSRequest extends FormRequest
             'regency_id.required' => 'kota wajib diisi!',
             'district_id.required' => 'kecamatan wajib diisi!',
             'village_id.required' => 'desa wajib diisi!',
-            'rt.required' => 'RT wajib diisi!',
-            'rw.required' => 'RW wajib diisi!',
+            'nomor.required' => 'nomor/keterangan wajib diisi!',
         ];
     }
     

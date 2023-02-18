@@ -75,29 +75,9 @@
 
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="rt">RT</label>
-                            <input type="text" class="form-control" required name="rt" value="{{old('keterangan', @$tps->rt)}}"/>
-                            @error('rt')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="rw">RW</label>
-                            <input type="text" class="form-control" required name="rw" value="{{old('keterangan', @$tps->rw)}}"/>
-                            @error('rw')
-                                <small class="text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-
-                    <div class="col-md-6">
-                        <div class="form-group">
-                            <label for="keterangan">Keterangan</label>
-                            <input type="text" class="form-control" name="keterangan" value="{{old('keterangan', @$tps->keterangan)}}"/>
-                            @error('keterangan')
+                            <label for="nomor">Nomor/Keterangan</label>
+                            <input type="text" class="form-control" name="nomor" value="{{old('nomor', @$tps->nomor)}}"/>
+                            @error('nomor')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
