@@ -9,14 +9,16 @@
         <div class="sidebar-brand-text mx-3">{{ config('app.name', 'Laravel') }}</div>
     </a>
 
-    <!-- Divider -->
-    <hr class="sidebar-divider my-0">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Utama
+    </div>
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item @if(request()->is('home*')) active @endif">
         <a class="nav-link" href="{{url('home')}}">
             <i class="fas fa-fw fa-home"></i>
-            <span>Home</span></a>
+            <span>Dashboard</span></a>
     </li>
    
     {{-- @can('viewAny', App\Models\Rekapitulasi::class) --}}
@@ -29,7 +31,12 @@
    
 
     <!-- Divider -->
-    {{-- <hr class="sidebar-divider"> --}}
+    <hr class="sidebar-divider">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Pengaturan
+    </div>
+
 
     @can('viewAny', App\Models\User::class)
     <li class="nav-item @if(request()->is('user*')) active @endif">
@@ -59,6 +66,28 @@
     </li>
     @endcan
 
+    <!-- Nav Item - Pages Collapse Menu -->
+    @if (auth()->user()->role == 1)
+    <li class="nav-item @if(
+        request()->is('provinsi') || 
+        request()->is('kota') || 
+        request()->is('kecamatan') || 
+        request()->is('desa')) active @endif">
+        <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
+            aria-expanded="true" aria-controls="collapseTwo">
+            <i class="fas fa-fw fa-map-marker"></i>
+            <span>Data Lokasi</span>
+        </a>
+        <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
+            <div class="bg-white py-2 collapse-inner rounded">
+                <a class="collapse-item" href="{{url('provinsi')}}">Provinsi</a>
+                <a class="collapse-item" href="{{url('kota')}}">Kota</a>
+                <a class="collapse-item" href="{{url('kecamatan')}}">Kecamatan</a>
+                <a class="collapse-item" href="{{url('desa')}}">Desa</a>
+            </div>
+        </div>
+    </li>
+    @endif
 
     <!-- Divider -->
     <hr class="sidebar-divider d-none d-md-block">

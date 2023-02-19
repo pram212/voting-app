@@ -13,7 +13,11 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CalonController;
 use App\Http\Controllers\CalonPejabatController;
+use App\Http\Controllers\DesaController;
 use App\Http\Controllers\JabatanController;
+use App\Http\Controllers\KecamatanController;
+use App\Http\Controllers\KotaController;
+use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\RekapitulasiController;
 use App\Http\Controllers\TPSController;
 use App\Http\Controllers\UserController;
@@ -66,6 +70,11 @@ Route::middleware('auth')->group(function(){
 
     Route::resource('rekapitulasi', RekapitulasiController::class);
 
+    Route::resource('provinsi', ProvinsiController::class);
+    Route::resource('kota', KotaController::class);
+    Route::resource('kecamatan', KecamatanController::class);
+    Route::resource('desa', DesaController::class);
+
     // select option ajax resource
     
 });
@@ -75,6 +84,5 @@ Route::get('/select2/getprovinsi', [ApiProvinceController::class, 'selectProvins
 Route::get('/select2/getkota', [ApiRegencyController::class, 'selectKota'] );
 Route::get('/select2/getkecamatan', [ApiDistrictController::class, 'selectKecamatan'] );
 Route::get('/select2/getdesa', [ApiVillageController::class, 'selectDesa'] );
-Route::get('/select2/getcalon', [ApiCalonPejabatController::class, 'selectCalon'] );
 Route::get('/select2/getuser', [ApiUserController::class, 'selectUser'] );
 

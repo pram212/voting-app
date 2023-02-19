@@ -25,6 +25,10 @@ class Province extends Model
      */
     protected $table = 'provinces';
 
+    public $timestamps = false;
+
+    protected $fillable = ['id','name'];
+
     /**
      * Province has many regencies.
      *

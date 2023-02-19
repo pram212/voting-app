@@ -3,8 +3,9 @@
 namespace App\Http\Requests;
 
 use Illuminate\Foundation\Http\FormRequest;
+use Illuminate\Validation\Rule;
 
-class StoreCalonPejabatRequest extends FormRequest
+class StoreDistrictRequest extends FormRequest
 {
     /**
      * Determine if the user is authorized to make this request.
@@ -24,18 +25,16 @@ class StoreCalonPejabatRequest extends FormRequest
     public function rules()
     {
         return [
-            'nama' => 'required',
-            'jabatan_id' => 'required',
-            'no_urut' => 'required',
+            'name' => ['required'],
+            'regency_id' => ['required'],
         ];
     }
 
     public function messages()
     {
         return [
-            'nama.required' => 'nama wajib diisi',
-            'jabatan_id.required' => 'jabatan wajib diisi',
-            'no_urut.required' => 'nomor urut wajib diisi',
+            'name.required' => 'nama kota wajib diisi', 
+            'regency_id.required' => 'nama kota wajib diisi', 
         ];
     }
 }

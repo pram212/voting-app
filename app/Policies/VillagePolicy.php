@@ -2,11 +2,11 @@
 
 namespace App\Policies;
 
-use App\Models\CalonPejabat;
 use App\Models\User;
+use App\Models\Village;
 use Illuminate\Auth\Access\HandlesAuthorization;
 
-class CalonPejabatPolicy
+class VillagePolicy
 {
     use HandlesAuthorization;
 
@@ -18,19 +18,19 @@ class CalonPejabatPolicy
      */
     public function viewAny(User $user)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
      * Determine whether the user can view the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CalonPejabat  $calonPejabat
+     * @param  \App\Models\Village  $village
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function view(User $user, CalonPejabat $calonPejabat)
+    public function view(User $user, Village $village)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
@@ -41,54 +41,54 @@ class CalonPejabatPolicy
      */
     public function create(User $user)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
      * Determine whether the user can update the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CalonPejabat  $calonPejabat
+     * @param  \App\Models\Village  $village
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function update(User $user, CalonPejabat $calonPejabat)
+    public function update(User $user, Village $village)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
      * Determine whether the user can delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CalonPejabat  $calonPejabat
+     * @param  \App\Models\Village  $village
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function delete(User $user, CalonPejabat $calonPejabat)
+    public function delete(User $user, Village $village)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
      * Determine whether the user can restore the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CalonPejabat  $calonPejabat
+     * @param  \App\Models\Village  $village
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function restore(User $user, CalonPejabat $calonPejabat)
+    public function restore(User $user, Village $village)
     {
-        //
+        return $user->role == 1;
     }
 
     /**
      * Determine whether the user can permanently delete the model.
      *
      * @param  \App\Models\User  $user
-     * @param  \App\Models\CalonPejabat  $calonPejabat
+     * @param  \App\Models\Village  $village
      * @return \Illuminate\Auth\Access\Response|bool
      */
-    public function forceDelete(User $user, CalonPejabat $calonPejabat)
+    public function forceDelete(User $user, Village $village)
     {
-        //
+        return $user->role == 1;
     }
 }
