@@ -78,13 +78,12 @@
             </form>
 
             <div class="table-responsive">
-                <table class="table table-hover table-sm table-bordered" cellspacing="0" id="dataTable">
+                <table class="table table-hover table-striped table-sm table-bordered" cellspacing="0" id="dataTable">
                     <thead class="bg-dark text-white text-center">
                         <tr>
                             <th class="align-middle">TPS</th>
                             @foreach ($headerCalon as $item)
-                                <th class="align-middle" colspan="2">CALON</th>
-                                <th class="align-middle">SUARA</th>
+                                <th class="align-middle" colspan="2">NO. URUT {{$item}}</th>
                             @endforeach
                             <th class="align-middle">CATATAN</th>
                             <th class="align-middle">USER</th>
@@ -96,15 +95,14 @@
                             <tr>
                                 <td>{{ $item->nomor }}</td>
                                 @foreach ($item->calon as $calon)
-                                    <td>No. {{ $calon->no_urut }}</td>
                                     <td>{{ $calon->keterangan }}</td>
-                                    <td>{{ $calon->pivot->jumlah_suara }}</td>
+                                    <td class="font-weight-bold">{{ $calon->pivot->jumlah_suara }}</td>
                                 @endforeach
                                 <td>{{ $item->catatan }}</td>
                                 <td>{{ @$item->userEntry->name }}</td>
                                 <th>
                                     <a href="{{ url('rekapitulasi/' . $item->id . '/edit') }}"
-                                        class="btn btn-sm btn-primary">
+                                        class="btn btn-sm btn-success">
                                     @can('update', $item)
                                     Detil
                                     @else
