@@ -9,6 +9,8 @@
         <div class="sidebar-brand-text mx-3">{{ config('app.name', 'Laravel') }}</div>
     </a>
 
+    <!-- Divider -->
+    <hr class="sidebar-divider">
     <!-- Heading -->
     <div class="sidebar-heading">
         Utama
