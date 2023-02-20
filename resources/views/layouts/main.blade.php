@@ -51,7 +51,7 @@
 
                     <!-- Page Heading -->
                     <div class="d-sm-flex align-items-center justify-content-between mb-4">
-                        <h1 class="h3 mb-0 text-gray-800">@yield('header-content')</h1>
+                        <h6 class="h5 mb-0 text-gray-800">@yield('header-content')</h6>
                         @yield('header-tool')
                     </div>
                     {{-- @if (!auth()->user()->update_password)

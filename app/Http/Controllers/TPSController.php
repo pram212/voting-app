@@ -78,29 +78,21 @@ class TPSController extends Controller
     {
         $this->authorize('create', TPS::class);
 
-        try {
-            DB::beginTransaction();
+        DB::beginTransaction();
 
-            $tps = TPS::create($request->all());
+        $tps = TPS::create($request->all());
 
-            $calon = Calon::pluck('id');
+        $calon = Calon::pluck('id');
 
-            $tps->calon()->sync($calon);
+        $tps->calon()->sync($calon);
 
-            DB::commit();
+        DB::commit();
 
-            $message = [
-                'success' => 'TPS berhasil disimpan'
-            ];
+        $message = [
+            'success' => 'TPS berhasil disimpan'
+        ];
 
-            return back()->with($message);
-
-        } catch(Exception $ex) {
-
-            DB::rollBack();
-
-            return back()->with('failed', $ex->getMessage());
-        }
+        return back()->with($message);
 
     }
 

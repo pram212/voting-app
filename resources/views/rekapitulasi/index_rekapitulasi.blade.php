@@ -8,8 +8,7 @@
     @if (auth()->user()->role == 1)
         <div class="card shadow mb-4">
             <div class="card-header">
-                <h6 class="m-0 font-weight-bold text-primary">Filter
-                </h6>
+                <h6 class="m-0 font-weight-bold text-primary">Filter</h6>
             </div>
             <div class="card-body">
                 <form action="" id="form-filter">
@@ -18,6 +17,10 @@
                             <div class="form-group">
                                 <label for="province_id">Provinsi</label>
                                 <select class="form-control select2" name="province_id" id="select-provinsi">
+                                    @if (request('province_name'))
+                                        <option value="{{ request('province_id') }}" selected>{{ request('province_name') }}
+                                        </option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -26,6 +29,10 @@
                             <div class="form-group">
                                 <label for="regency_id">Kota</label>
                                 <select class="form-control select2" name="regency_id" id="select-kota">
+                                    @if (request('regency_name'))
+                                        <option value="{{ request('regency_id') }}" selected>{{ request('regency_name') }}
+                                        </option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -34,6 +41,10 @@
                             <div class="form-group">
                                 <label for="district_id">Kecamatan</label>
                                 <select class="form-control select2" name="district_id" id="select-kecamatan">
+                                    @if (request('district_name'))
+                                        <option value="{{ request('district_id') }}" selected>{{ request('district_name') }}
+                                        </option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
@@ -42,13 +53,17 @@
                             <div class="form-group">
                                 <label for="village_id">Desa</label>
                                 <select class="form-control select2" name="village_id" id="select-desa">
+                                    @if (request('village_name'))
+                                        <option value="{{ request('village_id') }}" selected>{{ request('village_name') }}
+                                        </option>
+                                    @endif
                                 </select>
                             </div>
                         </div>
 
                         <div class="col-md-12">
                             <button class="btn btn-primary" type="submit">Tampilkan</button>
-                            <a href="" class="btn btn-danger" type="button">Reset</a>
+                            <a href="{{ url('rekapitulasi') }}" class="btn btn-danger" type="button">Reset</a>
                         </div>
 
                     </div>
@@ -72,7 +87,8 @@
         <div class="card-body">
             <form action="">
                 <div class="d-flex justify-content-between my-1">
-                    <input name="nomor" type="text" class="form-control mx-1" placeholder="Cari..." value="{{@request('nomor')}}">
+                    <input name="nomor" type="text" class="form-control mx-1" placeholder="Cari..."
+                        value="{{ @request('nomor') }}">
                     <button type="submit" class="btn btn-primary btn-sm">Cari</button>
                 </div>
             </form>
@@ -83,7 +99,7 @@
                         <tr>
                             <th class="align-middle">TPS</th>
                             @foreach ($headerCalon as $item)
-                                <th class="align-middle" colspan="2">NO. URUT {{$item}}</th>
+                                <th class="align-middle" colspan="2">NO. URUT {{ $item }}</th>
                             @endforeach
                             <th class="align-middle">CATATAN</th>
                             <th class="align-middle">USER</th>
@@ -103,11 +119,11 @@
                                 <th>
                                     <a href="{{ url('rekapitulasi/' . $item->id . '/edit') }}"
                                         class="btn btn-sm btn-success">
-                                    @can('update', $item)
-                                    Detil
-                                    @else
-                                    Entry
-                                    @endcan
+                                        @can('update', $item)
+                                            Detil
+                                        @else
+                                            Entry
+                                        @endcan
                                     </a>
                                 </th>
                             </tr>
@@ -131,62 +147,5 @@
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.js') }}"></script>
-
-    <!-- Page level custom scripts -->
-    <script>
-        $(document).on('select2:open', () => {
-            document.querySelector('.select2-search__field').focus();
-        });
-
-        // setup select option ajax
-        $('#select-calon').select2({
-            ajax: {
-                url: '/select2/getcalon',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-jabatan').select2({
-            ajax: {
-                url: '/select2/getjabatan',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-provinsi').select2({
-            ajax: {
-                url: '/select2/getprovinsi',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-kota').select2({
-            ajax: {
-                url: '/select2/getkota',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-kecamatan').select2({
-            ajax: {
-                url: '/select2/getkecamatan',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-desa').select2({
-            ajax: {
-                url: '/select2/getdesa',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-user').select2({
-            ajax: {
-                url: '/select2/getuser',
-                dataType: 'json'
-            }
-        });
-    </script>
-
+    <script src="{{ asset('js/filter_location.js') }}"></script>
 @endsection

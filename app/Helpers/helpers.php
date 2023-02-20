@@ -28,3 +28,8 @@ function formatNoHp($nohp) {
     return $hp;
 
 }
+
+function randomColor()
+{
+    return "rgb(".rand(0,255).",".rand(0,255).",".rand(0,255).")";
+}

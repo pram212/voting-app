@@ -13,6 +13,7 @@ use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CalonController;
 use App\Http\Controllers\CalonPejabatController;
+use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesaController;
 use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KecamatanController;
@@ -46,9 +47,7 @@ Route::middleware('guest')->group(function() {
 });
 
 Route::middleware('auth')->group(function(){
-    Route::get('/home', function() {
-        return view('home');
-    });
+    Route::get('/home', DashboardController::class);
 
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 

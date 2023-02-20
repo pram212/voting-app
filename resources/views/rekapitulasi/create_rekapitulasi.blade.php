@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('header-content', 'Input Hasil ' . $tps->nomor)
+@section('header-content', 'Entry ' . $tps->nomor)
 @section('title', 'Rekapitulasi')
 
 @section('content')
@@ -20,10 +20,10 @@
                 <div class="row">
                     @foreach (@$tps->calon as $item)
                     <input type="hidden" name="calon_id[]" value="{{$item->id}}">
-                    <div class="col-md-12 text-success">
-                        No. {{$item->no_urut}} - {{$item->keterangan }}
-                    </div>
-                    <div class="col-md-6">
+                    <div class="col-md-6 border-bottom mb-2">
+                        <span class="text-primary font-weight-bold">
+                            No. {{$item->no_urut}} - {{$item->keterangan }}
+                        </span>
                         <div class="form-group">
                             <label for="jumlah_suara">Jumlah Suara :</label>
                             <input type="number" class="form-control form-control-sm" name="jumlah_suara[]" value="{{ @$item->pivot->jumlah_suara}}"/>
@@ -41,7 +41,9 @@
                 <hr class="divider">
 
                 <div class="text-center">
+                    @can('create', App\Models\Rekapitulasi::class)
                     <button type="submit" class="btn btn-primary">Simpan</button>
+                    @endcan
                     <a href="{{ url('rekapitulasi') }}" class="btn btn-secondary">Kembali</a>
                 </div>
 

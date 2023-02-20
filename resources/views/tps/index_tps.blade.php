@@ -90,14 +90,11 @@
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.js') }}"></script>
+    <script src="{{ asset('js/filter_location.js') }}"></script>
 
     <!-- Page level custom scripts -->
     <script>
         
-        $(document).on('select2:open', () => {
-            document.querySelector('.select2-search__field').focus();
-        });
-
         const notifySuccess = (title = "") => {
             Swal.fire({
                 position: 'top-end',
@@ -121,56 +118,6 @@
                 title: title,
             })
         }
-
-        // setup select option ajax
-        $('#select-calon').select2({
-            ajax: {
-                url: '/select2/getcalon',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-jabatan').select2({
-            ajax: {
-                url: '/select2/getjabatan',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-provinsi').select2({
-            ajax: {
-                url: '/select2/getprovinsi',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-kota').select2({
-            ajax: {
-                url: '/select2/getkota',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-kecamatan').select2({
-            ajax: {
-                url: '/select2/getkecamatan',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-desa').select2({
-            ajax: {
-                url: '/select2/getdesa',
-                dataType: 'json'
-            }
-        });
-
-        $('#select-user').select2({
-            ajax: {
-                url: '/select2/getuser',
-                dataType: 'json'
-            }
-        });
 
         tpsTable = $('#dataTable').DataTable({
             processing: true,

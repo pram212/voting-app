@@ -27,17 +27,21 @@
     <li class="nav-item @if(request()->is('rekapitulasi')) active @endif">
         <a class="nav-link" href="{{url('rekapitulasi')}}">
             <i class="fas fa-check fa-fw"></i>
-            <span>Hasil Rekapan</span></a>
+            <span>Entry Hasil</span></a>
     </li>
     {{-- @endcan --}}
    
 
     <!-- Divider -->
+    @if (auth()->user()->role == 1)
+    
     <hr class="sidebar-divider">
+
     <!-- Heading -->
     <div class="sidebar-heading">
         Pengaturan
     </div>
+    @endif
 
 
     @can('viewAny', App\Models\User::class)
