@@ -73,27 +73,25 @@ class RekapitulasiController extends Controller
 
     public function update(Request $request, $tpsId)
     {
-        $this->authorize('create', Rekapitulasi::class);
-
         try {
             DB::beginTransaction();
             
+            $this->authorize('create', Rekapitulasi::class);
+    
             $tps = TPS::find($tpsId);
-
-            $this->authorize('update', $tps);
-
+    
             $tps->catatan = $request->catatan;
             $tps->user_id = auth()->user()->id;
             $tps->save();
-
+    
             $calons = [];
-
+    
             foreach ($request->calon_id as $key => $value) {
                 $calons[$value] = [
                     "jumlah_suara" => $request->jumlah_suara[$key],
                 ];
             }
-
+    
             $tps->calon()->sync($calons);
 
 
