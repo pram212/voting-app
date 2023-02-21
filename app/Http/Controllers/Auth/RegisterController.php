@@ -6,6 +6,7 @@ use App\Http\Controllers\Controller;
 use App\Models\User;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\Auth;
+use Illuminate\Support\Facades\Hash;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 
@@ -32,11 +33,12 @@ class RegisterController extends Controller
         ])->validated();
 
             
-        $request->merge(['role' => 2]);
+        $request->merge([
+            'role' => 2,
+            'password' => Hash::make($request->password)
+        ]);
 
         $user = User::create($request->all());
-
-        // dd($user);
 
         auth()->login($user);
 
