@@ -22,10 +22,6 @@ class DashboardController extends Controller
      */
     public function __invoke(Request $request)
     {
-        $pieChartLabels = [];
-        $pieChartData = [];
-        $pieChartColor = [];
-
         $tps = TPS::query()
             ->when(auth()->user()->role == 2, fn ($query) => $query->where('village_id', auth()->user()->village_id))
             ->when(request('province_id'), fn ($query) => $query->where('province_id', request('province_id')))
@@ -60,6 +56,9 @@ class DashboardController extends Controller
         $totalSuara = Rekapitulasi::whereIn('tps_id', $tps->pluck('id'))->sum('jumlah_suara');
 
         $progressBarData = [];
+        $pieChartLabels = [];
+        $pieChartData = [];
+        $pieChartColor = [];
 
         $calons = Calon::with('tps')->get();
         foreach ($calons as $calon) {
@@ -76,7 +75,7 @@ class DashboardController extends Controller
 
             // isi $progressBarData untuk ditampilkan di dashboard berupa progress bar
             array_push($progressBarData, [
-                'calon' => "NO. URUT " . $calon->id,
+                'calon' => "NO. URUT " . $calon->no_urut,
                 'persentase' => $presentaseSuara,
                 'color' => randomColor() // App/Http/Helpers/helpers.php
             ]);

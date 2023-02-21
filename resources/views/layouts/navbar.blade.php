@@ -6,7 +6,7 @@
     </button>
 
     <!-- Topbar Search -->
-    <h6 class="">Sistem Pemilu 2024</h6>
+    <h6 class="">Pemilu 2024</h6>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">

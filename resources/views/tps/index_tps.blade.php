@@ -57,7 +57,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="{{ url('tps/create') }}" class="btn btn-success">Entry</a>
+            <a href="{{ url('tps/create') }}" class="btn btn-primary">Baru</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
