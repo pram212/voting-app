@@ -117,6 +117,7 @@
                 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Daftar</button>
+                    <a href="{{ url('/user') }}" class="btn btn-secondary">Kembali</a>
                 </div>
 
             </form>

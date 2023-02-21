@@ -8,8 +8,8 @@
     <div class="card shadow mb-4">
         <div class="card-header py-3">
             <h6 class="m-0 font-weight-bold text-primary">
-                <a href="{{ url('user/create') }}" class="btn btn-sm btn-primary">
-                    <i class="fas fa-plus"></i> Register
+                <a href="{{ url('user/create') }}" class="btn btn-primary">
+                    <i class="fas fa-plus"></i> Baru
                 </a>
             </h6>
         </div>
