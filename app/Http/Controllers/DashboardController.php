@@ -63,7 +63,7 @@ class DashboardController extends Controller
         $calons = Calon::with('tps')->get();
         foreach ($calons as $calon) {
             
-            // ambil total suara pada dari rekapitulasis.jumlah_suara berdasarkan calon_id=calons.id yang sedang dilooping;
+            // ambil total suara dari rekapitulasis.jumlah_suara berdasarkan calon_id=calons.id yang sedang dilooping;
             $jumlahSuara = $calon->tps()->whereIn('rekapitulasis.tps_id', $tps->pluck('id'))->sum('rekapitulasis.jumlah_suara');
 
             // cek jika jumlah suara = 0 (untuk menghindari error division by zero)
