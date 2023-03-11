@@ -66,7 +66,7 @@ class DashboardController extends Controller
             // ambil total suara dari rekapitulasis.jumlah_suara berdasarkan calon_id=calons.id yang sedang dilooping;
             $jumlahSuara = $calon->tps()->whereIn('rekapitulasis.tps_id', $tps->pluck('id'))->sum('rekapitulasis.jumlah_suara');
 
-            // cek jika jumlah suara = 0 (untuk menghindari error division by zero)
+            // cek jika jumlah suara = 0 (untuk menghindari error 'division by zero')
             if ($jumlahSuara) {
                 $presentaseSuara = round($jumlahSuara / $totalSuara * 100, 2);
             } else {
