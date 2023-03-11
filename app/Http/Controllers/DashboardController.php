@@ -20,7 +20,7 @@ class DashboardController extends Controller
      * @param  \Illuminate\Http\Request  $request
      * @return \Illuminate\Http\Response
      */
-    public function __invoke(Request $request)
+    public function index(Request $request)
     {
         $tps = TPS::query()
             ->when(auth()->user()->role == 2, fn ($query) => $query->where('village_id', auth()->user()->village_id))
@@ -75,7 +75,7 @@ class DashboardController extends Controller
 
             // isi $progressBarData untuk ditampilkan di dashboard berupa progress bar
             array_push($progressBarData, [
-                'calon' => "NO. URUT " . $calon->no_urut,
+                'calon' => $calon->keterangan,
                 'persentase' => $presentaseSuara,
                 'color' => randomColor() // App/Http/Helpers/helpers.php
             ]);

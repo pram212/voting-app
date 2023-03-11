@@ -27,7 +27,7 @@
     <li class="nav-item @if(request()->is('rekapitulasi')) active @endif">
         <a class="nav-link" href="{{url('rekapitulasi')}}">
             <i class="fas fa-check fa-fw"></i>
-            <span>Entry Hasil</span></a>
+            <span>Hasil</span></a>
     </li>
     {{-- @endcan --}}
    

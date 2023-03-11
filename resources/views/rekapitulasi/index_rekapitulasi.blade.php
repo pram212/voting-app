@@ -120,7 +120,7 @@
                                     <a href="{{ url('rekapitulasi/' . $item->id . '/edit') }}"
                                         class="btn btn-sm btn-success">
                                         @can('update', $item)
-                                            Detil
+                                            Lihat
                                         @else
                                             Entry
                                         @endcan
