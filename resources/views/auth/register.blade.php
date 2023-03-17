@@ -60,15 +60,6 @@
                                 </div>
             
                                 <div class="form-group col-md-6">
-                                    <label for="exampleInputEmail1">Email :</label>
-                                    <input type="email" name="email" class="form-control @error('email') is-invalid @enderror" id="exampleInputEmail1" aria-describedby="emailHelp"
-                                        placeholder="Enter email" value="{{old('email')}}">
-                                    @error('email')
-                                    <small id="validateName" class="form-text text-danger">{{ $message }}</small>
-                                    @enderror
-                                </div>
-            
-                                <div class="form-group col-md-6">
                                     <label for="exampleInputEmail1">Password :</label>
                                     <input type="password" name="password" class="form-control @error('password') is-invalid @enderror">
                                     @error('password')

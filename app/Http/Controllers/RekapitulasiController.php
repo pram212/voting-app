@@ -28,7 +28,8 @@ class RekapitulasiController extends Controller
             ->when(request('district_id'), fn ($query) => $query->where('district_id', request('district_id')))
             ->when(request('village_id'), fn ($query) => $query->where('village_id', request('village_id')))
             ->when(request('nomor'), fn ($query) => $query->where('nomor', 'like', '%' . request('nomor') . '%'))
-            ->paginate(5);
+            ->paginate(25)
+            ->withQueryString();
        
         if (request('province_id')) {
             request()->merge([

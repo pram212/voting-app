@@ -95,8 +95,8 @@
                             @foreach ($headerCalon as $item)
                                 <th class="align-middle">NO. URUT {{ $item }}</th>
                             @endforeach
+                            <th>Total</th>
                             <th class="align-middle">CATATAN</th>
-                            <th class="align-middle">USER</th>
                             <th class="align-middle">OPSI</th>
                         </tr>
                     </thead>
@@ -107,11 +107,11 @@
                                 @foreach ($item->calon as $calon)
                                     <td class="font-weight-bold">{{ $calon->pivot->jumlah_suara }}</td>
                                 @endforeach
+                                <td>{{ $item->calon->sum('pivot.jumlah_suara') }}</td>
                                 <td>{{ $item->catatan }}</td>
-                                <td>{{ @$item->userEntry->name }}</td>
                                 <th>
                                     <a href="{{ url('rekapitulasi/' . $item->id . '/edit') }}"
-                                        class="btn btn-sm btn-success">
+                                        class="btn btn btn-success">
                                         @can('update', $item)
                                             Lihat
                                         @else

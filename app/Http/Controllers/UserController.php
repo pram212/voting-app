@@ -252,19 +252,17 @@ class UserController extends Controller
             DB::beginTransaction();
 
             $user->password = Hash::make($request->password);
-            
-            $user->update_password = 1;
 
             $user->save();
 
             DB::commit();
             
-            return redirect('user')->with('success', 'password ' . $user->name . ' berhasil diubah menjadi ' . $request->password );
+            return redirect('saksi')->with('success', 'password ' . $user->name . ' berhasil diubah menjadi ' . $request->password );
 
         } catch (Exception $e) {
 
             DB::rollBack();
-
+            throw $e;
             return back()->with('failed', $e->getMessage());
 
         }

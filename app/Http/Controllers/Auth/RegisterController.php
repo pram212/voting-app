@@ -23,7 +23,6 @@ class RegisterController extends Controller
     {
         Validator::make($request->all(), [
             'nama' => ['required'],
-            'email' => ['required', 'email', 'unique:users'],
             'phone' => ['required', 'unique:users'],
             'province_id' => ['required'],
             'regency_id' => ['required'],
