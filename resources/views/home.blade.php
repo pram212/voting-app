@@ -16,7 +16,7 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="province_id">Provinsi</label>
-                                        <select class="form-control select2" name="province_id" id="select-provinsi">
+                                        <select class="form-control select2" name="province_id" id="select-provinsi" style="width:100%">
                                             @if (request('province_name'))
                                                 <option value="{{ request('province_id') }}" selected>
                                                     {{ request('province_name') }}</option>
@@ -35,9 +35,9 @@
                                                         {{ request('regency_name') }}</option>
                                                 @endif
                                             </select>
-                                            <strong role="button" title="kosongkan kota" class="ml-2 text-danger " id="clear-kota">
-                                                X
-                                            </strong>
+                                            {{-- <strong role="button" title="kosongkan kota" class="ml-2 text-danger " id="clear-kota">
+                                                x
+                                            </strong> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -52,9 +52,9 @@
                                                         {{ request('district_name') }}</option>
                                                 @endif
                                             </select>
-                                            <strong role="button" title="kosongkan kecamatan" class="ml-2 text-danger " id="clear-kecamatan">
-                                                X
-                                            </strong>
+                                            {{-- <strong role="button" title="kosongkan kecamatan" class="ml-2 text-danger " id="clear-kecamatan">
+                                                
+                                            </strong> --}}
                                         </div>
                                     </div>
                                 </div>
@@ -69,9 +69,9 @@
                                                         {{ request('village_name') }}</option>
                                                 @endif
                                             </select>
-                                            <strong role="button" title="kosongkan desa" class="ml-2 text-danger " id="clear-desa">
-                                                X
-                                            </strong>
+                                            {{-- <strong role="button" title="kosongkan desa" class="ml-2 text-danger " id="clear-desa">
+                                                
+                                            </strong> --}}
                                         </div>
                                     </div>
                                 </div>

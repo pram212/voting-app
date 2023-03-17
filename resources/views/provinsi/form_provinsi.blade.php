@@ -31,7 +31,7 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="{{ url('provinsi') }}" class="btn btn-secondary">Batal</a>
+                    <a href="{{ url('provinsi') }}" class="btn btn-secondary">Kembali</a>
                 </div>
 
             </form>

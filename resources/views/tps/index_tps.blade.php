@@ -16,7 +16,7 @@
                     <div class="col-md-3">
                         <div class="form-group">
                             <label for="province_id">Provinsi</label>
-                            <select class="form-control select2" name="province_id" id="select-provinsi">
+                            <select class="form-control select2" name="province_id" id="select-provinsi" style="width:100%">
                             </select>
                         </div>
                     </div>
@@ -57,7 +57,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <a href="{{ url('tps/create') }}" class="btn btn-primary"><i class="fas fa-plus"></i> Baru</a>
+            <a href="{{ url('tps/create') }}" class="btn btn-success">Register</a>
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -69,7 +69,6 @@
                             <th>Kota</th>
                             <th>Kecamatan</th>
                             <th>Desa</th>
-                            <th>Registrasi</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>
@@ -137,9 +136,6 @@
                 },
                 {
                     data: 'desa.name'
-                },
-                {
-                    data: 'created_at'
                 },
                 {
                     data: 'action'

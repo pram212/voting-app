@@ -111,7 +111,7 @@
                                 <td>{{ $item->catatan }}</td>
                                 <th>
                                     <a href="{{ url('rekapitulasi/' . $item->id . '/edit') }}"
-                                        class="btn btn btn-success">
+                                        class="btn btn btn-info">
                                         @can('update', $item)
                                             Lihat
                                         @else
@@ -150,7 +150,7 @@
                                 <td>{{ $item->calon->sum('pivot.jumlah_suara') }}</td>
                                 <th>
                                     <a href="{{ url('rekapitulasi/' . $item->id . '/edit') }}"
-                                        class="btn btn-sm btn-success">
+                                        class="btn btn-info">
                                         @can('update', $item)
                                             Lihat
                                         @else

@@ -19,16 +19,6 @@
                 <div class="row">
                     <div class="col-md-6">
                         <div class="form-group">
-                            <label for="nama">Nama :</label>
-                            <input type="text" name="name" class="form-control form-control-sm @error('name') is-invalid @enderror"
-                            id="name" placeholder="" value="{{old('name', @$kota->name)}}">
-                            @error('name')
-                            <small class="form-text text-danger">{{ $message }}</small>
-                            @enderror
-                        </div>
-                    </div>
-                    <div class="col-md-6">
-                        <div class="form-group">
                             <label for="province_id">Provinsi</label>
                             <select class="form-control" required name="province_id" id="select-provinsi">
                                 @if (@$kota)
@@ -40,13 +30,24 @@
                             @enderror
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nama">Nama Kota :</label>
+                            <input type="text" name="name" class="form-control form-control-sm @error('name') is-invalid @enderror"
+                            id="name" placeholder="" value="{{old('name', @$kota->name)}}">
+                            @error('name')
+                            <small class="form-text text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
                 </div>
 
                 <hr class="divider">
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="{{ url('kota') }}" class="btn btn-secondary">Batal</a>
+                    <a href="{{ url('kota') }}" class="btn btn-secondary">Kembali</a>
                 </div>
             </form>
 

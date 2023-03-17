@@ -44,9 +44,9 @@ class SaksiController extends Controller
 
             return DataTables::of($saksi)
                 ->addColumn('action', function ($saksi) {
-                    $resetPassword = '<a href="' . url('resetpassword/' . $saksi->id) . '" class="btn btn-warning btn-sm" >Update Password</a>';
-                    $profil = '<a href="' . url('saksi/' . $saksi->id) . '/edit" class="btn btn-info btn-sm" >Profil</a>';
-                    $buttonDelete = '<button type="button" class="btn btn-danger btn-delete btn-sm">Hapus</button>';
+                    $resetPassword = '<a href="' . url('resetpassword/' . $saksi->id) . '" class="btn btn-warning " >Update Password</a>';
+                    $profil = '<a href="' . url('saksi/' . $saksi->id) . '/edit" class="btn btn-info " >Profil</a>';
+                    $buttonDelete = '<button type="button" class="btn btn-danger btn-delete ">Hapus</button>';
                     return '<div class="btn-group">' . $resetPassword . $profil.  $buttonDelete . '</div>';
                 })
                 ->editColumn('role', function ($saksi) {
@@ -257,8 +257,8 @@ class SaksiController extends Controller
 
         return DataTables::of($model)
             ->addColumn('action', function ($model) {
-                $detil = '<a href="' . url('resetpassword/' . $model->id) . '" class="btn btn-warning btn-sm" >Update Password</a>';
-                $buttonDelete = '<button type="button" class="btn btn-danger btn-delete btn-sm">Hapus</button>';
+                $detil = '<a href="' . url('resetpassword/' . $model->id) . '" class="btn btn-warning " >Update Password</a>';
+                $buttonDelete = '<button type="button" class="btn btn-danger btn-delete ">Hapus</button>';
                 return '<div class="btn-group">' . $detil . $buttonDelete . '</div>';
             })
             ->editColumn('role', function ($model) {

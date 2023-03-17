@@ -55,24 +55,6 @@
                         @yield('header-tool')
                     </div>
 
-                    @if (session()->get('success'))
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong> {{session()->get('success')}}</strong>
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
-
-                    @if (session()->get('failed'))
-                        <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>Sukses!</strong> {{session()->get('success')}}
-                            <button type="button" class="close" data-dismiss="alert" aria-label="Close">
-                                <span aria-hidden="true">&times;</span>
-                            </button>
-                        </div>
-                    @endif
-
                     @yield('content')
 
                 </div>
@@ -111,6 +93,35 @@
 
     <!-- Custom scripts for all pages-->
     <script src="{{ asset('template/js/sb-admin-2.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
+
+    @if (session()->get('success'))
+    <script>
+       Swal.fire({
+            position: 'top-end',
+            toast: true,
+            timer: 3000,
+            timerProgressBar: true,
+            showConfirmButton: false,
+            icon: 'success',
+            title: '{!! session()->get("success") !!}',
+        }) 
+    </script>
+    @endif
+
+    @if (session()->get('failed'))
+    <script>
+        Swal.fire({
+             position: 'top-end',
+             toast: true,
+             timer: 3000,
+             timerProgressBar: true,
+             showConfirmButton: false,
+             icon: 'error',
+             title: 'Server Error',
+         }) 
+     </script>
+    @endif
 
     @yield('script')
 

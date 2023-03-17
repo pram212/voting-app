@@ -27,8 +27,8 @@ class KecamatanController extends Controller
 
             return DataTables::of($model)
                 ->addColumn('action', function ($model) {
-                    $detil = '<a href="' . url('kecamatan/' . $model->id) . '/edit" class="btn btn-warning btn-sm" >Edit</a>';
-                    $buttonDelete = '<button type="button" class="btn btn-danger btn-delete btn-sm">Hapus</button>';
+                    $detil = '<a href="' . url('kecamatan/' . $model->id) . '/edit" class="btn btn-info " >Edit</a>';
+                    $buttonDelete = '<button type="button" class="btn btn-danger btn-delete ">Hapus</button>';
                     return '<div class="btn-group">' . $detil . $buttonDelete . '</div>';
                 })
                 ->addColumn('provinsi', function($model) {
