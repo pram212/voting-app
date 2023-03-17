@@ -10,7 +10,7 @@
             <div class="text-xs">PROVINSI {{@$tps->provinsi->name}}</div>
             <div class="text-xs">{{@$tps->kota->name}}</div>
             <div class="text-xs">KECAMATAN {{@$tps->kecamatan->name}}</div>
-            <div class="text-xs">DESA {{@$tps->desa->name}}</div>
+            <div class="text-xs">DESA{{@$tps->desa->name}}</div>
         </div>
         <div class="card-body">
             @error('max_jumlah_suara')
@@ -24,6 +24,9 @@
             <form action="{{ url('rekapitulasi/' . @$tps->id) }}" method="POST" class=" needs-validation">
                 @csrf
                 @method('put')
+                @php
+                    $editable = auth()->user()->role == 2 ? true : false;
+                @endphp
 
                 <div class="row">
                     @foreach (@$tps->calon as $key => $item)
@@ -34,17 +37,17 @@
                         </span>
                         <div class="form-group">
                             <label for="jumlah_suara">Jumlah Suara : {{$item->pivot->id}}</label>
-                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" class="form-control form-control-sm" name="jumlah_suara[]" value="{{ old('jumlah_suara')[$key] ??@$item->pivot->jumlah_suara}}"/>
+                            <input @if(!$editable) disabled @endif type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" class="form-control form-control-sm" name="jumlah_suara[]" value="{{ old('jumlah_suara')[$key] ??@$item->pivot->jumlah_suara}}"/>
                         </div>
                     </div>
                     @endforeach
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="catatan">Catatan :</label>
-                            <textarea class="form-control" name="catatan" id="catatan" cols="30" rows="3">{{@$tps->catatan}}</textarea>
+                            <textarea @if(!$editable) disabled @endif class="form-control" name="catatan" id="catatan" cols="30" rows="3">{{@$tps->catatan}}</textarea>
                         </div>
                     </div>
-                    @if (auth()->user()->role == 1)
+                    @if (!$editable)
                     <div class="col-md-12">
                         <div class="form-group">
                             <label for="catatan">User Entry :</label>
