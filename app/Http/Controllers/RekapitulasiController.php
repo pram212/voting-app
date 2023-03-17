@@ -14,11 +14,13 @@ use DataTables;
 use Exception;
 use Illuminate\Http\Request;
 use Illuminate\Support\Facades\DB;
+use Illuminate\Support\Facades\Validator;
 
 class RekapitulasiController extends Controller
 {
     public function index()
     {
+
         $rekapitulasi = TPS::with(['calon', 'provinsi', 'kota', 'kecamatan', 'desa'])
             ->when(auth()->user()->role == 2, fn ($query) => $query->where('village_id', auth()->user()->village_id))
             ->when(request('province_id'), fn ($query) => $query->where('province_id', request('province_id')))
@@ -26,8 +28,8 @@ class RekapitulasiController extends Controller
             ->when(request('district_id'), fn ($query) => $query->where('district_id', request('district_id')))
             ->when(request('village_id'), fn ($query) => $query->where('village_id', request('village_id')))
             ->when(request('nomor'), fn ($query) => $query->where('nomor', 'like', '%' . request('nomor') . '%'))
-            ->paginate(20);
-            
+            ->paginate(5);
+       
         if (request('province_id')) {
             request()->merge([
                 'province_name' => Province::find(request('province_id'))?->name
@@ -73,25 +75,42 @@ class RekapitulasiController extends Controller
 
     public function update(Request $request, $tpsId)
     {
+        $validator = Validator::make($request->all(), []);
+
+
+        $validator->after(function ($validator) use ($request) {
+
+            foreach ($request->jumlah_suara as $key => $value) {
+                if ($value > 1000) {
+                    $validator->errors()->add(
+                        'max_jumlah_suara',
+                        'Jumlah Suara tidak boleh lebih dari 1000! '
+                    );
+                }
+            }
+        });
+
+        $validator->validate();
+
         try {
             DB::beginTransaction();
-            
+
             $this->authorize('create', Rekapitulasi::class);
-    
+
             $tps = TPS::find($tpsId);
-    
+
             $tps->catatan = $request->catatan;
             $tps->user_id = auth()->user()->id;
             $tps->save();
-    
+
             $calons = [];
-    
+
             foreach ($request->calon_id as $key => $value) {
                 $calons[$value] = [
                     "jumlah_suara" => $request->jumlah_suara[$key],
                 ];
             }
-    
+
             $tps->calon()->sync($calons);
 
 

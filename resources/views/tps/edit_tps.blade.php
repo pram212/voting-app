@@ -8,9 +8,9 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             @php
-                $url = @$tps ? 'tps/' . $tps->id : 'tps'; 
+                $url = @$tps ? 'tps/' . $tps->id : 'tps';
             @endphp
-            <form action="{{ url($url) }}" method="POST">
+            <form action="{{ url($url) }}" method="POST" id="form-tps">
                 @csrf
                 @if (@$tps)
                     @method('PUT')
@@ -22,7 +22,7 @@
                             <label for="province_id">Provinsi</label>
                             <select class="form-control " required name="province_id" id="select-provinsi">
                                 @if (@$tps)
-                                <option value="{{@$tps->provinsi->id}}" selected>{{@$tps->provinsi->name}}</option>
+                                    <option value="{{ @$tps->provinsi->id }}" selected>{{ @$tps->provinsi->name }}</option>
                                 @endif
                             </select>
                             @error('province_id')
@@ -36,7 +36,7 @@
                             <label for="regency_id">Kota</label>
                             <select class="form-control " required name="regency_id" id="select-kota">
                                 @if (@$tps)
-                                <option value="{{@$tps->kota->id}}" selected>{{@$tps->kota->name}}</option>
+                                    <option value="{{ @$tps->kota->id }}" selected>{{ @$tps->kota->name }}</option>
                                 @endif
                             </select>
                             @error('regency_id')
@@ -50,7 +50,8 @@
                             <label for="district_id">Kecamatan</label>
                             <select class="form-control " required name="district_id" id="select-kecamatan">
                                 @if (@$tps)
-                                <option value="{{@$tps->kecamatan->id}}" selected>{{@$tps->kecamatan->name}}</option>
+                                    <option value="{{ @$tps->kecamatan->id }}" selected>{{ @$tps->kecamatan->name }}
+                                    </option>
                                 @endif
                             </select>
                             @error('district_id')
@@ -64,7 +65,7 @@
                             <label for="village_id">Desa</label>
                             <select class="form-control " required name="village_id" id="select-desa">
                                 @if (@$tps)
-                                <option value="{{@$tps->desa->id}}" selected>{{@$tps->desa->name}}</option>
+                                    <option value="{{ @$tps->desa->id }}" selected>{{ @$tps->desa->name }}</option>
                                 @endif
                             </select>
                             @error('village_id')
@@ -76,7 +77,8 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="nomor">Nomor/Keterangan</label>
-                            <input type="text" class="form-control" name="nomor" value="{{old('nomor', @$tps->nomor)}}"/>
+                            <input type="text" class="form-control" name="nomor"
+                                value="{{ old('nomor', @$tps->nomor) }}" id="nomor"/>
                             @error('nomor')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
@@ -103,6 +105,7 @@
 
 @section('script')
     <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
     <script>
         $(document).ready(function() {
             $(document).on('select2:open', () => {
@@ -174,6 +177,30 @@
                     }
                 });
             });
+
+            const notifySuccess = (title = "") => {
+                Swal.fire({
+                    position: 'top-end',
+                    toast: true,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    icon: 'success',
+                    title: title,
+                })
+            }
+
+            const notifyError = (title = "") => {
+                Swal.fire({
+                    position: 'top-end',
+                    toast: true,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    icon: 'error',
+                    title: title,
+                })
+            }
 
         });
     </script>

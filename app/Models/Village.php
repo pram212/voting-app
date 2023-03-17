@@ -27,6 +27,10 @@ class Village extends Model
      */
     protected $table = 'villages';
 
+    public $timestamps = false;
+
+    protected $fillable = ['id','name', 'district_id'];
+
     /**
      * The attributes that should be hidden for arrays.
      *

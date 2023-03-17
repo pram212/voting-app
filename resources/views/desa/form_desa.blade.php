@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('header-content', 'Register kecamatan')
+@section('header-content', 'Register Desa')
 @section('title', 'kecamatan')
 
 @section('content')
@@ -8,12 +8,12 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             @php
-                $url = @$kecamatan ? 'kecamatan/' . $kecamatan->id : 'kecamatan'; 
+                $url = @$desa ? 'desa/' . $desa->id : 'desa'; 
             @endphp
             <form action="{{ url($url) }}" method="POST">
                 @csrf
 
-                @if (@$kecamatan)
+                @if (@$desa)
                     @method('PUT')
                 @endif
                 <div class="row">
@@ -22,8 +22,8 @@
                         <div class="form-group">
                             <label for="province_id">Provinsi</label>
                             <select class="form-control" name="province_id" id="select-provinsi">
-                                @if (@$kecamatan)
-                                <option value="{{@$kecamatan->regency->province->id}}" selected>{{@$kecamatan->regency->province->name}}</option>
+                                @if (@$desa)
+                                <option value="{{@$desa->district->regency->province->id}}" selected>{{@$desa->district->regency->province->name}}</option>
                                 @endif
                             </select>
                             @error('province_id')
@@ -35,8 +35,8 @@
                         <div class="form-group">
                             <label for="regency_id">Kota</label>
                             <select class="form-control" required name="regency_id" id="select-kota">
-                                @if (@$kecamatan)
-                                <option value="{{@$kecamatan->regency->id}}" selected>{{@$kecamatan->regency->name}}</option>
+                                @if (@$desa)
+                                <option value="{{@$desa->district->regency->id}}" selected>{{@$desa->district->regency->name}}</option>
                                 @endif
                             </select>
                             @error('regency_id')
@@ -48,8 +48,8 @@
                         <div class="form-group">
                             <label for="district_id">Kecamatan</label>
                             <select class="form-control" required name="district_id" id="select-kecamatan">
-                                @if (@$kecamatan)
-                                <option value="{{@$kecamatan->regency->id}}" selected>{{@$kecamatan->regency->name}}</option>
+                                @if (@$desa)
+                                <option value="{{@$desa->district->id}}" selected>{{@$desa->district->name}}</option>
                                 @endif
                             </select>
                             @error('district_id')
@@ -62,7 +62,7 @@
                         <div class="form-group">
                             <label for="nama">Nama Desa :</label>
                             <input type="text" name="name" class="form-control form-control-sm @error('name') is-invalid @enderror"
-                            id="name" placeholder="" value="{{old('name', @$kecamatan->name)}}">
+                            id="name" placeholder="" value="{{old('name', @$desa->name)}}">
                             @error('name')
                             <small class="form-text text-danger">{{ $message }}</small>
                             @enderror
@@ -75,10 +75,9 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="{{ url('kecamatan') }}" class="btn btn-secondary">Batal</a>
+                    <a href="{{ url('desa') }}" class="btn btn-secondary">Kembali</a>
                 </div>
             </form>
-
         </div>
     </div>
 @endsection

@@ -85,21 +85,15 @@
             </h6>
         </div>
         <div class="card-body">
-            <form action="">
-                <div class="d-flex justify-content-between my-1">
-                    <input name="nomor" type="text" class="form-control mx-1" placeholder="Cari..."
-                        value="{{ @request('nomor') }}">
-                    <button type="submit" class="btn btn-primary btn-sm">Cari</button>
-                </div>
-            </form>
-
+            
+            @if (auth()->user()->role == 2)
             <div class="table-responsive">
-                <table class="table table-hover table-striped table-sm table-bordered" cellspacing="0" id="dataTable">
+                <table class="display responsive nowrap" width="100%" id="table-saksi">
                     <thead class="bg-dark text-white text-center">
                         <tr>
                             <th class="align-middle">TPS</th>
                             @foreach ($headerCalon as $item)
-                                <th class="align-middle" colspan="2">NO. URUT {{ $item }}</th>
+                                <th class="align-middle">NO. URUT {{ $item }}</th>
                             @endforeach
                             <th class="align-middle">CATATAN</th>
                             <th class="align-middle">USER</th>
@@ -111,7 +105,6 @@
                             <tr>
                                 <td>{{ $item->nomor }}</td>
                                 @foreach ($item->calon as $calon)
-                                    <td>{{ $calon->keterangan }}</td>
                                     <td class="font-weight-bold">{{ $calon->pivot->jumlah_suara }}</td>
                                 @endforeach
                                 <td>{{ $item->catatan }}</td>
@@ -132,14 +125,54 @@
                 </table>
             </div>
             {{ $rekapitulasi->onEachSide(5)->links() }}
+            @else
+            <div class="table-responsive">
+                <table class="display responsive nowrap" width="100%" id="table-saksi">
+                    <thead class="bg-dark text-white text-center">
+                        <tr>
+                            <th class="text-center">Provinsi</th>
+                            <th class="text-center">Kota</th>
+                            <th class="text-center">Kecamatan</th>
+                            <th class="text-center">Desa</th>
+                            <th class="text-center">TPS</th>
+                            <th class="text-center">Total Suara</th>
+                            <th class="align-middle">OPSI</th>
+                        </tr>
+                    </thead>
+                    <tbody class="text-center">
+                        @foreach ($rekapitulasi as $item)
+                            <tr>
+                                <td>{{ $item->provinsi->name }}</td>
+                                <td>{{ $item->kota->name }}</td>
+                                <td>{{ $item->kecamatan->name }}</td>
+                                <td>{{ $item->desa->name }}</td>
+                                <td>{{ $item->nomor }}</td>
+                                <td>{{ $item->calon->sum('pivot.jumlah_suara') }}</td>
+                                <th>
+                                    <a href="{{ url('rekapitulasi/' . $item->id . '/edit') }}"
+                                        class="btn btn-sm btn-success">
+                                        @can('update', $item)
+                                            Lihat
+                                        @else
+                                            Entry
+                                        @endcan
+                                    </a>
+                                </th>
+                            </tr>
+                        @endforeach
+                    </tbody>
+                </table>
+            </div>
+            {{ $rekapitulasi->onEachSide(5)->links() }}
+            @endif
         </div>
     </div>
 
 @endsection
 
 @section('css')
-    <link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
-    <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
+<link href="{{ asset('css/jquery.dataTables.min.css') }}" rel="stylesheet">
+<link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
 @endsection
 
 @section('script')
@@ -148,4 +181,8 @@
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.js') }}"></script>
     <script src="{{ asset('js/filter_location.js') }}"></script>
+
+    <script>
+        $('#table-saksi').DataTable( {    responsive: true})
+    </script>
 @endsection

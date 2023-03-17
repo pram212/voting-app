@@ -13,20 +13,28 @@
             <div class="text-xs">DESA {{@$tps->desa->name}}</div>
         </div>
         <div class="card-body">
-            <form action="{{ url('rekapitulasi/' . @$tps->id) }}" method="POST">
+            @error('max_jumlah_suara')
+            <div class="alert alert-warning alert-dismissible fade show" role="alert">
+                <strong>Gagal! </strong> {{$message}} periksa kembali data inputan Anda
+                <button type="button" class="close" data-dismiss="alert" aria-label="Close">
+                    <span aria-hidden="true">&times;</span>
+                </button>
+            </div>
+            @enderror
+            <form action="{{ url('rekapitulasi/' . @$tps->id) }}" method="POST" class=" needs-validation">
                 @csrf
                 @method('put')
 
                 <div class="row">
-                    @foreach (@$tps->calon as $item)
+                    @foreach (@$tps->calon as $key => $item)
                     <input type="hidden" name="calon_id[]" value="{{$item->id}}">
                     <div class="col-md-6 border-bottom mb-2">
                         <span class="text-primary font-weight-bold">
                             No. {{$item->no_urut}} - {{$item->keterangan }}
                         </span>
                         <div class="form-group">
-                            <label for="jumlah_suara">Jumlah Suara :</label>
-                            <input type="number" class="form-control form-control-sm" name="jumlah_suara[]" value="{{ @$item->pivot->jumlah_suara}}"/>
+                            <label for="jumlah_suara">Jumlah Suara : {{$item->pivot->id}}</label>
+                            <input type="number" pattern="/^-?\d+\.?\d*$/" onKeyPress="if(this.value.length==4) return false;" class="form-control form-control-sm" name="jumlah_suara[]" value="{{ old('jumlah_suara')[$key] ??@$item->pivot->jumlah_suara}}"/>
                         </div>
                     </div>
                     @endforeach
@@ -36,6 +44,14 @@
                             <textarea class="form-control" name="catatan" id="catatan" cols="30" rows="3">{{@$tps->catatan}}</textarea>
                         </div>
                     </div>
+                    @if (auth()->user()->role == 1)
+                    <div class="col-md-12">
+                        <div class="form-group">
+                            <label for="catatan">User Entry :</label>
+                            <input type="text" class="form-control" disabled value="{{ @$tps->userEntry->name }}">
+                        </div>
+                    </div>
+                    @endif
                 </div>
                 
                 <hr class="divider">

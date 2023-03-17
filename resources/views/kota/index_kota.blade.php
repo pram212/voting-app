@@ -18,9 +18,8 @@
                 <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-dark text-white">
                         <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
                             <th>Provinsi</th>
+                            <th>Nama Kota</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>
@@ -84,13 +83,10 @@
                 ajax: '/kota',
                 columns: [
                     {
-                        data: 'id'
+                        data: 'provinsi'
                     },
                     {
                         data: 'name'
-                    },
-                    {
-                        data: 'province.name'
                     },
                     {
                         data: 'action'

@@ -48,7 +48,15 @@
     <li class="nav-item @if(request()->is('user*')) active @endif">
         <a class="nav-link" href="{{url('user')}}">
             <i class="fas fa-user fa-fw"></i>
-            <span>Data Pengguna</span></a>
+            <span>Data Admin</span></a>
+    </li>
+    @endcan
+
+    @can('viewAny', App\Models\User::class)
+    <li class="nav-item @if(request()->is('saksi*')) active @endif">
+        <a class="nav-link" href="{{url('saksi')}}">
+            <i class="fas fa-user fa-fw"></i>
+            <span>Data Saksi</span></a>
     </li>
     @endcan
 

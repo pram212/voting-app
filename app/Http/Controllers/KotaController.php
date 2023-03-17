@@ -32,6 +32,9 @@ class KotaController extends Controller
                     $buttonDelete = '<button type="button" class="btn btn-danger btn-delete btn-sm">Hapus</button>';
                     return '<div class="btn-group">' . $detil . $buttonDelete . '</div>';
                 })
+                ->addColumn('provinsi', function($model) {
+                    return $model->province->name;
+                })
                 ->rawColumns(['action'])
                 ->toJson();
         }

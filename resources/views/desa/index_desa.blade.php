@@ -18,11 +18,10 @@
                 <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-dark text-white">
                         <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>Kecamatan</th>
-                            <th>Kota</th>
                             <th>Provinsi</th>
+                            <th>Kota</th>
+                            <th>Kecamatan</th>
+                            <th>Nama Desa</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>
@@ -86,19 +85,16 @@
                 ajax: '/desa',
                 columns: [
                     {
-                        data: 'id'
+                        data: 'provinsi'
+                    },
+                    {
+                        data: 'kota'
+                    },
+                    {
+                        data: 'kecamatan'
                     },
                     {
                         data: 'name'
-                    },
-                    {
-                        data: 'district.name'
-                    },
-                    {
-                        data: 'district.regency.name'
-                    },
-                    {
-                        data: 'district.regency.province.name'
                     },
                     {
                         data: 'action'

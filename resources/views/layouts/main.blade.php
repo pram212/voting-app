@@ -1,5 +1,5 @@
 <!DOCTYPE html>
-<html lang="en">
+<html lang="id">
 
 <head>
 
@@ -54,15 +54,10 @@
                         <h6 class="h5 mb-0 text-gray-800">@yield('header-content')</h6>
                         @yield('header-tool')
                     </div>
-                    {{-- @if (!auth()->user()->update_password)
-                    <div class="alert alert-danger" role="alert">
-                        Silahkan segera update password Anda! <a href="{{ route('user.resetpassword') }}" class="alert-link">update sekarang</a>.
-                    </div>
-                    @endif --}}
 
                     @if (session()->get('success'))
                         <div class="alert alert-warning alert-dismissible fade show" role="alert">
-                            <strong>Sukses!</strong> {{session()->get('success')}}
+                            <strong> {{session()->get('success')}}</strong>
                             <button type="button" class="close" data-dismiss="alert" aria-label="Close">
                                 <span aria-hidden="true">&times;</span>
                             </button>

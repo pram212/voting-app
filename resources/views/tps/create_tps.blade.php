@@ -1,51 +1,29 @@
 @extends('layouts.main')
 
-@section('header-content', 'Profil Pengguna')
-@section('title', 'Pengguna')
+@section('header-content', 'Register TPS')
+@section('title', 'TPS')
 
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ url('/user/' . @$user->id) }}" method="POST">
+            @php
+                $url = @$tps ? 'tps/' . $tps->id : 'tps';
+            @endphp
+            <form action="{{ url($url) }}" method="POST" id="form-tps">
                 @csrf
-                @method('put')
-                {{-- DARI REGISTER --}}
+                @if (@$tps)
+                    @method('PUT')
+                @endif
                 <div class="row">
-                    <p class="col-md-12 text-center">
-                        BIODATA
-                    </p>
-            
-                    <div class="form-group col-md-6">
-                        <label for="name">Nama Lengkap :</label>
-                        <input type="text" name="name" class="form-control @error('name') is-invalid @enderror"
-                            id="name" aria-describedby="validateName" placeholder="" value="{{ old('name', @$user->name) }}">
-                        @error('name')
-                            <small id="validateName" class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-                    <div class="form-group col-md-6">
-                        <label for="phone">No. Whatsapp :</label>
-                        <input type="number" name="phone" min="10"
-                            class="form-control @error('phone') is-invalid @enderror" id="phone"
-                            aria-describedby="validateName" placeholder="" value="{{ old('phone', @$user->phone) }}">
-                        @error('phone')
-                            <small id="validateName" class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
 
-                </div>
-                @if (auth()->user()->role == 2)
-                <hr class="divider">
-                <div class="row">
-                    <p class="col-md-12 text-center">
-                        LOKASI
-                    </p>
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="province_id">Provinsi</label>
-                            <select class="form-control " name="province_id" id="select-provinsi">
-                                <option value="{{$user->provinsi?->id}}">{{$user->provinsi?->name}}</option>
+                            <select class="form-control " required name="province_id" id="select-provinsi">
+                                @if (@$tps)
+                                    <option value="{{ @$tps->provinsi->id }}" selected>{{ @$tps->provinsi->name }}</option>
+                                @endif
                             </select>
                             @error('province_id')
                                 <small class="text-danger">{{ $message }}</small>
@@ -56,8 +34,10 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="regency_id">Kota</label>
-                            <select class="form-control " name="regency_id" id="select-kota">
-                                <option value="{{$user->kota?->id}}">{{$user->kota?->name}}</option>
+                            <select class="form-control " required name="regency_id" id="select-kota">
+                                @if (@$tps)
+                                    <option value="{{ @$tps->kota->id }}" selected>{{ @$tps->kota->name }}</option>
+                                @endif
                             </select>
                             @error('regency_id')
                                 <small class="text-danger">{{ $message }}</small>
@@ -68,8 +48,11 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="district_id">Kecamatan</label>
-                            <select class="form-control " name="district_id" id="select-kecamatan">
-                                <option value="{{$user->kecamatan?->id}}">{{$user->kecamatan?->name}}</option>
+                            <select class="form-control " required name="district_id" id="select-kecamatan">
+                                @if (@$tps)
+                                    <option value="{{ @$tps->kecamatan->id }}" selected>{{ @$tps->kecamatan->name }}
+                                    </option>
+                                @endif
                             </select>
                             @error('district_id')
                                 <small class="text-danger">{{ $message }}</small>
@@ -80,36 +63,54 @@
                     <div class="col-md-6">
                         <div class="form-group">
                             <label for="village_id">Desa</label>
-                            <select class="form-control " name="village_id" id="select-desa">
-                                <option value="{{$user->desa?->id}}">{{$user->desa?->name}}</option>
+                            <select class="form-control " required name="village_id" id="select-desa">
+                                @if (@$tps)
+                                    <option value="{{ @$tps->desa->id }}" selected>{{ @$tps->desa->name }}</option>
+                                @endif
                             </select>
                             @error('village_id')
                                 <small class="text-danger">{{ $message }}</small>
                             @enderror
                         </div>
                     </div>
+
+                    <div class="col-md-6">
+                        <div class="form-group">
+                            <label for="nomor">Nomor/Keterangan</label>
+                            <input type="text" class="form-control" name="nomor"
+                                value="{{ old('nomor', @$tps->nomor) }}" id="nomor"/>
+                            @error('nomor')
+                                <small class="text-danger">{{ $message }}</small>
+                            @enderror
+                        </div>
+                    </div>
+
                 </div>
-                @endif
 
                 <hr class="divider">
 
                 <div class="text-center">
-                    {{-- <button type="submit" class="btn btn-primary">Update Profile</button> --}}
-                    <a class="btn btn-secondary" href="{{ url()->previous() }}">Kembali</a>
+                    <button type="submit" class="btn btn-primary">Simpan</button>
+                    <a href="{{ url('tps') }}" class="btn btn-secondary">Kembali</a>
                 </div>
-                {{-- DARI REGISTER END --}}
+
             </form>
         </div>
     </div>
 @endsection
+
 @section('css')
     <link rel="stylesheet" href="{{ asset('css/select2.min.css') }}">
 @endsection
 
 @section('script')
     <script src="{{ asset('js/select2.min.js') }}"></script>
+    <script src="{{ asset('js/sweetalert2.js') }}"></script>
     <script>
         $(document).ready(function() {
+            $(document).on('select2:open', () => {
+                document.querySelector('.select2-search__field').focus();
+            });
 
             // setup select option ajax
             $('#select-calon').select2({
@@ -175,6 +176,55 @@
                         dataType: 'json'
                     }
                 });
+            });
+
+            const notifySuccess = (title = "") => {
+                Swal.fire({
+                    position: 'top-end',
+                    toast: true,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    icon: 'success',
+                    title: title,
+                })
+            }
+
+            const notifyError = (title = "") => {
+                Swal.fire({
+                    position: 'top-end',
+                    toast: true,
+                    timer: 2000,
+                    timerProgressBar: true,
+                    showConfirmButton: false,
+                    icon: 'error',
+                    title: title,
+                })
+            }
+
+            $("#form-tps").submit(function(e) {
+                e.preventDefault();
+                formElemetns = e.target.elements;
+                $.ajaxSetup({
+                    headers: {
+                        'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
+                    }
+                });
+                $.ajax({
+                    url: "/tps",
+                    type: 'POST',
+                    data: {
+                        province_id: $('#select-provinsi').val(),
+                        regency_id: $('#select-kota').val(),
+                        district_id: $('#select-kecamatan').val(),
+                        village_id: $('#select-desa').val(),
+                        nomor: $('#nomor').val(),
+                    },
+                    dataType: "json",
+                    success: function(response) {
+                        notifySuccess(response)
+                    }
+                })
             });
 
         });

@@ -18,7 +18,6 @@
                 <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-dark text-white">
                         <tr>
-                            <th>ID</th>
                             <th>Nama</th>
                             <th>Opsi</th>
                         </tr>
@@ -82,9 +81,6 @@
                 serverSide: true,
                 ajax: '/provinsi',
                 columns: [
-                    {
-                        data: 'id'
-                    },
                     {
                         data: 'name'
                     },

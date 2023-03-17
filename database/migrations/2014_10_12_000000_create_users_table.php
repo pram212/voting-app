@@ -17,7 +17,6 @@ class CreateUsersTable extends Migration
             $table->id();
             $table->string('name');
             $table->string('phone', 20)->unique();
-            $table->string('email')->unique();
             $table->char('role', 1);
             $table->unsignedBigInteger('province_id')->nullable();
             $table->unsignedBigInteger('regency_id')->nullable();
@@ -25,7 +24,6 @@ class CreateUsersTable extends Migration
             $table->unsignedBigInteger('village_id')->nullable();
             $table->timestamp('email_verified_at')->nullable();
             $table->string('password');
-            $table->boolean('update_password')->default(0);
             $table->rememberToken();
             $table->timestamps();
             $table->softDeletes();

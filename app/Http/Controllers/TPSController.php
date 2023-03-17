@@ -31,8 +31,8 @@ class TPSController extends Controller
                         ->when(request('regency_id') != null, function($query) {
                             return $query->where('regency_id', request('regency_id'));
                         })
-                        ->when(request('district') != null, function($query) {
-                            return $query->where('district', request('district'));
+                        ->when(request('district_id') != null, function($query) {
+                            return $query->where('district_id', request('district_id'));
                         })
                         ->when(request('village_id') != null, function($query) {
                             return $query->where('village_id', request('village_id'));
@@ -65,7 +65,7 @@ class TPSController extends Controller
     {
         $this->authorize('create', TPS::class);
 
-        return view('tps.form_tps');
+        return view('tps.create_tps');
     }
 
     /**
@@ -76,6 +76,7 @@ class TPSController extends Controller
      */
     public function store(StoreTPSRequest $request)
     {
+
         $this->authorize('create', TPS::class);
 
         DB::beginTransaction();
@@ -87,6 +88,8 @@ class TPSController extends Controller
         $tps->calon()->sync($calon);
 
         DB::commit();
+
+        return response()->json('data berhasil disimpan', 200);
 
         $message = [
             'success' => 'TPS berhasil disimpan'
@@ -119,7 +122,7 @@ class TPSController extends Controller
 
         $this->authorize('update', $tps);
 
-        return view('tps.form_tps', compact('tps'));
+        return view('tps.edit_tps', compact('tps'));
     }
 
     /**
@@ -146,7 +149,7 @@ class TPSController extends Controller
                 'success' => 'TPS berhasil diubah'
             ];
 
-            return back()->with($message);
+            return redirect('/tps')->with($message);
 
         } catch(Exception $ex) {
 

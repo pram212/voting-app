@@ -23,13 +23,22 @@ class DesaController extends Controller
 
         if (request()->ajax()) {
             
-            $model = Village::query()->with('district.regency.province');
+            $model = Village::query();
 
             return DataTables::of($model)
                 ->addColumn('action', function ($model) {
                     $detil = '<a href="' . url('desa/' . $model->id) . '/edit" class="btn btn-warning btn-sm" >Edit</a>';
                     $buttonDelete = '<button type="button" class="btn btn-danger btn-delete btn-sm">Hapus</button>';
                     return '<div class="btn-group">' . $detil . $buttonDelete . '</div>';
+                })
+                ->addColumn('provinsi', function($model) {
+                    return $model->district->regency->province->name;
+                })
+                ->addColumn('kota', function($model) {
+                    return $model->district->regency->name;
+                })
+                ->addColumn('kecamatan', function($model) {
+                    return $model->district->name;
                 })
                 ->rawColumns(['action'])
                 ->toJson();
@@ -70,7 +79,7 @@ class DesaController extends Controller
         ]);
     
         $message = [
-            'success' => $desa->name .= 'berhasil disimpan'
+            'success' => $desa->name . ' berhasil disimpan'
         ];
 
         return back()->with($message);
@@ -129,7 +138,7 @@ class DesaController extends Controller
             DB::commit();
 
             $message = [
-                'success' => $desa->nama .= 'berhasil diupdate'
+                'success' => 'Data berhasil diupdate'
             ];
 
             return back()->with($message);
@@ -137,6 +146,8 @@ class DesaController extends Controller
         } catch (Exception $ex) {
 
             DB::rollBack();
+
+            throw $ex;
 
             return back()->with('failed', $ex->getMessage());
         }

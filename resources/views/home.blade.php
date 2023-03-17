@@ -28,42 +28,57 @@
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="regency_id">Kota</label>
-                                        <select class="form-control select2" name="regency_id" id="select-kota">
-                                            @if (request('regency_name'))
-                                                <option value="{{ request('regency_id') }}" selected>
-                                                    {{ request('regency_name') }}</option>
-                                            @endif
-                                        </select>
+                                        <div class="d-flex">
+                                            <select class="form-control select2" name="regency_id" id="select-kota">
+                                                @if (request('regency_name'))
+                                                    <option value="{{ request('regency_id') }}" selected>
+                                                        {{ request('regency_name') }}</option>
+                                                @endif
+                                            </select>
+                                            <strong role="button" title="kosongkan kota" class="ml-2 text-danger " id="clear-kota">
+                                                X
+                                            </strong>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="district_id">Kecamatan</label>
-                                        <select class="form-control select2" name="district_id" id="select-kecamatan">
-                                            @if (request('district_name'))
-                                                <option value="{{ request('district_id') }}" selected>
-                                                    {{ request('district_name') }}</option>
-                                            @endif
-                                        </select>
+                                        <div class="d-flex">
+                                            <select class="form-control select2" name="district_id" id="select-kecamatan">
+                                                @if (request('district_name'))
+                                                    <option value="{{ request('district_id') }}" selected>
+                                                        {{ request('district_name') }}</option>
+                                                @endif
+                                            </select>
+                                            <strong role="button" title="kosongkan kecamatan" class="ml-2 text-danger " id="clear-kecamatan">
+                                                X
+                                            </strong>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-3">
                                     <div class="form-group">
                                         <label for="village_id">Desa</label>
-                                        <select class="form-control select2" name="village_id" id="select-desa">
-                                            @if (request('village_name'))
-                                                <option value="{{ request('village_id') }}" selected>
-                                                    {{ request('village_name') }}</option>
-                                            @endif
-                                        </select>
+                                        <div class="d-flex">
+                                            <select class="form-control select2" name="village_id" id="select-desa">
+                                                @if (request('village_name'))
+                                                    <option value="{{ request('village_id') }}" selected>
+                                                        {{ request('village_name') }}</option>
+                                                @endif
+                                            </select>
+                                            <strong role="button" title="kosongkan desa" class="ml-2 text-danger " id="clear-desa">
+                                                X
+                                            </strong>
+                                        </div>
                                     </div>
                                 </div>
 
                                 <div class="col-md-12">
-                                    <button class="btn btn-primary">Filter</button>
-                                    <a href="{{ url('home') }}" class="btn btn-danger">Reset</a>
+                                    <button class="btn btn-primary">Tampilkan</button>
+                                    <a href="{{ url('home') }}" class="btn btn-danger" id="btn-reset">Reset</a>
                                 </div>
                             </div>
                         </form>
@@ -130,20 +145,39 @@
         <div class="col-xl-8 col-lg-7">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Grafik Progress Bar</h6>
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-primary">
+                    <h6 class="m-0 font-weight-bold text-white">Grafik 1</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
-                    @foreach (@$progressBarData as $item)
-                        <h4 class="small font-weight-bold">{{ @$item['calon'] }} <span
-                                class="float-right">{{ @$item['persentase'] }}%</span></h4>
-                        <div class="progress mb-4">
-                            <div class="progress-bar"
-                                style="width: {{ $item['persentase'] }}%; background-color: {{ $item['color'] }}"
-                                aria-valuenow="{{ $item['persentase'] }}" aria-valuemin="0" aria-valuemax="100"></div>
-                        </div>
-                    @endforeach
+                    <table class="table border table-sm table-hover">
+                        <thead class="bg-light">
+                            <th>Calon</th>
+                            <th>Presentase</th>
+                            <th class="text-center">Jumlah Suara</th>
+                        </thead>
+                        <tbody>
+                            @foreach (@$progressBarData as $item)
+                            <tr>
+                                <td>{{ @$item['calon'] }}</td>
+                                <td>
+                                    <h4 class="small font-weight-bold">
+                                        <span class="text-right">{{ @$item['persentase'] }}%</span>
+                                    </h4>
+                                    <div class="progress mb-4">
+                                        <div class="progress-bar"
+                                            style="width: {{ $item['persentase'] }}%; background-color: {{ $item['color'] }}"
+                                            aria-valuenow="{{ $item['persentase'] }}" aria-valuemin="0" aria-valuemax="100">
+                                        </div>
+                                    </div>
+                                </td>
+                                <td class="text-center">
+                                    {{ @$item['jumlah_suara'] }}
+                                </td>
+                            </tr>
+                            @endforeach
+                        </tbody>
+                    </table>
                 </div>
             </div>
         </div>
@@ -152,8 +186,8 @@
         <div class="col-xl-4 col-lg-5">
             <div class="card shadow mb-4">
                 <!-- Card Header - Dropdown -->
-                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between">
-                    <h6 class="m-0 font-weight-bold text-primary">Grafik Lingkaran</h6>
+                <div class="card-header py-3 d-flex flex-row align-items-center justify-content-between bg-primary">
+                    <h6 class="m-0 font-weight-bold text-white">Grafik 2</h6>
                 </div>
                 <!-- Card Body -->
                 <div class="card-body">
@@ -212,7 +246,7 @@
                     borderWidth: 1,
                     xPadding: 15,
                     yPadding: 15,
-                    displayColors: false,
+                    displayColors: true,
                     caretPadding: 10,
                 },
                 legend: {
@@ -220,6 +254,22 @@
                 },
                 cutoutPercentage: 80,
             },
+        });
+
+        $('#clear-kota').click(function (e) { 
+            e.preventDefault();
+            $("#select-kota").val('').trigger('change')
+            $("#select-kecamatan").val('').trigger('change')
+            $("#select-desa").val('').trigger('change')
+        });
+        $('#clear-kecamatan').click(function (e) { 
+            e.preventDefault();
+            $("#select-kecamatan").val('').trigger('change')
+            $("#select-desa").val('').trigger('change')
+        });
+        $('#clear-desa').click(function (e) { 
+            e.preventDefault();
+            $("#select-desa").val('').trigger('change')
         });
 
     </script>

@@ -18,10 +18,9 @@
                 <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-dark text-white">
                         <tr>
-                            <th>ID</th>
-                            <th>Nama</th>
-                            <th>Kota</th>
                             <th>Provinsi</th>
+                            <th>Kota</th>
+                            <th>Nama Kecamatan</th>
                             <th>Opsi</th>
                         </tr>
                     </thead>
@@ -85,16 +84,13 @@
                 ajax: '/kecamatan',
                 columns: [
                     {
-                        data: 'id'
+                        data: 'provinsi'
+                    },
+                    {
+                        data: 'kota'
                     },
                     {
                         data: 'name'
-                    },
-                    {
-                        data: 'regency.name'
-                    },
-                    {
-                        data: 'regency.province.name'
                     },
                     {
                         data: 'action'

@@ -20,6 +20,7 @@ use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\ProvinsiController;
 use App\Http\Controllers\RekapitulasiController;
+use App\Http\Controllers\SaksiController;
 use App\Http\Controllers\TPSController;
 use App\Http\Controllers\UserController;
 use Illuminate\Support\Facades\Route;
@@ -55,13 +56,15 @@ Route::middleware('auth')->group(function(){
 
     Route::get('/datatable/user', [UserController::class, 'userDatatables']);
 
-    Route::get('resetpassword', [UserController::class, 'formUpdatePassword'])->name('user.resetpassword');
+    Route::get('resetpassword/{id}', [UserController::class, 'formUpdatePassword'])->name('user.resetpassword');
 
-    Route::post('resetpassword', [UserController::class, 'updatePassword'])->name('user.updatepassword');
+    Route::post('resetpassword/{id}', [UserController::class, 'updatePassword'])->name('user.updatepassword');
 
     Route::resource('calon', CalonController::class);
 
     Route::resource('tps', TPSController::class);
+    
+    Route::resource('saksi', SaksiController::class);
 
     Route::get('/datatable/calon', [CalonController::class, 'calonDatatables']);
 

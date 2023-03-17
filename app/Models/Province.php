@@ -39,8 +39,8 @@ class Province extends Model
         return $this->hasMany(Regency::class);
     }
 
-    public function rekapitulasi()
+    public function tps()
     {
-        $this->hasMany(Rekapitulasi::class);
+        return $this->hasMany(TPS::class, 'province_id', 'id');
     }
 }

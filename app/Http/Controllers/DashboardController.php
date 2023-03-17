@@ -61,10 +61,13 @@ class DashboardController extends Controller
         $pieChartColor = [];
 
         $calons = Calon::with('tps')->get();
+
         foreach ($calons as $calon) {
             
             // ambil total suara dari rekapitulasis.jumlah_suara berdasarkan calon_id=calons.id yang sedang dilooping;
-            $jumlahSuara = $calon->tps()->whereIn('rekapitulasis.tps_id', $tps->pluck('id'))->sum('rekapitulasis.jumlah_suara');
+            // $jumlahSuara = $calon->tps()->whereIn('rekapitulasis.tps_id', $tps->pluck('id') )->sum('rekapitulasis.jumlah_suara');
+
+            $jumlahSuara = Rekapitulasi::where('calon_id', $calon->id)->whereIn('tps_id', $tps->pluck('id'))->sum('jumlah_suara');
 
             // cek jika jumlah suara = 0 (untuk menghindari error 'division by zero')
             if ($jumlahSuara) {
@@ -76,7 +79,8 @@ class DashboardController extends Controller
             // isi $progressBarData untuk ditampilkan di dashboard berupa progress bar
             array_push($progressBarData, [
                 'calon' => $calon->keterangan,
-                'persentase' => $presentaseSuara,
+                'persentase' => $jumlahSuara ? round($jumlahSuara / $totalSuara * 100, 2) : 0,
+                'jumlah_suara' => $jumlahSuara,
                 'color' => randomColor() // App/Http/Helpers/helpers.php
             ]);
 
@@ -90,6 +94,8 @@ class DashboardController extends Controller
             // isi $pieChartColor untuk label setiap warna dalam pie chart
             array_push($pieChartColor, randomColor());
         }
+    
+        // return $progressBarData;
 
         return view('home', compact('pieChartLabels', 'pieChartData', 'totalTps', 'totalSuara', 'progressBarData', 'pieChartColor'));
     }
