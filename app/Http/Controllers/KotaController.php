@@ -35,6 +35,7 @@ class KotaController extends Controller
                 ->addColumn('provinsi', function($model) {
                     return $model->province->name;
                 })
+                ->addIndexColumn()
                 ->rawColumns(['action'])
                 ->toJson();
         }
@@ -77,7 +78,7 @@ class KotaController extends Controller
             'success' => $kota->name .= 'berhasil disimpan'
         ];
 
-        return back()->with($message);
+        return redirect('kota')->with($message);
        
     }
 
@@ -136,7 +137,7 @@ class KotaController extends Controller
                 'success' => $kota->nama .= 'berhasil diupdate'
             ];
 
-            return back()->with($message);
+            return redirect('kota')->with($message);
 
         } catch (Exception $ex) {
 

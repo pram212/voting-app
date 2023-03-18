@@ -40,6 +40,7 @@ class DesaController extends Controller
                 ->addColumn('kecamatan', function($model) {
                     return $model->district->name;
                 })
+                ->addIndexColumn()
                 ->rawColumns(['action'])
                 ->toJson();
         }
@@ -82,7 +83,7 @@ class DesaController extends Controller
             'success' => $desa->name . ' berhasil disimpan'
         ];
 
-        return back()->with($message);
+        return redirect('desa')->with($message);
        
     }
 
@@ -141,7 +142,7 @@ class DesaController extends Controller
                 'success' => 'Data berhasil diupdate'
             ];
 
-            return back()->with($message);
+            return redirect('desa')->with($message);
 
         } catch (Exception $ex) {
 

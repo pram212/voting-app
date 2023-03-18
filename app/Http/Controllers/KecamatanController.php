@@ -37,6 +37,7 @@ class KecamatanController extends Controller
                 ->addColumn('kota', function($model) {
                     return $model->regency->name;
                 })
+                ->addIndexColumn()
                 ->rawColumns(['action'])
                 ->toJson();
         }
@@ -79,7 +80,7 @@ class KecamatanController extends Controller
             'success' => $kecamatan->name .= 'berhasil disimpan'
         ];
 
-        return back()->with($message);
+        return redirect('kecamatan')->with($message);
        
     }
 
@@ -138,7 +139,7 @@ class KecamatanController extends Controller
                 'success' => $kecamatan->nama .= 'berhasil diupdate'
             ];
 
-            return back()->with($message);
+            return redirect('kecamatan')->with($message);
 
         } catch (Exception $ex) {
 

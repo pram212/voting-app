@@ -31,6 +31,7 @@ class ProvinsiController extends Controller
                     $buttonDelete = '<button type="button" class="btn btn-danger btn-delete">Hapus</button>';
                     return '<div class="btn-group">' . $detil . $buttonDelete . '</div>';
                 })
+                ->addIndexColumn()
                 ->rawColumns(['action'])
                 ->toJson();
         }
@@ -127,7 +128,7 @@ class ProvinsiController extends Controller
                 'success' => $provinsi->nama .= 'berhasil diupdate'
             ];
 
-            return back()->with($message);
+            return redirect('provinsi')->with($message);
 
         } catch (Exception $ex) {
 

@@ -18,6 +18,7 @@
                 <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-dark text-white">
                         <tr>
+                            <th>No</th>
                             <th>Provinsi</th>
                             <th>Kota</th>
                             <th>Kecamatan</th>
@@ -84,6 +85,7 @@
                 serverSide: true,
                 ajax: '/desa',
                 columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                     {
                         data: 'provinsi'
                     },

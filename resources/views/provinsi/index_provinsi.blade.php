@@ -18,6 +18,7 @@
                 <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
                     <thead class="bg-dark text-white">
                         <tr>
+                            <th>No</th>
                             <th>Nama</th>
                             <th>Opsi</th>
                         </tr>
@@ -81,6 +82,7 @@
                 serverSide: true,
                 ajax: '/provinsi',
                 columns: [
+                    {data: 'DT_RowIndex', name: 'DT_RowIndex', orderable: false, searchable: false},
                     {
                         data: 'name'
                     },

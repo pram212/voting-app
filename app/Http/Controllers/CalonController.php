@@ -23,7 +23,7 @@ class CalonController extends Controller
 
         if (request()->ajax()) {
             
-            $model = Calon::query();
+            $model = Calon::query()->orderBy('no_urut', 'asc');
 
             return DataTables::of($model)
                 ->addColumn('action', function ($model) {

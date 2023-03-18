@@ -81,6 +81,8 @@
                     <div class="text-xs">{{ auth()->user()->kota->name }}</div>
                     <div class="text-xs">KECAMATAN {{ auth()->user()->kecamatan->name }}</div>
                     <div class="text-xs">DESA {{ auth()->user()->desa->name }}</div>
+                @else 
+                    <div>List</div>
                 @endif
             </h6>
         </div>
@@ -130,6 +132,7 @@
                 <table class="display responsive nowrap" width="100%" id="table-saksi">
                     <thead class="bg-dark text-white text-center">
                         <tr>
+                            <th>No.</th>
                             <th class="text-center">Provinsi</th>
                             <th class="text-center">Kota</th>
                             <th class="text-center">Kecamatan</th>
@@ -142,6 +145,7 @@
                     <tbody class="text-center">
                         @foreach ($rekapitulasi as $item)
                             <tr>
+                                <td>{{ ($rekapitulasi->currentPage() - 1) * $rekapitulasi->perPage() + $loop->iteration }}</td>
                                 <td>{{ $item->provinsi->name }}</td>
                                 <td>{{ $item->kota->name }}</td>
                                 <td>{{ $item->kecamatan->name }}</td>
@@ -183,6 +187,9 @@
     <script src="{{ asset('js/filter_location.js') }}"></script>
 
     <script>
-        $('#table-saksi').DataTable( {    responsive: true})
+        $('#table-saksi').DataTable( { 
+            responsive: true,
+            paging: false
+        })
     </script>
 @endsection

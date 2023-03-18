@@ -41,8 +41,8 @@ class TPSController extends Controller
             return DataTables::of($model)
                 ->addIndexColumn()
                 ->addColumn('action', function ($model) {
-                    $buttonEdit = '<a href="' . url('tps/' . $model->id) . '/edit" class="btn btn-warning btn-sm" >Edit</a>';
-                    $buttonDelete = '<button type="button" class="btn btn-danger btn-delete btn-sm">Hapus</button>';
+                    $buttonEdit = '<a href="' . url('tps/' . $model->id) . '/edit" class="btn btn-info" >Edit</a>';
+                    $buttonDelete = '<button type="button" class="btn btn-danger btn-delete">Hapus</button>';
                     return '<div class="btn-group">' . $buttonEdit .  $buttonDelete . '</div>';
                 })
                 ->editColumn('created_at', function($model) {
