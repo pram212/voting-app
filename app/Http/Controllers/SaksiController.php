@@ -21,7 +21,7 @@ class SaksiController extends Controller
      */
     public function index()
     {
-        // $this->authorize('viewAny', User::class);
+        $this->authorize('viewAny', User::class);
 
         if (request()->ajax()) {
             $saksi = User::query()
@@ -164,6 +164,7 @@ class SaksiController extends Controller
     public function edit($id)
     {
         $user = User::find($id);
+        
         $this->authorize('view', $user);
 
         return view('saksi.edit_saksi', compact('user'));
