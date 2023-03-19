@@ -6,7 +6,9 @@ $('#select-provinsi').select2({
     ajax: {
         url: '/select2/getprovinsi',
         dataType: 'json'
-    }
+    },
+    allowClear: true, 
+    placeholder: 'Pilih',
 });
 
 var provinsi = $("#select-provinsi").val();
