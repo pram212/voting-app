@@ -5,6 +5,7 @@ namespace App\Http\Controllers;
 use App\Models\Calon;
 use App\Http\Requests\StoreCalonRequest;
 use App\Http\Requests\UpdateCalonRequest;
+use App\Models\Rekapitulasi;
 use App\Models\TPS;
 use Illuminate\Support\Facades\DB;
 use DataTables;
@@ -27,8 +28,8 @@ class CalonController extends Controller
 
             return DataTables::of($model)
                 ->addColumn('action', function ($model) {
-                    $detil = '<a href="' . url('calon/' . $model->id) . '/edit" class="btn btn-warning btn-sm" >Edit</a>';
-                    $buttonDelete = '<button type="button" class="btn btn-danger btn-delete btn-sm">Hapus</button>';
+                    $detil = '<a href="' . url('pengaturan/calon/' . $model->id) . '/edit" class="btn btn-info " >Edit</a>';
+                    $buttonDelete = '<button type="button" class="btn btn-danger btn-delete ">Hapus</button>';
                     return '<div class="btn-group">' . $detil . $buttonDelete . '</div>';
                 })
                 ->rawColumns(['action'])
@@ -65,9 +66,19 @@ class CalonController extends Controller
 
             $calon = Calon::create($request->all());
 
-            $tps = TPS::pluck('id');
+            $tps = TPS::all();
 
-            $calon->tps()->sync($tps);
+            foreach ($tps as $data) {
+                Rekapitulasi::create([
+                    'calon_id' => $calon->id,
+                    'tps_id' => $data->id,
+                    'province_id' => $data->province_id,
+                    'regency_id' => $data->regency_id,
+                    'district_id' => $data->district_id,
+                    'village_id' => $data->village_id,
+                ]);
+            }
+
 
             DB::commit();
 

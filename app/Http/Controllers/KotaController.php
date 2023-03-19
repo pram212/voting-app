@@ -28,7 +28,7 @@ class KotaController extends Controller
 
             return DataTables::of($model)
                 ->addColumn('action', function ($model) {
-                    $detil = '<a href="' . url('kota/' . $model->id) . '/edit" class="btn btn-info" >Edit</a>';
+                    $detil = '<a href="' . url('pengaturan/kota/' . $model->id) . '/edit" class="btn btn-info" >Edit</a>';
                     $buttonDelete = '<button type="button" class="btn btn-danger btn-delete">Hapus</button>';
                     return '<div class="btn-group">' . $detil . $buttonDelete . '</div>';
                 })
@@ -78,7 +78,7 @@ class KotaController extends Controller
             'success' => $kota->name .= 'berhasil disimpan'
         ];
 
-        return redirect('kota')->with($message);
+        return redirect('pengaturan/kota')->with($message);
        
     }
 
@@ -137,7 +137,7 @@ class KotaController extends Controller
                 'success' => $kota->nama .= 'berhasil diupdate'
             ];
 
-            return redirect('kota')->with($message);
+            return redirect('pengaturan/kota')->with($message);
 
         } catch (Exception $ex) {
 

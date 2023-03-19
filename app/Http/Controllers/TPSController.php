@@ -6,6 +6,7 @@ use App\Models\TPS;
 use App\Http\Requests\StoreTPSRequest;
 use App\Http\Requests\UpdateTPSRequest;
 use App\Models\Calon;
+use App\Models\Rekapitulasi;
 use DataTables;
 use Exception;
 use Illuminate\Support\Facades\DB;
@@ -41,7 +42,7 @@ class TPSController extends Controller
             return DataTables::of($model)
                 ->addIndexColumn()
                 ->addColumn('action', function ($model) {
-                    $buttonEdit = '<a href="' . url('tps/' . $model->id) . '/edit" class="btn btn-info" >Edit</a>';
+                    $buttonEdit = '<a href="' . url('pengaturan/tps/' . $model->id) . '/edit" class="btn btn-info" >Edit</a>';
                     $buttonDelete = '<button type="button" class="btn btn-danger btn-delete">Hapus</button>';
                     return '<div class="btn-group">' . $buttonEdit .  $buttonDelete . '</div>';
                 })
@@ -85,7 +86,12 @@ class TPSController extends Controller
 
         $calon = Calon::pluck('id');
 
-        $tps->calon()->sync($calon);
+        $tps->calon()->syncWithPivotValues($calon, [
+            'province_id' => $tps->province_id,
+            'regency_id' => $tps->regency_id,
+            'district_id' => $tps->district_id,
+            'village_id' => $tps->village_id,
+        ]);
 
         DB::commit();
 
@@ -149,7 +155,7 @@ class TPSController extends Controller
                 'success' => 'TPS berhasil diubah'
             ];
 
-            return redirect('/tps')->with($message);
+            return redirect('pengaturan/tps')->with($message);
 
         } catch(Exception $ex) {
 

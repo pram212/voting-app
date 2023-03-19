@@ -25,7 +25,7 @@ class UpdateProvinsiRequest extends FormRequest
     public function rules()
     {
         return [
-            'name' => ['required', Rule::unique('provinces')->ignore($this->provinci)]
+            'name' => ['required', Rule::unique('provinces')->ignore($this->provinsi)]
         ];
     }
 

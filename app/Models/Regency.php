@@ -59,7 +59,7 @@ class Regency extends Model
         return $this->hasMany(District::class);
     }
 
-    public function rekapitulasi()
+    public function rekapan()
     {
         $this->hasMany(Rekapitulasi::class);
     }

@@ -1,16 +1,19 @@
 @extends('layouts.main')
 
-@section('header-content', 'Daftar Pengguna')
-@section('title', 'Pengguna')
+@section('header-content', 'Daftar Admin')
+@section('title', 'Pengaturan')
 
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-header py-3">
-            <h6 class="m-0 font-weight-bold text-primary">
-                <a href="{{ url('user/create') }}" class="btn btn-success">
+            <h6 class="m-0 font-weight-bold text-primary d-flex justify-content-between">
+                <a href="{{ url('pengaturan/user/create') }}" class="btn btn-success">
                     Register
                 </a>
+                {{-- <a href="{{ url('pengaturan') }}" class="btn btn-secondary">
+                    Kembali Ke Pengaturan
+                </a> --}}
             </h6>
         </div>
         <div class="card-body">
@@ -108,7 +111,7 @@
                         }
                     });
                     $.ajax({
-                        url: "user/" + data.id,
+                        url: "/pengaturan/user/" + data.id,
                         type: 'delete',
                         dataType: "json",
                         success: function(response) {

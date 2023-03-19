@@ -45,7 +45,7 @@ class SaksiController extends Controller
             return DataTables::of($saksi)
                 ->addColumn('action', function ($saksi) {
                     $resetPassword = '<a href="' . url('resetpassword/' . $saksi->id) . '" class="btn btn-warning " >Update Password</a>';
-                    $profil = '<a href="' . url('saksi/' . $saksi->id) . '/edit" class="btn btn-info " >Profil</a>';
+                    $profil = '<a href="' . url('pengaturan/saksi/' . $saksi->id) . '/edit" class="btn btn-info " >Profil</a>';
                     $buttonDelete = '<button type="button" class="btn btn-danger btn-delete ">Hapus</button>';
                     return '<div class="btn-group">' . $resetPassword . $profil.  $buttonDelete . '</div>';
                 })

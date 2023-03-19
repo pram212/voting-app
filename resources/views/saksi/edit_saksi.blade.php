@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('header-content', 'Profil Saksi')
-@section('title', 'Data Saksi')
+@section('title', 'Pengaturan Saksi')
 
 @section('content')
     <!-- DataTales Example -->
@@ -12,7 +12,7 @@
             @endphp
             @if ($editable)
                 
-            <form action="{{ url('saksi/' . $user->id) }}" method="POST">
+            <form action="{{ url('pengaturan/saksi/' . $user->id) }}" method="POST">
                 @csrf
                 @method('put')
             @endif
@@ -97,7 +97,7 @@
                 
                 <div class="text-center">
                     {{-- <button type="submit" class="btn btn-primary">Update Profile</button> --}}
-                    <a class="btn btn-secondary" href="{{ url('saksi') }}">Kembali</a>
+                    <a class="btn btn-secondary" href="{{ url('pengaturan/saksi') }}">Kembali</a>
                 </div>
                 {{-- DARI REGISTER END --}}
             @if ($editable)

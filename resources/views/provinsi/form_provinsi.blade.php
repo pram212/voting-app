@@ -8,7 +8,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             @php
-                $url = @$provinsi ? 'provinsi/' . $provinsi->id : 'provinsi'; 
+                $url = @$provinsi ? 'pengaturan/provinsi/' . $provinsi->id : 'pengaturan/provinsi'; 
             @endphp
             <form action="{{ url($url) }}" method="POST">
                 @csrf
@@ -31,7 +31,7 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="{{ url('provinsi') }}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{ url('pengaturan/provinsi') }}" class="btn btn-secondary">Kembali</a>
                 </div>
 
             </form>

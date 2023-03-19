@@ -1,21 +1,16 @@
 <?php
 
-use App\Http\Controllers\API\ApiCalonPejabatController;
 use App\Http\Controllers\API\ApiDistrictController;
 use App\Http\Controllers\API\ApiJabatanController;
 use App\Http\Controllers\API\ApiProvinceController;
 use App\Http\Controllers\API\ApiRegencyController;
 use App\Http\Controllers\API\ApiUserController;
 use App\Http\Controllers\API\ApiVillageController;
-use App\Http\Controllers\API\UserDatatableController;
 use App\Http\Controllers\Auth\AuthController;
-use App\Http\Controllers\Auth\LoginController;
 use App\Http\Controllers\Auth\RegisterController;
 use App\Http\Controllers\CalonController;
-use App\Http\Controllers\CalonPejabatController;
 use App\Http\Controllers\DashboardController;
 use App\Http\Controllers\DesaController;
-use App\Http\Controllers\JabatanController;
 use App\Http\Controllers\KecamatanController;
 use App\Http\Controllers\KotaController;
 use App\Http\Controllers\ProvinsiController;
@@ -52,7 +47,7 @@ Route::middleware('auth')->group(function(){
 
     Route::post('logout', [AuthController::class, 'logout'])->name('logout');
 
-    Route::resource('/user', UserController::class);
+    
 
     Route::get('/datatable/user', [UserController::class, 'userDatatables']);
 
@@ -60,25 +55,43 @@ Route::middleware('auth')->group(function(){
 
     Route::post('resetpassword/{id}', [UserController::class, 'updatePassword'])->name('user.updatepassword');
 
-    Route::resource('calon', CalonController::class);
-
-    Route::resource('tps', TPSController::class);
-    
-    Route::resource('saksi', SaksiController::class);
-
     Route::get('/datatable/calon', [CalonController::class, 'calonDatatables']);
 
     // Route::resource('jabatan', JabatanController::class);
 
     Route::resource('rekapitulasi', RekapitulasiController::class);
 
+    // Route::resource('provinsi', ProvinsiController::class);
+    // Route::resource('kota', KotaController::class);
+    // Route::resource('kecamatan', KecamatanController::class);
+    // Route::resource('desa', DesaController::class);
+
+    
+    // select option ajax resource
+    
+});
+
+Route::group(['prefix' => '/pengaturan', 'middleware' => ['auth']], function () {
+    Route::get('/', function() {
+        return view('pengaturan.index_pengaturan');
+    });
+    
     Route::resource('provinsi', ProvinsiController::class);
     Route::resource('kota', KotaController::class);
     Route::resource('kecamatan', KecamatanController::class);
     Route::resource('desa', DesaController::class);
-
-    // select option ajax resource
+    Route::resource('calon', CalonController::class);
+    Route::resource('tps', TPSController::class);
+    Route::resource('saksi', SaksiController::class);
+    Route::resource('/user', UserController::class);
     
+});
+
+Route::group(['prefix' => '/rekapan', 'middleware' => ['auth']], function () {
+    Route::get('saksi', function() {
+        return view('maintenance');
+    });
+
 });
 
 Route::get('/select2/getjabatan', [ApiJabatanController::class, 'selectJabatan'] );

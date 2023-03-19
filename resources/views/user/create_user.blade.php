@@ -7,7 +7,7 @@
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
-            <form action="{{ url('/user') }}" method="POST">
+            <form action="{{ url('pengaturan/user') }}" method="POST">
                 @csrf
                 <div class="row">
                     <p class="col-md-12 text-center">
@@ -38,25 +38,13 @@
                         @enderror
                     </div>
 
-                    <div class="form-group col-md-6">
-                        <label for="exampleInputEmail1">Role :</label>
-                        <select class="custom-select @error('role') is-invalid @enderror" name="role" readonly>
-                            <option value="1" @if (old('role') == 1)
-                            selected
-                        @endif>Admin</option>
-                        </select>
-                        @error('role')
-                        <small id="validateName" class="form-text text-danger">{{ $message }}</small>
-                        @enderror
-                    </div>
-
                 </div>
 
                 <hr class="divider">
                 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Daftar</button>
-                    <a href="{{ url('/user') }}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{ url('pengaturan/user') }}" class="btn btn-secondary">Kembali</a>
                 </div>
 
             </form>

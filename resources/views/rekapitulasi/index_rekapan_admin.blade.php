@@ -1,78 +1,117 @@
 @extends('layouts.main')
 
-@section('header-content', 'Data TPS')
-@section('title', 'TPS')
+@section('header-content', 'REKAPAN HASIL')
+@section('title', 'Rekapitulasi')
 
 @section('content')
-    {{-- FILTER PANEL --}}
-    <div class="card shado mb-4">
+
+    <div class="card shadow mb-4">
         <div class="card-header">
-            <h6 class="m-0 font-weight-bold text-primary">Filter
-            </h6>
+            <h6 class="m-0 font-weight-bold text-primary">Filter</h6>
         </div>
         <div class="card-body">
             <form action="" id="form-filter">
                 <div class="row">
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="province_id">Provinsi</label>
-                            <select class="form-control select2" name="province_id" id="select-provinsi" style="width:100%">
+                            <select class="form-control select2" name="province_id" id="select-provinsi">
+                                @if (request('province_name'))
+                                    <option value="{{ request('province_id') }}" selected>{{ request('province_name') }}
+                                    </option>
+                                @endif
                             </select>
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="regency_id">Kota</label>
                             <select class="form-control select2" name="regency_id" id="select-kota">
+                                @if (request('regency_name'))
+                                    <option value="{{ request('regency_id') }}" selected>{{ request('regency_name') }}
+                                    </option>
+                                @endif
                             </select>
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    <div class="col-md-4">
                         <div class="form-group">
                             <label for="district_id">Kecamatan</label>
                             <select class="form-control select2" name="district_id" id="select-kecamatan">
+                                @if (request('district_name'))
+                                    <option value="{{ request('district_id') }}" selected>{{ request('district_name') }}
+                                    </option>
+                                @endif
                             </select>
                         </div>
                     </div>
 
-                    <div class="col-md-3">
+                    {{-- <div class="col-md-3">
                         <div class="form-group">
                             <label for="village_id">Desa</label>
                             <select class="form-control select2" name="village_id" id="select-desa">
+                                @if (request('village_name'))
+                                    <option value="{{ request('village_id') }}" selected>{{ request('village_name') }}
+                                    </option>
+                                @endif
                             </select>
                         </div>
+                    </div> --}}
+
+                    <div class="col-md-12">
+                        <button class="btn btn-primary" type="submit">Tampilkan</button>
+                        <a href="{{ url('rekapitulasi') }}" class="btn btn-danger" type="button">Reset</a>
                     </div>
+
                 </div>
-
-                <hr class="sidebar-divider">
-
-                <button class="btn btn-primary" type="submit">Tampilkan</button>
-                <a class="btn btn-danger" href="">Reset</a>
-
             </form>
         </div>
     </div>
+
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
-        <div class="card-header py-3 d-flex justify-content-between">
-            <a href="{{ url('pengaturan/tps/create') }}" class="btn btn-success">Register</a>
-            {{-- <a href="{{ url('pengaturan') }}" class="btn btn-secondary">Kembali ke Pengaturan</a> --}}
+        <div class="card-header py-3">
+            <h6 class="m-0 font-weight-bold text-primary">
+                <div>
+                    REKAPAN PER {{ $jenisrekap  }}
+                </div>
+            </h6>
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="table table-bordered table-sm" id="dataTable" width="100%" cellspacing="0">
+                <table class="display responsive nowrap" width="100%" id="table-saksi">
                     <thead class="bg-dark text-white">
                         <tr>
-                            <th>Provinsi</th>
-                            <th>Kota</th>
-                            <th>Kecamatan</th>
-                            <th>Desa</th>
-                            <th>TPS</th>
-                            <th>Opsi</th>
+                            <th class="text-center">NO</th>
+                            <th class="text-center">
+                                {{ $jenisrekap  }}
+                            </th>
+                            @foreach ($headerCalon as $item)
+                                <th class="align-middle text-center">NO. URUT {{ $item }}</th>
+                            @endforeach
                         </tr>
                     </thead>
+                    <tbody>
+                        @php
+                            $total = [];
+                        @endphp
+                        @foreach ($rekapitulasi as $item)
+                            <tr>
+                                <td class="text-center">{{ $loop->iteration }}</td>
+                                <td>{{ $item->name }}</td>
+                                @foreach ($item->rekapan as $rekapan)
+                                    <td class="font-weight-bold text-center">{{ number_format($rekapan['jumlah_suara'], 0 , '.', ',') }}</td>
+                                @endforeach
+                            </tr>
+                        @endforeach
+                    </tbody>
+                    <tfoot>
+                        <tr>
+                            <th colspan="2" class="text-danger">TOTAL DAN PRESENTASE SEDANG DALAM PENGEMBANGAN (DEVELOPER)</th>
+                        </tr>
+                    </tfoot>
                 </table>
             </div>
         </div>
@@ -90,6 +129,13 @@
     <script src="{{ asset('js/jquery.dataTables.min.js') }}"></script>
     <script src="{{ asset('js/select2.min.js') }}"></script>
     <script src="{{ asset('js/sweetalert2.js') }}"></script>
+
+    <script>
+        $('#table-saksi').DataTable({
+            responsive: true,
+            paging: false
+        })
+    </script>
 
     <!-- Filter Location -->
     <script>
@@ -177,105 +223,4 @@
             });
         });
     </script>
-
-    <!-- Page level custom scripts -->
-    <script>
-        
-
-        const notifySuccess = (title = "") => {
-            Swal.fire({
-                position: 'top-end',
-                toast: true,
-                timer: 2000,
-                timerProgressBar: true,
-                showConfirmButton: false,
-                icon: 'success',
-                title: title,
-            })
-        }
-
-        const notifyError = (title = "") => {
-            Swal.fire({
-                position: 'top-end',
-                toast: true,
-                timer: 2000,
-                timerProgressBar: true,
-                showConfirmButton: false,
-                icon: 'error',
-                title: title,
-            })
-        }
-
-        tpsTable = $('#dataTable').DataTable({
-            processing: true,
-            serverSide: true,
-            ajax: '/pengaturan/tps',
-            columns: [
-                {
-                    data: 'provinsi.name'
-                },
-                {
-                    data: 'kota.name'
-                },
-                {
-                    data: 'kecamatan.name'
-                },
-                {
-                    data: 'desa.name'
-                },
-                {
-                    data: 'nomor'
-                },
-                {
-                    data: 'action'
-                },
-                
-            ],
-        });
-
-        // filter event
-        $("#form-filter").submit(function(e) {
-            e.preventDefault();
-            formElemetns = e.target.elements;
-            console.log(formElemetns)
-            const requestFom =
-                `?province_id=${formElemetns.province_id.value}&regency_id=${formElemetns.regency_id.value}&district_id=${formElemetns.district_id.value}&village_id=${formElemetns.village_id.value}`
-            tpsTable.ajax.url('/pengaturan/tps' + requestFom).load();
-
-        });
-
-        // function delete detail
-        $('#dataTable tbody').on('click', 'button.btn-delete', function() {
-            var tr = $(this).closest('tr');
-            var data = tpsTable.row(tr).data();
-            Swal.fire({
-                title: 'Apakah anda yakin?',
-                icon: 'warning',
-                showCancelButton: true,
-                confirmButtonColor: '#3085d6',
-                cancelButtonColor: '#d33',
-                confirmButtonText: 'Ya, hapus!'
-            }).then((result) => {
-                if (result.isConfirmed) {
-                    $.ajaxSetup({
-                        headers: {
-                            'X-CSRF-TOKEN': $('meta[name="csrf-token"]').attr('content')
-                        }
-                    });
-                    $.ajax({
-                        url: "/pengaturan/tps/" + data.id,
-                        type: 'delete',
-                        dataType: "json",
-                        success: function(response) {
-                            notifySuccess(response)
-                            tpsTable.ajax.reload();
-                        }
-                    })
-                }
-            })
-        });
-    </script>
-
-    {{-- <script src="{{ asset('js/filter_location.js') }}"></script> --}}
-
 @endsection

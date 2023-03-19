@@ -33,7 +33,7 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ url('/user') }}" class="btn btn-secondary"><i class="fas fa-backward"></i> Kembali</a>
+                    <a href="{{ url('/pengaturan/saksi') }}" class="btn btn-secondary"><i class="fas fa-backward"></i> Kembali</a>
                 </div>
             </form>
         </div>

@@ -43,4 +43,9 @@ class Province extends Model
     {
         return $this->hasMany(TPS::class, 'province_id', 'id');
     }
+
+    public function rekapan()
+    {
+        return $this->hasMany(Rekapitulasi::class);
+    }
 }

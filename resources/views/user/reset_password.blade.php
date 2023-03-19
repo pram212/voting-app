@@ -33,21 +33,12 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Update</button>
-                    <a href="{{ url('/user') }}" class="btn btn-secondary"><i class="fas fa-backward"></i> Kembali</a>
+                    <a href="{{ url('/pengaturan/saksi') }}" class="btn btn-secondary"><i class="fas fa-backward"></i> Kembali</a>
                 </div>
             </form>
         </div>
     </div>
 
-    <form action="https://wa.me/{{ formatNoHp($user->phone) }}" target="_blank" method="get" id="form-chat"
-        class="d-none">
-        <textarea name="text" id="" cols="30" rows="10">
-Hai, Kami dari Web TPS. 
-Anda Sudah terdaftar dalam sistem kami. 
-Silahkan Login dengan
-No. Telepon: {{ $user->phone }}
-Password :</textarea>
-    </form>
 @endsection
 
 @section('css')
@@ -55,10 +46,5 @@ Password :</textarea>
 @endsection
 
 @section('script')
-    <script>
-        $("#btn-chat").click(function(e) {
-            e.preventDefault();
-            $("#form-chat").submit();
-        });
-    </script>
+    
 @endsection

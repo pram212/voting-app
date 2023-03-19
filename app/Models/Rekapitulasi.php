@@ -17,6 +17,16 @@ class Rekapitulasi extends Model
         return $this->belongsTo(CalonPejabat::class);
     }
 
+    public function calon()
+    {
+        return $this->belongsTo(Calon::class);
+    }
+
+    public function tps()
+    {
+        return $this->belongsTo(TPS::class);
+    }
+
     public function provinsi()
     {
         return $this->belongsTo(Province::class, 'province_id');

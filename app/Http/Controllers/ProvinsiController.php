@@ -27,7 +27,7 @@ class ProvinsiController extends Controller
 
             return DataTables::of($model)
                 ->addColumn('action', function ($model) {
-                    $detil = '<a href="' . url('provinsi/' . $model->id) . '/edit" class="btn btn-info" >Edit</a>';
+                    $detil = '<a href="' . url('pengaturan/provinsi/' . $model->id) . '/edit" class="btn btn-info" >Edit</a>';
                     $buttonDelete = '<button type="button" class="btn btn-danger btn-delete">Hapus</button>';
                     return '<div class="btn-group">' . $detil . $buttonDelete . '</div>';
                 })
@@ -73,7 +73,7 @@ class ProvinsiController extends Controller
             'success' => $provinsi->name .= 'berhasil disimpan'
         ];
 
-        return redirect('provinsi')->with($message);
+        return redirect('pengaturan/provinsi')->with($message);
        
     }
 
@@ -128,7 +128,7 @@ class ProvinsiController extends Controller
                 'success' => $provinsi->nama .= 'berhasil diupdate'
             ];
 
-            return redirect('provinsi')->with($message);
+            return redirect('pengaturan/provinsi')->with($message);
 
         } catch (Exception $ex) {
 

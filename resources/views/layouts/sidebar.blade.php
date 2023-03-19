@@ -13,7 +13,7 @@
     <hr class="sidebar-divider">
     <!-- Heading -->
     <div class="sidebar-heading">
-        Utama
+        pilpres 2024
     </div>
 
     <!-- Nav Item - Dashboard -->
@@ -22,14 +22,27 @@
             <i class="fas fa-fw fa-home"></i>
             <span>Dashboard</span></a>
     </li>
+
+    <!-- Divider -->
+    <hr class="sidebar-divider">
+    <!-- Heading -->
+    <div class="sidebar-heading">
+        Rekapan
+    </div>
    
-    {{-- @can('viewAny', App\Models\Rekapitulasi::class) --}}
     <li class="nav-item @if(request()->is('rekapitulasi')) active @endif">
         <a class="nav-link" href="{{url('rekapitulasi')}}">
             <i class="fas fa-check fa-fw"></i>
-            <span>Hasil</span></a>
+            <span>Rekapan Hasil</span></a>
     </li>
-    {{-- @endcan --}}
+
+    @can('viewAny', App\Models\User::class)
+    <li class="nav-item @if(request()->is('rekapan/saksi')) active @endif">
+        <a class="nav-link" href="{{url('rekapan/saksi')}}">
+            <i class="fas fa-check fa-fw"></i>
+            <span>Rekapan Saksi</span></a>
+    </li>
+    @endcan
    
 
     <!-- Divider -->
@@ -43,18 +56,17 @@
     </div>
     @endif
 
-
     @can('viewAny', App\Models\User::class)
-    <li class="nav-item @if(request()->is('user*')) active @endif">
-        <a class="nav-link" href="{{url('user')}}">
+    <li class="nav-item @if(request()->is('pengaturan/user*')) active @endif">
+        <a class="nav-link" href="{{url('pengaturan/user')}}">
             <i class="fas fa-user fa-fw"></i>
             <span>Data Admin</span></a>
     </li>
     @endcan
 
     @can('viewAny', App\Models\User::class)
-    <li class="nav-item @if(request()->is('saksi*')) active @endif">
-        <a class="nav-link" href="{{url('saksi')}}">
+    <li class="nav-item @if(request()->is('pengaturan/saksi*')) active @endif">
+        <a class="nav-link" href="{{url('pengaturan/saksi')}}">
             <i class="fas fa-user fa-fw"></i>
             <span>Data Saksi</span></a>
     </li>
@@ -63,8 +75,8 @@
     {{-- <hr class="sidebar-divider"> --}}
 
     @can('viewAny', App\Models\Calon::class)
-    <li class="nav-item @if(request()->is('calon*')) active @endif">
-        <a class="nav-link" href="{{url('calon')}}">
+    <li class="nav-item @if(request()->is('pengaturan/calon*')) active @endif">
+        <a class="nav-link" href="{{url('pengaturan/calon')}}">
             <i class="fas fa-id-card fa-fw"></i>
             <span>Data Calon</span></a>
     </li>
@@ -73,8 +85,8 @@
     {{-- <hr class="sidebar-divider"> --}}
 
     @can('viewAny', App\Models\TPS::class)
-    <li class="nav-item @if(request()->is('tps*')) active @endif">
-        <a class="nav-link" href="{{url('tps')}}">
+    <li class="nav-item @if(request()->is('pengaturan/tps*')) active @endif">
+        <a class="nav-link" href="{{url('pengaturan/tps')}}">
             <i class="fas fa-university fa-fw"></i>
             <span>Data TPS</span></a>
     </li>
@@ -83,10 +95,10 @@
     <!-- Nav Item - Pages Collapse Menu -->
     @if (auth()->user()->role == 1)
     <li class="nav-item @if(
-        request()->is('provinsi') || 
-        request()->is('kota') || 
-        request()->is('kecamatan') || 
-        request()->is('desa')) active @endif">
+        request()->is('pengaturan/provinsi') || 
+        request()->is('pengaturan/kota') || 
+        request()->is('pengaturan/kecamatan') || 
+        request()->is('pengaturan/desa')) active @endif">
         <a class="nav-link collapsed" href="#" data-toggle="collapse" data-target="#collapseTwo"
             aria-expanded="true" aria-controls="collapseTwo">
             <i class="fas fa-fw fa-map-marker"></i>
@@ -94,10 +106,10 @@
         </a>
         <div id="collapseTwo" class="collapse" aria-labelledby="headingTwo" data-parent="#accordionSidebar">
             <div class="bg-white py-2 collapse-inner rounded">
-                <a class="collapse-item" href="{{url('provinsi')}}">Provinsi</a>
-                <a class="collapse-item" href="{{url('kota')}}">Kota</a>
-                <a class="collapse-item" href="{{url('kecamatan')}}">Kecamatan</a>
-                <a class="collapse-item" href="{{url('desa')}}">Desa</a>
+                <a class="collapse-item" href="{{url('pengaturan/provinsi')}}">Provinsi</a>
+                <a class="collapse-item" href="{{url('pengaturan/kota')}}">Kota</a>
+                <a class="collapse-item" href="{{url('pengaturan/kecamatan')}}">Kecamatan</a>
+                <a class="collapse-item" href="{{url('pengaturan/desa')}}">Desa</a>
             </div>
         </div>
     </li>

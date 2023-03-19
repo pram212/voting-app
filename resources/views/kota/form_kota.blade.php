@@ -1,14 +1,14 @@
 @extends('layouts.main')
 
 @section('header-content', 'Register Kota')
-@section('title', 'Kota')
+@section('title', 'Pengaturan Kota')
 
 @section('content')
     <!-- DataTales Example -->
     <div class="card shadow mb-4">
         <div class="card-body">
             @php
-                $url = @$kota ? 'kota/' . $kota->id : 'kota'; 
+                $url = @$kota ? 'pengaturan/kota/' . $kota->id : 'pengaturan/kota'; 
             @endphp
             <form action="{{ url($url) }}" method="POST">
                 @csrf
@@ -47,7 +47,7 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="{{ url('kota') }}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{ url('pengaturan/kota') }}" class="btn btn-secondary">Kembali</a>
                 </div>
             </form>
 

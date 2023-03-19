@@ -55,8 +55,9 @@
     </div>
 
     <div class="card shadow mb-4">
-        <div class="card-header py-3 text-primary font-weight-bold">
+        <div class="card-header py-3 text-primary font-weight-bold d-flex justify-content-between">
            List
+           {{-- <a href="{{url('pengaturan')}}" class="btn btn-secondary">Kembali Ke Pengaturan</a> --}}
         </div>
         <div class="card-body">
             <div class="table-responsive">
@@ -95,7 +96,7 @@
         var userTable = $('#dataTable').DataTable({
                         processing: true,
                         serverSide: true,
-                        ajax: '/saksi',
+                        ajax: '/pengaturan/saksi',
                         columns: [{
                                 data: 'name'
                             },
@@ -126,7 +127,7 @@
             formElemetns = e.target.elements;
             const requestFom =
                 `?province_id=${formElemetns.province_id.value}&regency_id=${formElemetns.regency_id.value}&district_id=${formElemetns.district_id.value}&village_id=${formElemetns.village_id.value}`
-            userTable.ajax.url('/saksi' + requestFom).load();
+            userTable.ajax.url('/pengaturan/saksi' + requestFom).load();
 
         });
 

@@ -1,7 +1,7 @@
 @extends('layouts.main')
 
 @section('header-content', 'Register TPS')
-@section('title', 'TPS')
+@section('title', 'Pengaturan TPS')
 
 @section('content')
     <div id="loading">
@@ -13,7 +13,7 @@
     <div class="card shadow mb-4">
         <div class="card-body">
             @php
-                $url = @$tps ? 'tps/' . $tps->id : 'tps';
+                $url = @$tps ? 'pengaturan/tps/' . $tps->id : 'pengaturan/tps';
             @endphp
             <form action="{{ url($url) }}" method="POST" id="form-tps">
                 @csrf
@@ -96,7 +96,7 @@
 
                 <div class="text-center">
                     <button type="submit" class="btn btn-primary">Simpan</button>
-                    <a href="{{ url('tps') }}" class="btn btn-secondary">Kembali</a>
+                    <a href="{{ url('pengaturan/tps') }}" class="btn btn-secondary">Kembali</a>
                 </div>
 
             </form>
@@ -238,7 +238,7 @@
                     }
                 });
                 $.ajax({
-                    url: "/tps",
+                    url: "/pengaturan/tps",
                     type: method,
                     data: data,
                     dataType: "json",

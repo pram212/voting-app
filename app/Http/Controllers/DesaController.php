@@ -27,7 +27,7 @@ class DesaController extends Controller
 
             return DataTables::of($model)
                 ->addColumn('action', function ($model) {
-                    $detil = '<a href="' . url('desa/' . $model->id) . '/edit" class="btn btn-info" >Edit</a>';
+                    $detil = '<a href="' . url('pengaturan/desa/' . $model->id) . '/edit" class="btn btn-info" >Edit</a>';
                     $buttonDelete = '<button type="button" class="btn btn-danger btn-delete">Hapus</button>';
                     return '<div class="btn-group">' . $detil . $buttonDelete . '</div>';
                 })
@@ -83,7 +83,7 @@ class DesaController extends Controller
             'success' => $desa->name . ' berhasil disimpan'
         ];
 
-        return redirect('desa')->with($message);
+        return redirect('pengaturan/desa')->with($message);
        
     }
 
@@ -142,7 +142,7 @@ class DesaController extends Controller
                 'success' => 'Data berhasil diupdate'
             ];
 
-            return redirect('desa')->with($message);
+            return redirect('pengaturan/desa')->with($message);
 
         } catch (Exception $ex) {
 
