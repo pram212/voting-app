@@ -32,14 +32,14 @@
    
     <li class="nav-item @if(request()->is('rekapitulasi')) active @endif">
         <a class="nav-link" href="{{url('rekapitulasi')}}">
-            <i class="fas fa-check fa-fw"></i>
+            <i class="fas fa-cube fa-fw"></i>
             <span>Rekapan Hasil</span></a>
     </li>
 
     @can('viewAny', App\Models\User::class)
     <li class="nav-item @if(request()->is('rekapan/saksi')) active @endif">
         <a class="nav-link" href="{{url('rekapan/saksi')}}">
-            <i class="fas fa-check fa-fw"></i>
+            <i class="fas fa-users fa-fw"></i>
             <span>Rekapan Saksi</span></a>
     </li>
     @endcan
