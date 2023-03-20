@@ -76,7 +76,7 @@
                             <th class="text-center">
                                 {{ $jenisrekap  }}
                             </th>
-                            <th>Jumlah Saksi</th>
+                            <th class="text-center">Jumlah Saksi</th>
                         </tr>
                     </thead>
                     <tbody>
@@ -84,18 +84,18 @@
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $item->name }}</td>
-                                <td>{{ $item->saksi_count }}</td>
+                                <td class="text-center">{{ $item->saksi_count }}</td>
                             </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
                             <td colspan="2" class="text-right font-weight-bold">TOTAL PER {{$jenisrekap}}</td>
-                            <td class="font-weight-bold">: {{ $totalSaksiPerLokasi }}</td>
+                            <td class="font-weight-bold text-center">: {{ $totalSaksiPerLokasi }}</td>
                         </tr>
                         <tr>
                             <td colspan="2" class="text-right font-weight-bold">TOTAL KESELURUHAN</td>
-                            <td class="font-weight-bold">: {{ $totalSaksi }}</td>
+                            <td class="font-weight-bold text-center">: {{ $totalSaksi }}</td>
                         </tr>
                     </tfoot>
                 </table>
