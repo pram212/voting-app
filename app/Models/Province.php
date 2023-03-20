@@ -48,4 +48,9 @@ class Province extends Model
     {
         return $this->hasMany(Rekapitulasi::class);
     }
+
+    public function saksi()
+    {
+        return $this->hasMany(User::class);
+    }
 }

@@ -63,4 +63,9 @@ class Regency extends Model
     {
         $this->hasMany(Rekapitulasi::class);
     }
+
+    public function saksi()
+    {
+        return $this->hasMany(User::class);
+    }
 }

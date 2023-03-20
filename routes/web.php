@@ -88,10 +88,7 @@ Route::group(['prefix' => '/pengaturan', 'middleware' => ['auth']], function () 
 });
 
 Route::group(['prefix' => '/rekapan', 'middleware' => ['auth']], function () {
-    Route::get('saksi', function() {
-        return view('maintenance');
-    });
-
+    Route::get('saksi', [SaksiController::class, 'indexRekapan']);
 });
 
 Route::get('/select2/getjabatan', [ApiJabatanController::class, 'selectJabatan'] );

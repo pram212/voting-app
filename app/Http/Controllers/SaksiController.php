@@ -2,6 +2,9 @@
 
 namespace App\Http\Controllers;
 
+use App\Models\District;
+use App\Models\Province;
+use App\Models\Regency;
 use Illuminate\Http\Request;
 use DataTables;
 use Exception;
@@ -11,6 +14,7 @@ use Illuminate\Support\Facades\Redirect;
 use Illuminate\Support\Facades\Validator;
 use Illuminate\Validation\Rule;
 use App\Models\User;
+use App\Models\Village;
 
 class SaksiController extends Controller
 {
@@ -312,5 +316,83 @@ class SaksiController extends Controller
 
             return back()->with('failed', $e->getMessage());
         }
+    }
+
+    public function indexRekapan()
+    {
+        if (request('province_id')) {
+            request()->merge([
+                'province_name' => Province::find(request('province_id'))?->name
+            ]);
+        }
+        if (request('regency_id')) {
+            request()->merge([
+                'regency_name' => Regency::find(request('regency_id'))?->name
+            ]);
+        }
+        if (request('district_id')) {
+            request()->merge([
+                'district_name' => District::find(request('district_id'))?->name
+            ]);
+        }
+        if (request('village_id')) {
+            request()->merge([
+                'village_name' => Village::find(request('village_id'))?->name
+            ]);
+        }
+
+        $rekapitulasi = $this->rekapPerProvinsi();
+        $jenisrekap = "PROVINSI";
+        $totalSaksi = User::where('role', 2)->count();
+        $totalSaksiPerLokasi = User::whereHas('provinsi')->count();
+
+        if (request('province_id')) {
+            $rekapitulasi = $this->rekapPerKota(request('province_id'));
+            $jenisrekap = "KOTA";
+            $totalSaksiPerLokasi = User::whereHas('kota')->count();
+        }
+        if (request('regency_id')) {
+            $rekapitulasi = $this->rekapPerKecamatan(request('regency_id'));
+            $jenisrekap = "KECAMATAN";
+            $totalSaksiPerLokasi = User::whereHas('kecamatan')->count();
+        }
+        if (request('district_id')) {
+            $rekapitulasi = $this->rekapPerDesa(request('district_id'));
+            $jenisrekap = 'DESA';
+            $totalSaksiPerLokasi = User::whereHas('desa')->count();
+        }
+
+        // return $rekapitulasi;
+
+        return view('saksi.index_rekapan_saksi', compact('rekapitulasi', 'jenisrekap', 'totalSaksi', 'totalSaksiPerLokasi'));
+    }
+
+    public function rekapPerProvinsi()
+    {
+        $rekapan = Province::withCount('saksi')->get();
+
+        return $rekapan;
+    }
+
+    public function rekapPerKota($province_id)
+    {
+        $rekapan = Regency::where('province_id', $province_id)->withCount('saksi')->get();
+
+        return $rekapan;
+    }
+
+    public function rekapPerKecamatan($regency_id)
+    {
+        $rekapan = District::where('regency_id', $regency_id)->withCount('saksi')->get();
+
+        return $rekapan;
+    }
+
+    public function rekapPerDesa($district_id)
+    {
+        $rekapan = Village::where('district_id', $district_id)->withCount('saksi')->get();
+
+        return $rekapan;
+
     }
 }
