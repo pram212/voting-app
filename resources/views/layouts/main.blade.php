@@ -22,12 +22,36 @@
 
     <!-- Custom styles for this template-->
     <link href="{{ asset('template/css/sb-admin-2.min.css') }}" rel="stylesheet">
+    <style>
+        #loading {
+            display: none;
+            position: fixed;
+            top: 0;
+            left: 0;
+            width: 100%;
+            height: 100%;
+            background: rgba(255, 255, 255, 0.7);
+            z-index: 9999;
+        }
+
+        #loading .spinner-border {
+            position: absolute;
+            top: 50%;
+            left: 50%;
+        }
+    </style>
 
     @yield('css')
 
 </head>
 
 <body id="page-top">
+
+    <div id="loading">
+        <div class="spinner-border" role="status">
+            <span class="sr-only">Loading...</span>
+        </div>
+    </div>
 
     <!-- Page Wrapper -->
     <div id="wrapper">
@@ -122,6 +146,12 @@
          }) 
      </script>
     @endif
+
+    <script>
+        $('a.btn, a.link, a.collapse-item').click(function (e) { 
+            $('#loading').show();
+        });
+    </script>
 
     @yield('script')
 

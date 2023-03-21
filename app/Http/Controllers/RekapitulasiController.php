@@ -7,6 +7,7 @@ use App\Models\Calon;
 use App\Models\District;
 use App\Models\Province;
 use App\Models\Regency;
+use App\Models\RekapanView;
 use App\Models\Rekapitulasi;
 use App\Models\TPS;
 use App\Models\Village;
@@ -40,7 +41,7 @@ class RekapitulasiController extends Controller
             ]);
         }
 
-        $headerCalon = Calon::pluck('id');
+        $headerCalon = Calon::select('no_urut', 'keterangan')->get();
 
         if (auth()->user()->role == 2) {
 
@@ -55,7 +56,10 @@ class RekapitulasiController extends Controller
                 ->withQueryString();
 
             return view('rekapitulasi.index_rekapan_saksi', compact('rekapitulasi', 'headerCalon'));
-        } else {
+
+        } 
+        
+        else {
 
             $rekapitulasi = $this->rekapPerProvinsi();
 
@@ -74,9 +78,27 @@ class RekapitulasiController extends Controller
                 $jenisrekap = 'DESA';
             }
 
-            // return $rekapitulasi;
+            $totalPerCalon = Calon::select('calons.no_urut', DB::raw('SUM(rekapitulasis.jumlah_suara) as total'))
+                ->leftJoin('rekapitulasis', function ($join) {
+                    $join->on('calons.id', '=', 'rekapitulasis.calon_id')
+                        ->when(request('province_id'), fn ($tps) => $tps->where('rekapitulasis.province_id', request('province_id')))
+                        ->when(request('regency_id'), fn ($tps) => $tps->where('rekapitulasis.regency_id', request('regency_id')))
+                        ->when(request('district_id'), fn ($tps) => $tps->where('rekapitulasis.district_id', request('district_id')));
+                })
+                ->groupBy('calons.id')
+                ->get();
 
-            return view('rekapitulasi.index_rekapan_admin', compact('rekapitulasi', 'headerCalon', 'jenisrekap'));
+            $totalAll = Rekapitulasi::when(request('province_id'), fn ($tps) => $tps->where('province_id', request('province_id')))
+                    ->when(request('regency_id'), fn ($tps) => $tps->where('regency_id', request('regency_id')))
+                    ->when(request('district_id'), fn ($tps) => $tps->where('district_id', request('district_id')))
+                    ->sum('jumlah_suara');
+            
+            $presentage = $totalPerCalon->map(function ( $item,  $key) use($totalAll) {
+                $jumlahSuara = $totalAll == 0 ? 1 : $totalAll;
+                return $item['total']  / $jumlahSuara * 100;
+            });
+
+            return view('rekapitulasi.index_rekapan_admin', compact('rekapitulasi', 'headerCalon', 'jenisrekap', 'totalPerCalon', 'totalAll', 'presentage'));
         }
     }
 
@@ -164,7 +186,6 @@ class RekapitulasiController extends Controller
 
             foreach ($calon as $item) {
                 array_push($arrData, [
-                    'no' => $item->no_urut,
                     'jumlah_suara' => Rekapitulasi::where('calon_id', $item->id)->where('province_id', $rekapan->id)->sum('jumlah_suara'),
                 ]);
 

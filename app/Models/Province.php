@@ -46,7 +46,7 @@ class Province extends Model
 
     public function rekapan()
     {
-        return $this->hasMany(Rekapitulasi::class);
+        return $this->hasMany(RekapanView::class, 'id_provinsi', 'id');
     }
 
     public function saksi()

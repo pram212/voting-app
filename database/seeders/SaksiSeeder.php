@@ -2,10 +2,10 @@
 
 namespace Database\Seeders;
 
-use App\Models\Jabatan;
+use App\Models\User;
 use Illuminate\Database\Seeder;
 
-class CalonPejabatSeeder extends Seeder
+class SaksiSeeder extends Seeder
 {
     /**
      * Run the database seeds.
@@ -14,6 +14,6 @@ class CalonPejabatSeeder extends Seeder
      */
     public function run()
     {
-        
+        User::factory(500)->create();
     }
 }

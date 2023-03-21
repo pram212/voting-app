@@ -14,8 +14,13 @@ class Calon extends Model
     
     public function tps()
     {
-        return $this->belongsToMany(TPS::class, 'rekapitulasis', 'tps_id', 'tps_id')
+        return $this->belongsToMany(TPS::class, 'rekapitulasis', 'calon_id', 'tps_id')
                         ->withPivot('jumlah_suara', 'created_at', 'updated_at');
+    }
+
+    public function rekapan()
+    {
+        return $this->hasMany(RekapanView::class, 'id_calon', 'id');
     }
 
 }

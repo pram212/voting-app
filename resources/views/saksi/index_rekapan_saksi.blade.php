@@ -76,7 +76,7 @@
                             <th class="text-center">
                                 {{ $jenisrekap  }}
                             </th>
-                            <th class="text-center">Jumlah Saksi</th>
+                            <th class="text-center">JUMLAH SAKSI</th>
                         </tr>
                     </thead>
                     <tbody>

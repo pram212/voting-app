@@ -1,6 +1,6 @@
 @extends('layouts.main')
 
-@section('header-content', 'REKAPAN HASIL')
+@section('header-content', 'HASIL REKAPAN')
 @section('title', 'Rekapitulasi')
 
 @section('content')
@@ -48,18 +48,6 @@
                         </div>
                     </div>
 
-                    {{-- <div class="col-md-3">
-                        <div class="form-group">
-                            <label for="village_id">Desa</label>
-                            <select class="form-control select2" name="village_id" id="select-desa">
-                                @if (request('village_name'))
-                                    <option value="{{ request('village_id') }}" selected>{{ request('village_name') }}
-                                    </option>
-                                @endif
-                            </select>
-                        </div>
-                    </div> --}}
-
                     <div class="col-md-12">
                         <button class="btn btn-primary" type="submit">Tampilkan</button>
                         <a href="{{ url('rekapitulasi') }}" class="btn btn-danger" type="button">Reset</a>
@@ -89,27 +77,37 @@
                                 {{ $jenisrekap  }}
                             </th>
                             @foreach ($headerCalon as $item)
-                                <th class="align-middle text-center">NO. URUT {{ $item }}</th>
+                                <th class="align-middle text-center">{{ strtoupper($item->keterangan) }}</th>
                             @endforeach
                         </tr>
                     </thead>
                     <tbody>
-                        @php
-                            $total = [];
-                        @endphp
                         @foreach ($rekapitulasi as $item)
                             <tr>
                                 <td class="text-center">{{ $loop->iteration }}</td>
                                 <td>{{ $item->name }}</td>
                                 @foreach ($item->rekapan as $rekapan)
-                                    <td class="font-weight-bold text-center">{{ number_format($rekapan['jumlah_suara'], 0 , '.', ',') }}</td>
+                                    <td class="font-weight-bold text-center">{{ number_format($rekapan['jumlah_suara'], 0 , ',', '.') }}</td>
                                 @endforeach
                             </tr>
                         @endforeach
                     </tbody>
                     <tfoot>
                         <tr>
-                            <th colspan="2" class="text-danger">TOTAL DAN PRESENTASE SEDANG DALAM PENGEMBANGAN (DEVELOPER)</th>
+                            <td colspan="2" class="text-left font-weight-bold">SUBTOTAL</td>
+                            @foreach ($totalPerCalon as $total)
+                                <td class="text-center font-weight-bold">{{number_format($total->total ?? 0, 0 , ',', '.') }}</td>
+                            @endforeach
+                        </tr> 
+                        <tr>
+                            <td colspan="2" class="text-left font-weight-bold">PRESENTASE</td>
+                            @foreach ($presentage as $persen)
+                                <td class="text-center font-weight-bold">{{ number_format($persen, 2, ',', '.') }} %</td>
+                            @endforeach
+                        </tr>
+                        <tr class="">
+                            <td colspan="2" class="text-left font-weight-bold">TOTAL SUARA PER {{ $jenisrekap }}</td>
+                            <td colspan="{{count($headerCalon)}}" class="text-center font-weight-bold">{{ number_format($totalAll ?? 0, 0 , ',', '.')}}</td>
                         </tr>
                     </tfoot>
                 </table>

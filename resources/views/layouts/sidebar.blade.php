@@ -18,7 +18,7 @@
 
     <!-- Nav Item - Dashboard -->
     <li class="nav-item @if(request()->is('home*')) active @endif">
-        <a class="nav-link" href="{{url('home')}}">
+        <a class="nav-link link" href="{{url('home')}}">
             <i class="fas fa-fw fa-home"></i>
             <span>Dashboard</span></a>
     </li>
@@ -31,14 +31,14 @@
     </div>
    
     <li class="nav-item @if(request()->is('rekapitulasi')) active @endif">
-        <a class="nav-link" href="{{url('rekapitulasi')}}">
+        <a class="nav-link link" href="{{url('rekapitulasi')}}">
             <i class="fas fa-cube fa-fw"></i>
             <span>Rekapan Hasil</span></a>
     </li>
 
     @can('viewAny', App\Models\User::class)
     <li class="nav-item @if(request()->is('rekapan/saksi')) active @endif">
-        <a class="nav-link" href="{{url('rekapan/saksi')}}">
+        <a class="nav-link link" href="{{url('rekapan/saksi')}}">
             <i class="fas fa-users fa-fw"></i>
             <span>Rekapan Saksi</span></a>
     </li>
@@ -58,7 +58,7 @@
 
     @can('viewAny', App\Models\User::class)
     <li class="nav-item @if(request()->is('pengaturan/user*')) active @endif">
-        <a class="nav-link" href="{{url('pengaturan/user')}}">
+        <a class="nav-link link" href="{{url('pengaturan/user')}}">
             <i class="fas fa-user fa-fw"></i>
             <span>Data Admin</span></a>
     </li>
@@ -66,7 +66,7 @@
 
     @can('viewAny', App\Models\User::class)
     <li class="nav-item @if(request()->is('pengaturan/saksi*')) active @endif">
-        <a class="nav-link" href="{{url('pengaturan/saksi')}}">
+        <a class="nav-link link" href="{{url('pengaturan/saksi')}}">
             <i class="fas fa-user fa-fw"></i>
             <span>Data Saksi</span></a>
     </li>
@@ -76,7 +76,7 @@
 
     @can('viewAny', App\Models\Calon::class)
     <li class="nav-item @if(request()->is('pengaturan/calon*')) active @endif">
-        <a class="nav-link" href="{{url('pengaturan/calon')}}">
+        <a class="nav-link link" href="{{url('pengaturan/calon')}}">
             <i class="fas fa-id-card fa-fw"></i>
             <span>Data Calon</span></a>
     </li>
@@ -86,7 +86,7 @@
 
     @can('viewAny', App\Models\TPS::class)
     <li class="nav-item @if(request()->is('pengaturan/tps*')) active @endif">
-        <a class="nav-link" href="{{url('pengaturan/tps')}}">
+        <a class="nav-link link" href="{{url('pengaturan/tps')}}">
             <i class="fas fa-university fa-fw"></i>
             <span>Data TPS</span></a>
     </li>

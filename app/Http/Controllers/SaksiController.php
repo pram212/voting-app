@@ -48,9 +48,9 @@ class SaksiController extends Controller
 
             return DataTables::of($saksi)
                 ->addColumn('action', function ($saksi) {
-                    $resetPassword = '<a href="' . url('resetpassword/' . $saksi->id) . '" class="btn btn-warning " >Update Password</a>';
-                    $profil = '<a href="' . url('pengaturan/saksi/' . $saksi->id) . '/edit" class="btn btn-info " >Profil</a>';
-                    $buttonDelete = '<button type="button" class="btn btn-danger btn-delete ">Hapus</button>';
+                    $resetPassword = '<a href="' . url('resetpassword/' . $saksi->id) . '" class="btn btn-warning btn-sm" >Update Password</a>';
+                    $profil = '<a href="' . url('pengaturan/saksi/' . $saksi->id) . '/edit" class="btn btn-info btn-sm" >Profil</a>';
+                    $buttonDelete = '<button type="button" class="btn btn-danger btn-delete btn-sm">Hapus</button>';
                     return '<div class="btn-group">' . $resetPassword . $profil.  $buttonDelete . '</div>';
                 })
                 ->editColumn('role', function ($saksi) {
@@ -349,20 +349,20 @@ class SaksiController extends Controller
         if (request('province_id')) {
             $rekapitulasi = $this->rekapPerKota(request('province_id'));
             $jenisrekap = "KOTA";
-            $totalSaksiPerLokasi = User::whereHas('kota')->count();
+            $totalSaksiPerLokasi = User::whereHas('kota', fn($query) => $query->where('province_id', request('province_id')))->count();
         }
+        
         if (request('regency_id')) {
             $rekapitulasi = $this->rekapPerKecamatan(request('regency_id'));
             $jenisrekap = "KECAMATAN";
-            $totalSaksiPerLokasi = User::whereHas('kecamatan')->count();
+            $totalSaksiPerLokasi = User::whereHas('kecamatan', fn($query) => $query->where('regency_id', request('regency_id')))->count();
         }
+
         if (request('district_id')) {
             $rekapitulasi = $this->rekapPerDesa(request('district_id'));
             $jenisrekap = 'DESA';
-            $totalSaksiPerLokasi = User::whereHas('desa')->count();
+            $totalSaksiPerLokasi = User::whereHas('desa', fn($query) => $query->where('district_id', request('district_id')))->count();
         }
-
-        // return $rekapitulasi;
 
         return view('saksi.index_rekapan_saksi', compact('rekapitulasi', 'jenisrekap', 'totalSaksi', 'totalSaksiPerLokasi'));
     }

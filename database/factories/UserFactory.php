@@ -2,6 +2,7 @@
 
 namespace Database\Factories;
 
+use App\Models\Province;
 use Illuminate\Database\Eloquent\Factories\Factory;
 use Illuminate\Support\Str;
 
@@ -14,10 +15,20 @@ class UserFactory extends Factory
      */
     public function definition()
     {
+        $provinsi = Province::inRandomOrder()->first();
+        $kota = $provinsi->regencies()->inRandomOrder()->first();
+        $kecamatan = $kota->districts()->inRandomOrder()->first();
+        $desa = $kecamatan->villages()->inRandomOrder()->first();
+
         return [
             'name' => $this->faker->name(),
-            'email' => $this->faker->unique()->safeEmail(),
-            'email_verified_at' => now(),
+            'role' => 2,
+            'phone' => $this->faker->e164PhoneNumber(),
+            'province_id' => $provinsi->id,
+            'regency_id' => $kota->id,
+            'district_id' => $kecamatan->id,
+            'village_id' => $desa->id,
+            'created_at' => now(),
             'password' => '$2y$10$92IXUNpkjO0rOQ5byMi.Ye4oKoEa3Ro9llC/.og/at2.uheWG/igi', // password
             'remember_token' => Str::random(10),
         ];
@@ -36,4 +47,5 @@ class UserFactory extends Factory
             ];
         });
     }
+
 }

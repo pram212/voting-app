@@ -14,7 +14,8 @@ class CalonFactory extends Factory
     public function definition()
     {
         return [
-            //
+            'keterangan' => $this->faker->name(),
+            'no_urut' => $this->faker->unique()->numberBetween(1,5)
         ];
     }
 }

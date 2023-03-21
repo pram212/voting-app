@@ -22,7 +22,7 @@
                         <tr>
                             <th class="align-middle">TPS</th>
                             @foreach ($headerCalon as $item)
-                                <th class="align-middle">NO. URUT {{ $item }}</th>
+                                <th class="align-middle">{{ strtoupper($item->keterangan) }}</th>
                             @endforeach
                             <th>Total</th>
                             <th class="align-middle">CATATAN</th>

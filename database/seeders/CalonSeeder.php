@@ -2,6 +2,8 @@
 
 namespace Database\Seeders;
 
+use App\Models\Calon;
+use App\Models\TPS;
 use Illuminate\Database\Seeder;
 
 class CalonSeeder extends Seeder
@@ -13,6 +15,6 @@ class CalonSeeder extends Seeder
      */
     public function run()
     {
-        //
+        Calon::factory(5)->create();
     }
 }

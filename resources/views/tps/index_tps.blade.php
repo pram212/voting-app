@@ -241,7 +241,6 @@
             const requestFom =
                 `?province_id=${formElemetns.province_id.value}&regency_id=${formElemetns.regency_id.value}&district_id=${formElemetns.district_id.value}&village_id=${formElemetns.village_id.value}`
             tpsTable.ajax.url('/pengaturan/tps' + requestFom).load();
-
         });
 
         // function delete detail
