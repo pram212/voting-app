@@ -172,7 +172,7 @@
                                     </div>
                                 </td>
                                 <td class="text-center">
-                                    {{ @$item['jumlah_suara'] }}
+                                    {{ number_format(@$item['jumlah_suara'], 0, ',', '.') }}
                                 </td>
                             </tr>
                             @endforeach
