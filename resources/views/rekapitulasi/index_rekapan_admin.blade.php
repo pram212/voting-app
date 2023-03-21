@@ -69,7 +69,7 @@
         </div>
         <div class="card-body">
             <div class="table-responsive">
-                <table class="display responsive nowrap" width="100%" id="table-saksi">
+                <table class="display responsive" width="100%" id="table-saksi">
                     <thead class="bg-dark text-white">
                         <tr>
                             <th class="text-center">NO</th>
