@@ -57,16 +57,16 @@ class SaksiController extends Controller
                     return $saksi->role == 1 ? "admin" : "saksi";
                 })
                 ->addColumn('provinsi', function ($saksi) {
-                    return $saksi->provinsi->name;
+                    return $saksi->provinsi? $saksi->provinsi->name : "-";
                 })
                 ->addColumn('kota', function ($saksi) {
-                    return $saksi->kota->name;
+                    return $saksi->kota ? $saksi->kota->name : '-';
                 })
                 ->addColumn('kecamatan', function ($saksi) {
-                    return $saksi->kecamatan->name;
+                    return $saksi->kecamatan? $saksi->kecamatan->name: '-';
                 })
                 ->addColumn('desa', function ($saksi) {
-                    return $saksi->desa->name;
+                    return $saksi->desa ? $saksi->desa->name : '-';
                 })
                 ->editColumn('created_at', function ($saksi) {
                     return date('d/m/Y - H:i', strtotime($saksi->created_at)) ?? "-";
