@@ -25,7 +25,6 @@ class TPSController extends Controller
         if (request()->ajax()) {
             
             $model = TPS::query()
-                        ->with([ 'provinsi', 'kota', 'kecamatan', 'desa'])
                         ->when(request('province_id') != null, function($query) {
                             return $query->where('province_id', request('province_id'));
                         })
@@ -41,6 +40,21 @@ class TPSController extends Controller
             
             return DataTables::of($model)
                 ->addIndexColumn()
+                ->editColumn('role', function ($model) {
+                    return $model->role == 1 ? "admin" : "model";
+                })
+                ->addColumn('provinsi', function ($model) {
+                    return $model->provinsi? $model->provinsi->name : "-";
+                })
+                ->addColumn('kota', function ($model) {
+                    return $model->kota ? $model->kota->name : '-';
+                })
+                ->addColumn('kecamatan', function ($model) {
+                    return $model->kecamatan? $model->kecamatan->name: '-';
+                })
+                ->addColumn('desa', function ($model) {
+                    return $model->desa ? $model->desa->name : '-';
+                })
                 ->addColumn('action', function ($model) {
                     $buttonEdit = '<a href="' . url('pengaturan/tps/' . $model->id) . '/edit" class="btn btn-info" >Edit</a>';
                     $buttonDelete = '<button type="button" class="btn btn-danger btn-delete">Hapus</button>';

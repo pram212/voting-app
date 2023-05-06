@@ -212,16 +212,16 @@
             ajax: '/pengaturan/tps',
             columns: [
                 {
-                    data: 'provinsi.name'
+                    data: 'provinsi'
                 },
                 {
-                    data: 'kota.name'
+                    data: 'kota'
                 },
                 {
-                    data: 'kecamatan.name'
+                    data: 'kecamatan'
                 },
                 {
-                    data: 'desa.name'
+                    data: 'desa'
                 },
                 {
                     data: 'nomor'
