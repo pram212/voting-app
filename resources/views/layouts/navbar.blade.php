@@ -51,6 +51,13 @@
                     <i class="fas fa-user fa-sm fa-fw mr-2 text-gray-400"></i>
                     Profil Saya
                 </a>
+                @if (auth()->user()->role == 1)
+                    
+                <a class="dropdown-item" href="{{ url('resetpassword/' . auth()->id()) }}">
+                    <i class="fas fa-key fa-sm fa-fw mr-2 text-gray-400"></i>
+                    Ubah Password
+                </a>
+                @endif
                 <div class="dropdown-divider"></div>
                 <a href="{{ route('logout') }}" class="dropdown-item"
                 onclick="event.preventDefault();

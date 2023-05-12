@@ -198,7 +198,7 @@ class UserController extends Controller
 
     public function userDatatables(Request $request)
     {
-        $model = User::query()->where('role', 1);
+        $model = User::query()->where('role', 1)->where('id', '!=', auth()->id());
 
         return DataTables::of($model)
             ->addColumn('action', function ($model) {
