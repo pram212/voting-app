@@ -3,7 +3,7 @@
     <!-- Sidebar - Brand -->
     <a class="sidebar-brand d-flex align-items-center justify-content-center" href="/">
         <div class="sidebar-brand-icon rotate-n-15">
-            <img src="{{asset('images/logo.png')}}" class="thumbnail" alt="logo" width="40px">
+            <img src="{{asset('images/prams_brand.png')}}" class="thumbnail" alt="logo" width="40px">
             {{-- <i class="fas fa-laugh-wink"></i> --}}
         </div>
         <div class="sidebar-brand-text mx-3">{{ config('app.name', 'Laravel') }}</div>

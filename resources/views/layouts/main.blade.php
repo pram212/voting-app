@@ -13,6 +13,7 @@
     <meta name="author" content="">
 
     <title>@yield('title') - {{ config('app.name', 'Laravel') }}</title>
+    <link rel="icon" type="image/x-icon" href="{{asset('images/prams_brand.png')}}">
 
     <!-- Custom fonts for this template-->
     <link href="{{ asset('template/vendor/fontawesome-free/css/all.min.css') }}" rel="stylesheet" type="text/css">

@@ -11,6 +11,8 @@
 
     <title>Login - {{ config('app.name', 'Laravel') }}</title>
 
+    <link rel="icon" type="image/x-icon" href="{{asset('images/prams_brand.png')}}">
+
     <!-- Custom fonts for this template-->
     <link href="{{asset('template/vendor/fontawesome-free/css/all.min.css')}}" rel="stylesheet" type="text/css">
     <link
@@ -38,7 +40,7 @@
                             <div class="col-lg-12">
                                 <div class="p-5">
                                     <div class="text-center">
-                                        <img src="{{asset('images/logo.png')}}" class="mb-4" alt="logo" width="30%">
+                                        <img src="{{asset('images/prams_brand.png')}}" class="mb-4" alt="logo" width="30%">
                                         <h1 class="h4 text-gray-900 mb-4">Login {{config('app.name', 'Laravel')}}</h1>
                                     </div>
                                     @if (session('loginError'))

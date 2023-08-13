@@ -6,7 +6,7 @@
     </button>
 
     <!-- Topbar Search -->
-    <h6 class="">Rekapan Pilpres 2024</h6>
+    <h6 class="">{{ config('app.name', 'Laravel') }}</h6>
 
     <!-- Topbar Navbar -->
     <ul class="navbar-nav ml-auto">
